@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 600" role="img" aria-label="Professional headshot placeholder">
+  <rect width="480" height="600" fill="#ECE3D6"/>
+  <rect width="480" height="600" fill="url(#g)"/>
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#F3EDE5"/>
+      <stop offset="1" stop-color="#E3D7C6"/>
+    </linearGradient>
+  </defs>
+  <g fill="#C9B79C">
+    <circle cx="240" cy="232" r="92"/>
+    <path d="M104 600c0-92 61-156 136-156s136 64 136 156z"/>
+  </g>
+  <text x="240" y="556" text-anchor="middle" font-family="'Jost',Arial,sans-serif" font-size="20" letter-spacing="3" fill="#8a7a60">INGRID LOZANA</text>
+  <text x="240" y="582" text-anchor="middle" font-family="'Jost',Arial,sans-serif" font-size="13" letter-spacing="2" fill="#a4937a">CLIENT PHOTO TO BE PROVIDED</text>
+</svg>
