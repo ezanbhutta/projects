@@ -5,23 +5,25 @@
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   var renderMode = doc.body.classList.contains('render-mode');
 
-  /* ---- smooth scroll (Lenis) ---- */
-  if (window.Lenis && !reduce && !renderMode) {
-    var lenis = new Lenis({ duration: 1.1, smoothWheel: true });
-    function raf(t){ lenis.raf(t); requestAnimationFrame(raf); }
-    requestAnimationFrame(raf);
-    lenis.on('scroll', onScroll);
+  /* ---- nav stuck (rAF-throttled, paint-cheap) ---- */
+  var nav = doc.getElementById('nav');
+  var stuck = false, ticking = false;
+  function applyNav(y){ var s = y > 20; if (s !== stuck && nav){ stuck = s; nav.classList.toggle('stuck', s); } }
+  function onScroll(){
+    if (ticking) return; ticking = true;
+    requestAnimationFrame(function(){ applyNav(window.scrollY || root.scrollTop); ticking = false; });
   }
 
-  /* ---- nav stuck + hero parallax ---- */
-  var nav = doc.getElementById('nav');
-  var heroImg = doc.querySelector('.hero-bg img');
-  function onScroll() {
-    var y = window.scrollY || root.scrollTop;
-    if (nav) nav.classList.toggle('stuck', y > 20);
-    if (heroImg && !renderMode && y < window.innerHeight) heroImg.style.transform = 'scale(1.06) translateY(' + (y * 0.12) + 'px)';
+  /* ---- smooth scroll (Lenis) — snappy, frame-rate independent ---- */
+  var isTouch = matchMedia('(hover:none)').matches;
+  if (window.Lenis && !reduce && !renderMode && !isTouch) {
+    var lenis = new Lenis({ lerp: 0.12, wheelMultiplier: 1, smoothWheel: true });
+    function raf(t){ lenis.raf(t); requestAnimationFrame(raf); }
+    requestAnimationFrame(raf);
+    lenis.on('scroll', function(){ applyNav(window.scrollY || root.scrollTop); });
+  } else {
+    window.addEventListener('scroll', onScroll, { passive: true });
   }
-  window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
   /* ---- reveal on scroll ---- */
