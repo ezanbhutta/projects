@@ -1,66 +1,42 @@
-# IANEX Global Services — Website Design (v2 "Trade Routes")
+# IANEX Global Services. Website Design (v3 "Bright Horizon")
 
 A custom-designed, fully responsive website concept for **IANEX Global Services**, built to
-the project SRS. The design exists as real, browsable HTML/CSS and exports to a single
-client-ready proposal PDF. This v2 is a ground-up redesign for a premium, differentiated feel
-— informed by competitor analysis of leading consulting / logistics / supply-chain sites.
-
-## Deliverable
-**`IANEX-Global-Website-Design.pdf`** — proposal: cover + Home, About, Services, Contact,
-Privacy Policy, plus a responsive (mobile) preview. The clean HTML/CSS converts directly to
-Figma or rebuilds 1:1 in Wix Studio.
-
-## What makes it feel custom (not a template)
-- **Signature motif:** a global trade-route / globe graphic (ties to the logo ring) woven
-  through the hero, service illustrations, and CTAs.
-- **Editorial, asymmetric layouts:** oversized index numbers, a service "index" instead of
-  equal cards, alternating split pillars, a process timeline, a marquee, and pull-quotes.
-- **Color-blocked section rhythm:** Navy → Cream → Teal → Sand → Navy for a designed cadence.
-- **Distinctive type system** rather than default web fonts.
-
-## Expanded color system (secondary suite added)
-| Role | Tokens |
-|------|--------|
-| Primary navy | `#081B33` · `#0B2545` · `#0F2D52` · `#163A64` |
-| Secondary — ocean teal | `#0C3A40` · `#114A52` · `#155E63` · `#1B7B82` |
-| Accent — gold | `#C99B53` · `#E4C684` |
-| Accent — terracotta | `#C17A57` · `#D69D7E` |
-| Neutrals | Cream `#FBF7F1` · Sand `#F4ECE0` · Sky `#CADAD8` |
-
-## Typography
-- **Display:** Fraunces (characterful editorial serif)
-- **Body / UI:** Inter
-- **Labels / numbers:** Space Grotesk (technical accent)
-
-## Pages
-| File | Page |
-|------|------|
-| `index.html` | Home — hero + route motif, marquee, positioning, service index, *Who We Serve* (teal), stats, founder, process, quote, CTA |
-| `about.html` | About — Ingrid Lozana profile, expertise list, quote |
-| `services.html` | Services — 3 alternating pillar splits with custom illustrations, process |
-| `contact.html` | Contact — Calendly booking card + form |
-| `privacy.html` | Privacy Policy (template) |
-| `cover.html` / `responsive.html` | Proposal cover & mobile showcase (PDF only) |
-
-## Placeholders to replace with final assets
-- **Logo** (`assets/logo.svg`) — recreation of the in-review wordmark; swap for final files
-- **Headshot** (`assets/headshot.svg`) — replace with Ingrid's professional photo
-- **Service illustrations** (`assets/svc-*.svg`) — brand graphics; can swap for photography
-- **Calendly** embed on Contact — drop in the live Discovery Consultation URL
-- **Email / phone** — `hello@ianexglobal.com` / placeholder number
-- **Tagline** — "Connecting Opportunities. Driving Growth." (confirm vs. "Driving Global Growth")
-- **Copy** — refined from the SRS; align with final client text
+the project SRS and refined through three rounds of design direction. This v3 is a bright,
+photographic, premium rebuild informed by 2026 design-trend research (airy neutrals, deep
+teal, one warm pop accent).
 
 ## View it as a live frontend
-- **`ianex-global-website.html`** — a single, self-contained responsive file (all pages,
-  CSS, and graphics inlined). Just open it in any browser and resize the window to see it
-  respond; the nav switches pages in place and the mobile hamburger menu works.
-- The multi-page source (`index.html`, `about.html`, …) is the editable version for handing
-  to a Wix Studio / Figma developer.
+- **`ianex-global-website.html`** is a single, self-contained responsive file (all pages,
+  CSS, photos, and graphics inlined). Open it in any browser and resize to see it respond.
+  The nav switches pages in place and the mobile menu works.
+- **`ianex-website-source.zip`** is the editable multi-page source for a Wix Studio / Figma
+  developer.
+- **`IANEX-Global-Website-Design.pdf`** is the flat proposal (cover + every page + a mobile
+  preview) to send to the client.
+
+## Design system
+- **Bright / airy / luminous.** Light cream, white, and mint backgrounds dominate; navy is
+  used only for text. Deep teal is the signature color, with warm terracotta and gold pops.
+- **Palette:** teal `#0E7C7B` / `#15A39A` / `#0A5C5A`, terracotta `#E07A57`, gold `#D8AE60`,
+  neutrals cream `#FCFBF8` / sand `#F6EFE3` / mint `#ECF4F1`, ink `#17283C`.
+- **Type (timeless):** Spectral (clean, low-contrast serif headings) + Inter (body and UI).
+- **Layout:** centered hero with a full-bleed port image and floating stats; alternating
+  photo splits for the three pillars; centered section heads; teal color-blocks for rhythm.
+- **Navbar:** slim teal topbar, gradient accent line, centered nav with underline-grow hover,
+  refined teal CTA.
+
+## Imagery (stock placeholders)
+Real professional stock photos stand in for final assets: founder portrait (`founder.jpg`),
+port / cargo (`hero-port.jpg`, `img-supply.jpg`), strategy meeting (`img-biz.jpg`), and
+partnership (`img-partners.jpg`). Swap `founder.jpg` for Ingrid's real headshot when ready.
+
+## Still to finalize with the client
+Final logo files, Ingrid's photo, Calendly URL, email / phone, and the tagline lock
+("Driving Growth" vs "Driving Global Growth").
 
 ## Build commands
 ```bash
 npm install
-node build-singlefile.mjs   # → ianex-global-website.html (portable live demo)
-node build-pdf.mjs          # → IANEX-Global-Website-Design.pdf (proposal)
+node build-singlefile.mjs   # -> ianex-global-website.html
+node build-pdf.mjs          # -> IANEX-Global-Website-Design.pdf
 ```

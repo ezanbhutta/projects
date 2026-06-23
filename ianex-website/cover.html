@@ -3,53 +3,45 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>IANEX Global — Website Design Proposal</title>
+<title>IANEX Global. Website Design Proposal</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500;1,9..144,600&family=Inter:wght@400;500;600&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/styles.css">
 <style>
-  body{background:var(--navy-800)}
-  .cover{min-height:1024px;display:flex;flex-direction:column;justify-content:space-between;color:#eef3fa;position:relative;overflow:hidden;padding:70px var(--gutter);
-    background:radial-gradient(120% 130% at 80% -10%,#1c4a7e 0%,#0f2d52 46%,#081b33 78%)}
-  .cover .art{position:absolute;right:-160px;top:50%;transform:translateY(-50%);width:760px;opacity:.85}
+  body{background:var(--cream)}
+  .cover{min-height:1024px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden;padding:70px var(--gutter);
+    background:radial-gradient(110% 90% at 80% -10%,var(--mint) 0%,var(--cream) 60%)}
+  .cover .glow{position:absolute;right:-160px;top:30%;width:520px;height:520px;border-radius:50%;background:radial-gradient(closest-side,rgba(224,122,87,.14),transparent 70%)}
+  .cover .glow2{position:absolute;left:-160px;bottom:-80px;width:460px;height:460px;border-radius:50%;background:radial-gradient(closest-side,rgba(14,124,123,.16),transparent 70%)}
   .cover-top{display:flex;justify-content:space-between;align-items:center;position:relative;z-index:2}
   .cover-top img{height:66px}
-  .doc-tag{font-family:var(--f-mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-lt);border:1px solid var(--hair-gold);padding:9px 17px;border-radius:100px}
-  .cover-mid{position:relative;z-index:2;max-width:780px}
-  .cover-mid h1{font-size:5.4rem;line-height:1;margin:0 0 26px;letter-spacing:-.02em}
-  .cover-mid h1 .accent{color:var(--gold);font-style:italic;display:block}
-  .cover-mid p{font-size:1.35rem;color:#bccadd;max-width:600px}
-  .cover-foot{position:relative;z-index:2;display:grid;grid-template-columns:repeat(4,auto);gap:52px;border-top:1px solid var(--hair-light);padding-top:30px}
-  .cover-foot .l{font-family:var(--f-mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-lt);margin-bottom:7px}
-  .cover-foot .v{font-size:1.05rem;color:#eef3fa}
+  .doc-tag{font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--teal);border:1.5px solid var(--line-teal);padding:9px 17px;border-radius:100px;background:#fff}
+  .cover-mid{position:relative;z-index:2;max-width:840px}
+  .cover-mid h1{font-size:5.2rem;line-height:1.02;margin:0 0 26px;letter-spacing:-.02em}
+  .cover-mid h1 .accent{color:var(--teal);font-style:italic;display:block}
+  .cover-mid p{font-size:1.35rem;color:var(--ink-soft);max-width:620px}
+  .cover-foot{position:relative;z-index:2;display:grid;grid-template-columns:repeat(4,auto);gap:52px;border-top:1px solid var(--line);padding-top:30px}
+  .cover-foot .l{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);margin-bottom:7px}
+  .cover-foot .v{font-size:1.05rem;color:var(--ink)}
 </style>
 </head>
 <body>
   <div class="cover">
-    <svg class="art" viewBox="0 0 520 520" aria-hidden="true">
-      <circle cx="260" cy="260" r="210" fill="none" stroke="rgba(201,155,83,.3)" stroke-width="1"/>
-      <circle cx="260" cy="260" r="170" fill="none" stroke="rgba(202,218,216,.18)" stroke-width="1"/>
-      <ellipse cx="260" cy="260" rx="78" ry="170" fill="none" stroke="rgba(202,218,216,.18)" stroke-width="1"/>
-      <ellipse cx="260" cy="260" rx="150" ry="170" fill="none" stroke="rgba(202,218,216,.18)" stroke-width="1"/>
-      <line x1="90" y1="260" x2="430" y2="260" stroke="rgba(202,218,216,.18)" stroke-width="1"/>
-      <path d="M168 150 Q300 60 372 188" fill="none" stroke="#C99B53" stroke-width="1.4" stroke-dasharray="4 5"/>
-      <path d="M150 322 Q250 250 372 188" fill="none" stroke="#E4C684" stroke-width="1.6"/>
-      <g fill="#E4C684"><circle cx="168" cy="150" r="5"/><circle cx="372" cy="188" r="5"/><circle cx="150" cy="322" r="5"/></g>
-    </svg>
+    <span class="glow" aria-hidden="true"></span><span class="glow2" aria-hidden="true"></span>
     <div class="cover-top">
-      <img src="assets/logo.svg" alt="IANEX Global">
-      <span class="doc-tag">Website Design Proposal · v2.0</span>
+      <img src="assets/logo-dark.svg" alt="IANEX Global">
+      <span class="doc-tag">Website Design Proposal &middot; v3.0</span>
     </div>
     <div class="cover-mid">
       <p class="eyebrow">Corporate Consulting Website</p>
       <h1>Connecting Opportunities.<span class="accent">Driving Growth.</span></h1>
-      <p>A custom-designed, fully responsive website concept for IANEX Global Services — built to convert decision-makers into booked Discovery Consultations.</p>
+      <p>A custom-designed, fully responsive website concept for IANEX Global Services, built to convert decision-makers into booked Discovery Consultations.</p>
     </div>
     <div class="cover-foot">
       <div><div class="l">Client</div><div class="v">Ingrid Lozana, Founder</div></div>
-      <div><div class="l">Prepared by</div><div class="v">HaseebMadeIt · Storm Designs</div></div>
-      <div><div class="l">Pages</div><div class="v">Home · About · Services · Contact · Privacy</div></div>
+      <div><div class="l">Prepared by</div><div class="v">HaseebMadeIt, Storm Designs</div></div>
+      <div><div class="l">Pages</div><div class="v">Home, About, Services, Contact, Privacy</div></div>
       <div><div class="l">Date</div><div class="v">June 2026</div></div>
     </div>
   </div>
