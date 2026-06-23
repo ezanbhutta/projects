@@ -48,30 +48,6 @@
     counters.forEach(function (el) { cio.observe(el); });
   } else { counters.forEach(function (el) { el.textContent = el.getAttribute('data-count'); }); }
 
-  /* ---- service index hover preview ---- */
-  var preview = doc.getElementById('idxPreview'), pImg = doc.getElementById('idxImg');
-  var rows = [].slice.call(doc.querySelectorAll('.idx-row[data-img]'));
-  if (preview && pImg && matchMedia('(hover:hover)').matches) {
-    var tx = 0, ty = 0, cx = 0, cy = 0, raf = null;
-    function loop() {
-      cx += (tx - cx) * 0.16; cy += (ty - cy) * 0.16;
-      preview.style.left = cx + 'px'; preview.style.top = cy + 'px';
-      raf = requestAnimationFrame(loop);
-    }
-    rows.forEach(function (row) {
-      row.addEventListener('mouseenter', function () {
-        pImg.src = row.getAttribute('data-img');
-        preview.classList.add('show');
-        if (!raf) loop();
-      });
-      row.addEventListener('mousemove', function (e) { tx = e.clientX; ty = e.clientY; });
-      row.addEventListener('mouseleave', function () {
-        preview.classList.remove('show');
-        if (raf) { cancelAnimationFrame(raf); raf = null; }
-      });
-    });
-  }
-
   /* ---- approach pinned stepper ---- */
   var approach = doc.getElementById('approach');
   var steps = approach ? [].slice.call(approach.querySelectorAll('.step')) : [];

@@ -47,7 +47,7 @@ const navItem = (id,label,no,active)=>`<li><a href="#" data-nav="${id}"${active?
 const header = `
 <div class="progress" id="progress"></div>
 <div class="topbar"><div class="wrap">
-  <span><span class="dot"></span>Now booking Q3 Discovery Consultations</span>
+  <span>Now booking Q3 Discovery Consultations</span>
   <span class="r">Int'l &middot; US &amp; Latin America &middot; <a href="mailto:hello@ianexglobal.com">hello@ianexglobal.com</a></span>
 </div></div>
 <header class="site-header" id="header"><div class="wrap nav">
@@ -56,7 +56,7 @@ const header = `
     ${navItem('home','Home','01',true)} ${navItem('about','About','02')} ${navItem('services','Services','03')} ${navItem('contact','Contact','04')}
   </ul></nav>
   <div class="nav-cta">
-    <a class="btn btn-ochre" href="#" data-nav="contact"><span class="dot"></span>Book a Consultation</a>
+    <a class="btn btn-ochre" href="#" data-nav="contact">Book a Consultation<span class="ar"> →</span></a>
     <button class="menu-btn" id="menuBtn" aria-label="Menu"><i></i><i></i></button>
   </div>
 </div></header>`;
@@ -79,8 +79,7 @@ const footer = `
     <span>&copy; 2026 IANEX Global Services</span>
     <span><a href="#" data-nav="privacy">Privacy Policy</a> &middot; Designed by HaseebMadeIt, Storm Designs</span>
   </div>
-</div></footer>
-<div class="idx-preview" id="idxPreview"><div class="duo"><img id="idxImg" src="" alt=""></div></div>`;
+</div></footer>`;
 
 const out = `<!DOCTYPE html>
 <html lang="en">
