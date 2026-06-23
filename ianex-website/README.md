@@ -51,8 +51,16 @@ Figma or rebuilds 1:1 in Wix Studio.
 - **Tagline** — "Connecting Opportunities. Driving Growth." (confirm vs. "Driving Global Growth")
 - **Copy** — refined from the SRS; align with final client text
 
-## Regenerate the PDF
+## View it as a live frontend
+- **`ianex-global-website.html`** — a single, self-contained responsive file (all pages,
+  CSS, and graphics inlined). Just open it in any browser and resize the window to see it
+  respond; the nav switches pages in place and the mobile hamburger menu works.
+- The multi-page source (`index.html`, `about.html`, …) is the editable version for handing
+  to a Wix Studio / Figma developer.
+
+## Build commands
 ```bash
 npm install
-node build-pdf.mjs   # → IANEX-Global-Website-Design.pdf
+node build-singlefile.mjs   # → ianex-global-website.html (portable live demo)
+node build-pdf.mjs          # → IANEX-Global-Website-Design.pdf (proposal)
 ```
