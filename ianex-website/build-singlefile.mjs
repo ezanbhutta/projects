@@ -4,6 +4,7 @@
 import { readFileSync, writeFileSync, existsSync } from 'fs';
 
 const css = readFileSync('assets/styles.css', 'utf8');
+const siteJs = readFileSync('assets/site.js', 'utf8');
 
 // --- build data-URI map for every asset referenced as assets/<file> ---
 function toDataUri(file){
@@ -41,54 +42,45 @@ const sections = pages.map(p => {
   return `<div class="page" id="page-${p.id}"${p.id!=='home'?' hidden':''}>\n${rewrite(extractMain(html))}\n</div>`;
 }).join('\n\n');
 
-const LOGO_DARK = toDataUri('logo-dark.svg');
-const LOGO = toDataUri('logo.svg');
-const navItem = (id,label,active)=>`<li><a href="#" data-nav="${id}"${active?' class="active"':''}>${label}</a></li>`;
+const navItem = (id,label,no,active)=>`<li><a href="#" data-nav="${id}"${active?' class="active"':''}><span>${no}</span>${label}</a></li>`;
 
 const header = `
+<div class="progress" id="progress"></div>
 <div class="topbar"><div class="wrap">
   <span><span class="dot"></span>Now booking Q3 Discovery Consultations</span>
-  <span class="r">International &nbsp;&middot;&nbsp; US &amp; Latin America &nbsp;&middot;&nbsp; <b><a href="mailto:hello@ianexglobal.com">hello@ianexglobal.com</a></b></span>
+  <span class="r">Int'l &middot; US &amp; Latin America &middot; <a href="mailto:hello@ianexglobal.com">hello@ianexglobal.com</a></span>
 </div></div>
-<header class="site-header"><div class="wrap nav">
-  <a class="brand" href="#" data-nav="home"><img src="${LOGO_DARK}" alt="IANEX Global"></a>
+<header class="site-header" id="header"><div class="wrap nav">
+  <a class="wordmark" href="#" data-nav="home">IANEX<span class="g">Global</span></a>
   <nav><ul class="nav-links" id="navlinks">
-    ${navItem('home','Home',true)} ${navItem('about','About')} ${navItem('services','Services')} ${navItem('contact','Contact')}
+    ${navItem('home','Home','01',true)} ${navItem('about','About','02')} ${navItem('services','Services','03')} ${navItem('contact','Contact','04')}
   </ul></nav>
-  <div class="nav-right">
-    <a class="nav-phone" href="tel:+10000000000">+1 (000) 000-0000</a>
-    <a class="btn btn-teal" href="#" data-nav="contact">Book a Consultation <span class="arr">&rarr;</span></a>
-    <button class="menu-btn" id="menuBtn" aria-label="Menu">&#9776;</button>
+  <div class="nav-cta">
+    <a class="btn btn-ochre" href="#" data-nav="contact"><span class="dot"></span>Book a Consultation</a>
+    <button class="menu-btn" id="menuBtn" aria-label="Menu"><i></i><i></i></button>
   </div>
 </div></header>`;
 
 const footer = `
 <footer class="site-footer"><div class="wrap">
-  <div class="foot-top">
-    <div>
-      <a class="brand" href="#" data-nav="home"><img src="${LOGO}" alt="IANEX Global"></a>
-      <p class="blurb">Strategic consulting in supply chain, business development, and international trade for companies expanding across global markets.</p>
-    </div>
+  <div class="foot-grid">
+    <div class="foot-word">IANEX<span class="g">Global</span></div>
     <div class="foot-col"><h5>Navigate</h5><ul>
       <li><a href="#" data-nav="home">Home</a></li><li><a href="#" data-nav="about">About</a></li>
       <li><a href="#" data-nav="services">Services</a></li><li><a href="#" data-nav="contact">Contact</a></li>
     </ul></div>
-    <div class="foot-col"><h5>Services</h5><ul>
-      <li><a href="#" data-nav="services">Supply Chain Solutions</a></li>
-      <li><a href="#" data-nav="services">Business Development</a></li>
-      <li><a href="#" data-nav="services">International Partnerships</a></li>
-    </ul></div>
-    <div class="foot-col"><h5>Get in Touch</h5><ul>
-      <li><a href="#" data-nav="contact">Schedule a Consultation</a></li>
+    <div class="foot-col"><h5>Contact</h5><ul>
+      <li><a href="#" data-nav="contact">Book a Consultation</a></li>
       <li><a href="mailto:hello@ianexglobal.com">hello@ianexglobal.com</a></li>
-      <li><a href="#" data-nav="contact">Send an Enquiry</a></li>
+      <li>US &amp; Latin America</li>
     </ul></div>
   </div>
   <div class="foot-bottom">
-    <span>&copy; 2026 IANEX Global Services. All rights reserved.</span>
-    <span><a href="#" data-nav="privacy">Privacy Policy</a> &nbsp;&middot;&nbsp; Designed by HaseebMadeIt, Storm Designs</span>
+    <span>&copy; 2026 IANEX Global Services</span>
+    <span><a href="#" data-nav="privacy">Privacy Policy</a> &middot; Designed by HaseebMadeIt, Storm Designs</span>
   </div>
-</div></footer>`;
+</div></footer>
+<div class="idx-preview" id="idxPreview"><div class="duo"><img id="idxImg" src="" alt=""></div></div>`;
 
 const out = `<!DOCTYPE html>
 <html lang="en">
@@ -99,7 +91,7 @@ const out = `<!DOCTYPE html>
 <meta name="description" content="Custom website concept for IANEX Global Services. Supply chain, business development, and international trade consulting.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;560;600;680;760&family=Newsreader:ital,opsz,wght@1,18..72,400;1,18..72,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 ${css}
 .page[hidden]{display:none}
@@ -112,18 +104,28 @@ ${sections}
 </main>
 ${footer}
 <script>
+${siteJs}
+</script>
+<script>
 (function(){
   var links=document.querySelectorAll('[data-nav]'),pages=document.querySelectorAll('.page'),
       navlinks=document.getElementById('navlinks'),menuBtn=document.getElementById('menuBtn');
+  function animateCount(el){
+    var target=parseFloat(el.getAttribute('data-count')),t0=null;
+    function step(ts){if(!t0)t0=ts;var k=Math.min((ts-t0)/1200,1),e=1-Math.pow(1-k,3);
+      el.textContent=Math.round(target*e);if(k<1)requestAnimationFrame(step);}
+    requestAnimationFrame(step);
+  }
   function show(id){
     pages.forEach(function(p){p.hidden=(p.id!=='page-'+id);});
     navlinks.querySelectorAll('a').forEach(function(a){a.classList.toggle('active',a.getAttribute('data-nav')===id);});
     navlinks.classList.remove('open');
-    window.scrollTo({top:0,behavior:'instant'});
+    window.scrollTo({top:0});
+    var pg=document.getElementById('page-'+id);
+    pg.querySelectorAll('[data-reveal],.lines').forEach(function(e){e.classList.add('in');});
+    pg.querySelectorAll('[data-count]').forEach(animateCount);
   }
   links.forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();var id=a.getAttribute('data-nav');if(id)show(id);});});
-  if(menuBtn)menuBtn.addEventListener('click',function(){navlinks.classList.toggle('open');});
-  document.addEventListener('submit',function(e){e.preventDefault();var btn=e.target.querySelector('button[type=submit]');if(btn){btn.textContent='Message sent';btn.style.background='#0A5C5A';}});
 })();
 </script>
 </body>

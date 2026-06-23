@@ -31,9 +31,12 @@ for (const p of pages) {
   const url = pathToFileURL(path.join(DIR, p.file)).href;
   await page.goto(url, { waitUntil: 'networkidle0', timeout: 60000 });
   // disable sticky header so it doesn't float on the long page
-  await page.evaluate(() => document.body.classList.add('render-mode'));
+  await page.evaluate(() => {
+    document.body.classList.add('render-mode');
+    document.querySelectorAll('[data-count]').forEach(e => { e.textContent = e.getAttribute('data-count'); });
+  });
   try { await page.evaluate(async () => { await document.fonts.ready; }); } catch {}
-  await new Promise(r => setTimeout(r, 400));
+  await new Promise(r => setTimeout(r, 450));
   const height = await page.evaluate(() =>
     Math.ceil(Math.max(document.body.scrollHeight, document.documentElement.scrollHeight)));
   const pdfBytes = await page.pdf({

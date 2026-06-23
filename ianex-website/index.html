@@ -7,261 +7,197 @@
 <meta name="description" content="IANEX Global Services helps logistics, supply chain, and international trade companies grow and enter new markets. Book a complimentary 30-minute Discovery Consultation with founder Ingrid Lozana.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;560;600;680;760&family=Newsreader:ital,opsz,wght@1,18..72,400;1,18..72,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
+<div class="progress" id="progress"></div>
 
-<!-- TOPBAR -->
 <div class="topbar"><div class="wrap">
   <span><span class="dot"></span>Now booking Q3 Discovery Consultations</span>
-  <span class="r">International &nbsp;·&nbsp; US &amp; Latin America &nbsp;·&nbsp; <b><a href="mailto:hello@ianexglobal.com">hello@ianexglobal.com</a></b></span>
+  <span class="r">Int'l &middot; US &amp; Latin America &middot; <a href="mailto:hello@ianexglobal.com">hello@ianexglobal.com</a></span>
 </div></div>
 
-<!-- HEADER -->
-<header class="site-header"><div class="wrap nav">
-  <a class="brand" href="index.html"><img src="assets/logo-dark.svg" alt="IANEX Global"></a>
+<header class="site-header" id="header"><div class="wrap nav">
+  <a class="wordmark" href="index.html">IANEX<span class="g">Global</span></a>
   <nav><ul class="nav-links" id="navlinks">
-    <li><a href="index.html" class="active">Home</a></li>
-    <li><a href="about.html">About</a></li>
-    <li><a href="services.html">Services</a></li>
-    <li><a href="contact.html">Contact</a></li>
+    <li><a href="index.html" class="active"><span>01</span>Home</a></li>
+    <li><a href="about.html"><span>02</span>About</a></li>
+    <li><a href="services.html"><span>03</span>Services</a></li>
+    <li><a href="contact.html"><span>04</span>Contact</a></li>
   </ul></nav>
-  <div class="nav-right">
-    <a class="nav-phone" href="tel:+10000000000">+1 (000) 000-0000</a>
-    <a class="btn btn-teal" href="contact.html">Book a Consultation <span class="arr">&rarr;</span></a>
-    <button class="menu-btn" id="menuBtn" aria-label="Menu">&#9776;</button>
+  <div class="nav-cta">
+    <a class="btn btn-ochre" href="contact.html"><span class="dot"></span>Book a Consultation</a>
+    <button class="menu-btn" id="menuBtn" aria-label="Menu"><i></i><i></i></button>
   </div>
 </div></header>
 
-<!-- HERO (bright, centered) -->
-<section class="hero">
-  <span class="glowL" aria-hidden="true"></span><span class="glowR" aria-hidden="true"></span>
-  <div class="wrap hero-inner">
-    <p class="eyebrow">Strategic Consulting for Global Markets</p>
-    <h1 class="h-display">Connecting Opportunities.<br><span class="accent">Driving Growth.</span></h1>
-    <p class="lede">Senior supply chain, business development, and international trade guidance for companies expanding across borders. Clarity and execution that turn ambition into measurable growth.</p>
-    <div class="hero-actions">
-      <a class="btn btn-teal" href="contact.html">Book a Discovery Call <span class="arr">&rarr;</span></a>
-      <a class="btn btn-outline" href="services.html">Explore Services</a>
+<!-- HERO -->
+<section class="hero"><div class="wrap">
+  <div class="hero-top">
+    <span class="kicker" data-reveal>Strategic Consulting <span class="i">/</span> Global Markets</span>
+    <p class="meta" data-reveal data-reveal-d="1">Supply chain, business development, and international trade advisory for companies expanding across borders.</p>
+  </div>
+  <h1 class="display d-xl lines">
+    <span><b>Connecting</b></span>
+    <span><b>opportunities,</b></span>
+    <span><b><span class="serif-i">driving growth.</span></b></span>
+  </h1>
+  <div class="hero-foot">
+    <div class="hero-actions" data-reveal data-reveal-d="2">
+      <a class="btn" href="contact.html"><span class="dot"></span>Book a Discovery Call</a>
+      <a class="alink" href="services.html">View the work <span class="ar">&rarr;</span></a>
     </div>
-    <div class="hero-chips">
-      <span class="chip"><b>15+</b> years experience</span>
-      <span class="chip">US &amp; Latin America focus</span>
-      <span class="chip">End-to-end supply chain</span>
+    <div class="hero-est" data-reveal data-reveal-d="3">
+      <div><div class="n">15+</div><div class="l">Years</div></div>
+      <div><div class="n">US&middot;LATAM</div><div class="l">Markets</div></div>
+      <div class="scrollcue">Scroll <span class="ln"></span></div>
     </div>
   </div>
-  <div class="hero-band">
-    <img src="assets/hero-port.jpg" alt="Cargo cranes at an international shipping port under a clear sky">
-    <div class="stats">
-      <div class="stat"><div class="n">15+</div><div class="l">Years Experience</div></div>
-      <div class="stat"><div class="n">2</div><div class="l">Continents</div></div>
-      <div class="stat"><div class="n">3</div><div class="l">Core Pillars</div></div>
-    </div>
+  <div class="hero-strip" data-reveal>
+    <div class="duo"><img src="assets/hero-port.jpg" alt="Cargo cranes at an international shipping port"></div>
   </div>
-</section>
+</div></section>
 
-<!-- TRUST STRIP -->
-<div class="trust" style="padding-top:64px">
-  <div class="wrap">
-    <span>Logistics</span><span>Freight</span><span>Supply Chain</span><span>International Trade</span><span><b>US &amp; LATAM</b></span>
-  </div>
-</div>
+<!-- MARQUEE -->
+<div class="marquee"><div class="track">
+  <span>Procurement</span><span>Logistics</span><span>Market Entry</span><span>Partnerships</span><span>Sourcing</span><span>Trade</span>
+  <span>Procurement</span><span>Logistics</span><span>Market Entry</span><span>Partnerships</span><span>Sourcing</span><span>Trade</span>
+</div></div>
 
-<!-- POSITIONING (centered) -->
-<section class="section bg-cream">
-  <div class="wrap pos">
-    <p class="eyebrow" style="justify-content:center">Who We Are</p>
-    <p class="big">IANEX Global Services helps logistics, freight, and trade businesses <em>develop, optimise, and expand</em> into new markets. We translate global complexity into a clear plan and hands-on execution, so growth becomes sustainable, not just possible.</p>
-    <div class="sig">
-      <span class="bar"></span>
-      <div style="text-align:left">
-        <div class="name">Ingrid Lozana</div>
-        <div class="role">Founder, IANEX Global</div>
+<!-- STATEMENT -->
+<section class="section bg-bone"><div class="wrap statement">
+  <span class="kicker" data-reveal>Who We Are</span>
+  <p data-reveal data-reveal-d="1" style="margin-top:26px">IANEX helps logistics, freight, and trade businesses <span class="serif-i">develop, optimise,</span> and expand into new markets. We translate global complexity into a clear plan and hands-on execution, so growth becomes durable rather than accidental.</p>
+  <div class="sig" data-reveal data-reveal-d="2">
+    <span class="bar"></span>
+    <div><div class="nm">Ingrid Lozana</div><div class="rl">Founder, IANEX Global</div></div>
+  </div>
+</div></section>
+
+<!-- SERVICE INDEX -->
+<section class="section--sm bg-bone index"><div class="wrap">
+  <div class="idx-head">
+    <span class="kicker" data-reveal>What We Do <span class="i">/ Three pillars</span></span>
+    <a class="alink" href="services.html" data-reveal data-reveal-d="1">All services <span class="ar">&rarr;</span></a>
+  </div>
+  <a class="idx-row" href="services.html" data-img="assets/img-supply.jpg" data-reveal>
+    <span class="no">(01)</span>
+    <h3>Supply&nbsp;Chain Solutions</h3>
+    <div class="meta"><span>Procurement</span><span>Logistics</span><span>Optimization</span></div>
+  </a>
+  <a class="idx-row" href="services.html" data-img="assets/img-biz.jpg" data-reveal>
+    <span class="no">(02)</span>
+    <h3>Business Development</h3>
+    <div class="meta"><span>Market Entry</span><span>Partnerships</span><span>Strategy</span></div>
+  </a>
+  <a class="idx-row" href="services.html" data-img="assets/img-partners.jpg" data-reveal>
+    <span class="no">(03)</span>
+    <h3>International Partnerships</h3>
+    <div class="meta"><span>Alliances</span><span>Access</span><span>Networks</span></div>
+  </a>
+</div></section>
+
+<!-- APPROACH (pinned) -->
+<section class="section approach bg-navy" id="approach">
+  <div class="sticky"><div class="wrap"><div class="approach-grid">
+    <div>
+      <span class="kicker">How We Work</span>
+      <div class="track" style="margin-top:30px">
+        <div class="t on" data-i="0"><span class="tn">01</span><span class="tl">Discover</span></div>
+        <div class="t" data-i="1"><span class="tn">02</span><span class="tl">Strategize</span></div>
+        <div class="t" data-i="2"><span class="tn">03</span><span class="tl">Grow</span></div>
       </div>
     </div>
-  </div>
+    <div class="steps">
+      <div class="step on" data-i="0">
+        <div class="bignum">01</div>
+        <h3>Discover</h3>
+        <p>A complimentary 30-minute call to understand your goals, your challenges, and the markets you are targeting. No pitch, just clarity.</p>
+      </div>
+      <div class="step" data-i="1">
+        <div class="bignum">02</div>
+        <h3>Strategize</h3>
+        <p>A focused plan across supply chain, development, and partnerships, prioritised for impact and built around how your business actually operates.</p>
+      </div>
+      <div class="step" data-i="2">
+        <div class="bignum">03</div>
+        <h3>Grow</h3>
+        <p>Hands-on guidance to execute, optimise, and expand, with the right partners in the right markets and a senior advisor in your corner.</p>
+      </div>
+    </div>
+  </div></div></div>
 </section>
 
-<!-- SERVICE 01 -->
-<section class="section bg-white">
-  <div class="wrap split">
-    <div class="media">
-      <img src="assets/img-supply.jpg" alt="Containers stacked at a port terminal beside the water">
-      <div class="badge"><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 13h12V6H3zM15 9h4l2 3v4h-6z"/><circle cx="6" cy="17" r="1.6"/><circle cx="18" cy="17" r="1.6"/></svg></span><div><div class="t">Pillar 01</div><div class="v">Supply Chain</div></div></div>
-    </div>
-    <div>
-      <p class="num">01 / Operations</p>
-      <h2 class="h2">Supply Chain Solutions</h2>
-      <p class="lede">End-to-end expertise that reduces cost, improves resilience, and keeps your operations moving.</p>
-      <ul class="feat-list">
-        <li><span class="tick"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 7"/></svg></span>Procurement &amp; Sourcing</li>
-        <li><span class="tick"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 7"/></svg></span>Logistics Coordination</li>
-        <li><span class="tick"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 7"/></svg></span>Supply Chain Optimization</li>
-        <li><span class="tick"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 7"/></svg></span>End-to-End Solutions</li>
-      </ul>
-    </div>
+<!-- STATS -->
+<section class="section bg-bone"><div class="wrap">
+  <span class="kicker" data-reveal>By the Numbers</span>
+  <div class="stats" style="margin-top:34px">
+    <div class="stat" data-reveal><div class="n"><span data-count="15">0</span><span class="u">+</span></div><div class="l">Years in global supply chain and trade</div></div>
+    <div class="stat" data-reveal data-reveal-d="1"><div class="n"><span data-count="2">0</span></div><div class="l">Continents of active market focus</div></div>
+    <div class="stat" data-reveal data-reveal-d="2"><div class="n"><span data-count="3">0</span></div><div class="l">Connected consulting pillars</div></div>
   </div>
-</section>
-
-<!-- SERVICE 02 -->
-<section class="section bg-cream">
-  <div class="wrap split rev">
-    <div class="media">
-      <img src="assets/img-biz.jpg" alt="A strategy meeting in a modern boardroom">
-      <div class="badge"><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 17l6-6 4 4 8-8M21 7v5h-5"/></svg></span><div><div class="t">Pillar 02</div><div class="v">Growth</div></div></div>
-    </div>
-    <div>
-      <p class="num">02 / Revenue</p>
-      <h2 class="h2">Business Development</h2>
-      <p class="lede">Commercial strategy and market expansion that turn opportunity into measurable revenue.</p>
-      <ul class="feat-list">
-        <li><span class="tick"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 7"/></svg></span>Market Expansion</li>
-        <li><span class="tick"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 7"/></svg></span>Strategic Partnerships</li>
-        <li><span class="tick"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 7"/></svg></span>International Development</li>
-        <li><span class="tick"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 7"/></svg></span>Commercial Strategy</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- SERVICE 03 -->
-<section class="section bg-white">
-  <div class="wrap split">
-    <div class="media">
-      <img src="assets/img-partners.jpg" alt="Business partners joining hands over a table">
-      <div class="badge"><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 2.5 15 0 18M12 3c-2.5 2.5-2.5 15 0 18"/></svg></span><div><div class="t">Pillar 03</div><div class="v">Reach</div></div></div>
-    </div>
-    <div>
-      <p class="num">03 / Access</p>
-      <h2 class="h2">International Partnerships</h2>
-      <p class="lede">Alliances and supplier networks that give your business credible access to global markets.</p>
-      <ul class="feat-list">
-        <li><span class="tick"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 7"/></svg></span>Strategic Alliances</li>
-        <li><span class="tick"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 7"/></svg></span>Global Market Access</li>
-        <li><span class="tick"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 7"/></svg></span>Supplier Networks</li>
-        <li><span class="tick"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 7"/></svg></span>Business Representation</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- WHO WE SERVE (teal) -->
-<section class="section bg-teal">
-  <div class="wrap">
-    <div class="section-head center">
-      <p class="eyebrow" style="justify-content:center">Who We Serve</p>
-      <h2 class="h2" style="color:#fff">Built for the industries that move the world</h2>
-      <p class="lede" style="margin:14px auto 0">Every engagement is shaped around the realities of logistics and trade, not generic business advice.</p>
-    </div>
-    <div class="serve-grid">
-      <div class="serve"><span class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13h12V6H3zM15 9h4l2 3v4h-6z"/><circle cx="6" cy="17" r="1.6"/><circle cx="18" cy="17" r="1.6"/></svg></span><h4>Logistics</h4><p>Operators scaling networks and capacity</p></div>
-      <div class="serve"><span class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 7l8-4 8 4-8 4z"/><path d="M4 7v8l8 4 8-4V7"/><path d="M12 11v8"/></svg></span><h4>Freight</h4><p>Forwarders and carriers optimising flow</p></div>
-      <div class="serve"><span class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-6h6v6"/></svg></span><h4>Supply Chain</h4><p>Teams improving sourcing and resilience</p></div>
-      <div class="serve"><span class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 2.5 15 0 18M12 3c-2.5 2.5-2.5 15 0 18"/></svg></span><h4>International Trade</h4><p>Businesses entering new markets</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- STATS (bright) -->
-<section class="section bg-cream">
-  <div class="wrap">
-    <div class="section-head center">
-      <p class="eyebrow" style="justify-content:center">By the Numbers</p>
-      <h2 class="h2">Experience you can build on</h2>
-    </div>
-    <div class="statrow">
-      <div class="cell"><div class="n">15+</div><div class="l">Years in global supply chain and trade</div></div>
-      <div class="cell"><div class="n">2</div><div class="l">Continents of active market focus</div></div>
-      <div class="cell"><div class="n">3</div><div class="l">Connected consulting pillars</div></div>
-    </div>
-  </div>
-</section>
+</div></section>
 
 <!-- FOUNDER -->
-<section class="section bg-white">
-  <div class="wrap split">
-    <div class="portrait">
-      <span class="frame" aria-hidden="true"></span>
-      <img src="assets/founder.jpg" alt="Ingrid Lozana, Founder of IANEX Global Services">
-      <div class="tag"><div class="n">15+</div><div class="l">Years</div></div>
-    </div>
-    <div>
-      <p class="eyebrow">The Founder</p>
-      <h2 class="h2">Senior expertise, made accessible</h2>
-      <p class="lede">Ingrid Lozana founded IANEX to give growing companies direct access to the kind of supply chain and business development guidance usually locked inside large corporations.</p>
-      <p>Her career spans international logistics, supply chain leadership, and strategic growth across the US and Latin America, helping clients enter new markets and build partnerships that last.</p>
-      <div style="margin-top:26px"><a class="btn btn-teal" href="about.html">Meet Ingrid <span class="arr">&rarr;</span></a></div>
-    </div>
+<section class="section bg-bone2"><div class="wrap founder">
+  <div class="img" data-reveal>
+    <span class="num">&rdquo;</span>
+    <div class="duo"><img src="assets/founder.jpg" alt="Ingrid Lozana, Founder of IANEX Global Services"></div>
+    <span class="cap">Ingrid Lozana &middot; Founder</span>
   </div>
-</section>
-
-<!-- PROCESS -->
-<section class="section bg-mint">
-  <div class="wrap">
-    <div class="section-head center">
-      <p class="eyebrow" style="justify-content:center">How We Work</p>
-      <h2 class="h2">A clear, senior-led engagement</h2>
+  <div>
+    <span class="kicker" data-reveal>The Founder</span>
+    <h2 class="display d-md" data-reveal data-reveal-d="1" style="margin:18px 0 16px">Senior expertise, <span class="serif-i">made accessible.</span></h2>
+    <p class="lede" data-reveal data-reveal-d="1">Ingrid Lozana founded IANEX to give growing companies direct access to the supply chain and business development guidance usually locked inside large corporations.</p>
+    <div class="cred" data-reveal data-reveal-d="2">
+      <div class="c"><span class="cn">01</span><div><h4>International Experience</h4><p>Cross-border operations across the US and Latin America.</p></div></div>
+      <div class="c"><span class="cn">02</span><div><h4>Supply Chain Leadership</h4><p>End-to-end procurement, sourcing, and logistics command.</p></div></div>
+      <div class="c"><span class="cn">03</span><div><h4>Strategic Business Growth</h4><p>Market expansion and commercial strategy that scales.</p></div></div>
     </div>
-    <div class="proc">
-      <div class="step"><div class="node">01</div><h4>Discover</h4><p>A complimentary 30-minute call to understand your goals, challenges, and target markets.</p></div>
-      <div class="step"><div class="node">02</div><h4>Strategize</h4><p>A focused plan across supply chain, development, and partnerships, prioritised for impact.</p></div>
-      <div class="step"><div class="node">03</div><h4>Grow</h4><p>Hands-on guidance to execute, optimise, and expand with the right partners in the right markets.</p></div>
-    </div>
+    <div data-reveal data-reveal-d="3" style="margin-top:28px"><a class="alink" href="about.html">Read Ingrid's story <span class="ar">&rarr;</span></a></div>
   </div>
-</section>
+</div></section>
 
 <!-- QUOTE -->
-<section class="section bg-cream">
-  <div class="wrap quote">
-    <img class="avatar" src="assets/founder.jpg" alt="Ingrid Lozana">
-    <blockquote>Growth across global markets is not about doing more. It is about doing the right things, in the right order, with the right partners.</blockquote>
-    <div class="by">Ingrid Lozana, Founder of IANEX Global</div>
-  </div>
-</section>
+<section class="section bg-bone"><div class="wrap quote">
+  <blockquote data-reveal>Growth across global markets is not about doing more. It is about doing the <em>right things,</em> in the right order, with the right partners.</blockquote>
+  <div class="by" data-reveal data-reveal-d="1">Ingrid Lozana, Founder of IANEX Global</div>
+</div></section>
 
-<!-- CTA -->
-<section class="section bg-teal-deep cta">
-  <span class="ring" aria-hidden="true"></span>
-  <div class="wrap inner">
-    <p class="eyebrow" style="justify-content:center">Let's Talk</p>
-    <h2 class="h1">Ready to grow your business across global markets?</h2>
-    <p class="lede" style="max-width:600px;margin:0 auto 32px">Book a complimentary 30-minute Discovery Consultation. We will discuss your goals, challenges, and the opportunities ahead, with no obligation.</p>
-    <a class="btn btn-gold" href="contact.html">Schedule a Consultation <span class="arr">&rarr;</span></a>
+<!-- BIG CTA -->
+<section class="section bg-navy cta-big"><div class="wrap">
+  <span class="kicker" data-reveal>Let's Talk</span>
+  <h2 data-reveal data-reveal-d="1" style="margin-top:24px">Let's build your<br>next market.</h2>
+  <div class="row">
+    <p data-reveal data-reveal-d="2">Book a complimentary 30-minute Discovery Consultation. We will discuss your goals, your challenges, and the opportunities ahead, with no obligation.</p>
+    <a class="btn btn-ochre" href="contact.html" data-reveal data-reveal-d="2"><span class="dot"></span>Schedule a Consultation</a>
   </div>
-</section>
+</div></section>
 
 <!-- FOOTER -->
 <footer class="site-footer"><div class="wrap">
-  <div class="foot-top">
-    <div>
-      <a class="brand" href="index.html"><img src="assets/logo.svg" alt="IANEX Global"></a>
-      <p class="blurb">Strategic consulting in supply chain, business development, and international trade for companies expanding across global markets.</p>
-    </div>
+  <div class="foot-grid">
+    <div class="foot-word">IANEX<span class="g">Global</span></div>
     <div class="foot-col"><h5>Navigate</h5><ul>
       <li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li>
       <li><a href="services.html">Services</a></li><li><a href="contact.html">Contact</a></li>
     </ul></div>
-    <div class="foot-col"><h5>Services</h5><ul>
-      <li><a href="services.html">Supply Chain Solutions</a></li>
-      <li><a href="services.html">Business Development</a></li>
-      <li><a href="services.html">International Partnerships</a></li>
-    </ul></div>
-    <div class="foot-col"><h5>Get in Touch</h5><ul>
-      <li><a href="contact.html">Schedule a Consultation</a></li>
+    <div class="foot-col"><h5>Contact</h5><ul>
+      <li><a href="contact.html">Book a Consultation</a></li>
       <li><a href="mailto:hello@ianexglobal.com">hello@ianexglobal.com</a></li>
-      <li><a href="contact.html">Send an Enquiry</a></li>
+      <li>US &amp; Latin America</li>
     </ul></div>
   </div>
   <div class="foot-bottom">
-    <span>&copy; 2026 IANEX Global Services. All rights reserved.</span>
-    <span><a href="privacy.html">Privacy Policy</a> &nbsp;·&nbsp; Designed by HaseebMadeIt, Storm Designs</span>
+    <span>&copy; 2026 IANEX Global Services</span>
+    <span><a href="privacy.html">Privacy Policy</a> &middot; Designed by HaseebMadeIt, Storm Designs</span>
   </div>
 </div></footer>
 
-<script>
-(function(){var b=document.getElementById('menuBtn'),n=document.getElementById('navlinks');
-if(b&&n)b.addEventListener('click',function(){n.classList.toggle('open')});})();
-</script>
+<!-- floating service preview -->
+<div class="idx-preview" id="idxPreview"><div class="duo"><img id="idxImg" src="" alt=""></div></div>
+
+<script src="assets/site.js"></script>
 </body>
 </html>

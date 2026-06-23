@@ -6,31 +6,26 @@
 <title>Responsive Preview. IANEX Global</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;560;600;680;760&family=Newsreader:ital,opsz,wght@1,18..72,400;1,18..72,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/styles.css">
 <style>
-  body{background:var(--teal-deep);color:#eafaf7}
-  .rp{padding:84px var(--gutter) 96px;position:relative;overflow:hidden;
-    background:radial-gradient(110% 100% at 50% -10%,var(--teal) 0%,var(--teal-deep) 60%)}
-  .rp::after{content:"";position:absolute;left:-160px;bottom:-160px;width:480px;height:480px;border:1px solid rgba(255,255,255,.14);border-radius:50%}
-  .rp-head{max-width:840px;margin:0 auto 64px;text-align:center;position:relative;z-index:2}
-  .rp-head .eyebrow{justify-content:center;color:var(--gold-bright)}
-  .rp-head .eyebrow::before{background:var(--gold-bright)}
-  .rp-head h2{font-size:3rem;color:#fff;margin-bottom:18px}
-  .rp-head p{color:#cbeae5;font-size:1.2rem;max-width:640px;margin:0 auto}
-  .phones{display:flex;justify-content:center;gap:56px;position:relative;z-index:2;flex-wrap:wrap}
+  .rp{padding:84px var(--gutter) 96px;background:var(--navy);color:var(--bone)}
+  .rp-head{max-width:880px;margin:0 auto 60px;text-align:center}
+  .rp-head .kicker{justify-content:center;color:var(--ochre-2)}
+  .rp-head h2{font-family:var(--f-display);font-weight:680;font-size:clamp(2.2rem,4.5vw,3.4rem);letter-spacing:-.03em;margin:18px 0 0}
+  .rp-head h2 .i{font-family:var(--f-serif);font-style:italic;font-weight:400;color:var(--ochre-2)}
+  .phones{display:flex;justify-content:center;gap:54px;flex-wrap:wrap}
   .phone{width:340px}
-  .phone .frame{border:10px solid rgba(0,0,0,.35);border-radius:44px;overflow:hidden;box-shadow:0 50px 90px -44px rgba(0,0,0,.6);background:#000;height:720px}
+  .phone .frame{border:9px solid #0c1a2c;border-radius:42px;overflow:hidden;height:720px;background:#0c1a2c;box-shadow:0 50px 90px -44px rgba(0,0,0,.6)}
   .phone .frame img{width:100%;display:block}
-  .phone .cap{text-align:center;font-size:12.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-bright);margin-top:22px}
+  .phone .cap{text-align:center;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ochre-2);margin-top:20px}
 </style>
 </head>
 <body>
   <div class="rp">
     <div class="rp-head">
-      <p class="eyebrow">Fully Responsive</p>
-      <h2>Designed mobile-first, not as an afterthought</h2>
-      <p>Every page adapts cleanly to tablet and mobile, with a sticky header, tap-friendly targets, and the booking call to action always within reach.</p>
+      <span class="kicker">Fully Responsive</span>
+      <h2>Designed mobile-first, <span class="i">not as an afterthought.</span></h2>
     </div>
     <div class="phones">
       <div class="phone"><div class="frame"><img src="assets/preview/m-home.png" alt="Home on mobile"></div><div class="cap">Home</div></div>

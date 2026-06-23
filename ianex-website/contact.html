@@ -4,109 +4,96 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Contact. Book a Discovery Consultation | IANEX Global Services</title>
-<meta name="description" content="Let's connect. Book a complimentary 30-minute Discovery Consultation with IANEX Global Services, or send an enquiry through our contact form.">
+<meta name="description" content="Book a complimentary 30-minute Discovery Consultation with IANEX Global Services, or send an enquiry through our contact form.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;560;600;680;760&family=Newsreader:ital,opsz,wght@1,18..72,400;1,18..72,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
+<div class="progress" id="progress"></div>
 
 <div class="topbar"><div class="wrap">
   <span><span class="dot"></span>Now booking Q3 Discovery Consultations</span>
-  <span class="r">International &nbsp;·&nbsp; US &amp; Latin America &nbsp;·&nbsp; <b><a href="mailto:hello@ianexglobal.com">hello@ianexglobal.com</a></b></span>
+  <span class="r">Int'l &middot; US &amp; Latin America &middot; <a href="mailto:hello@ianexglobal.com">hello@ianexglobal.com</a></span>
 </div></div>
 
-<header class="site-header"><div class="wrap nav">
-  <a class="brand" href="index.html"><img src="assets/logo-dark.svg" alt="IANEX Global"></a>
+<header class="site-header" id="header"><div class="wrap nav">
+  <a class="wordmark" href="index.html">IANEX<span class="g">Global</span></a>
   <nav><ul class="nav-links" id="navlinks">
-    <li><a href="index.html">Home</a></li>
-    <li><a href="about.html">About</a></li>
-    <li><a href="services.html">Services</a></li>
-    <li><a href="contact.html" class="active">Contact</a></li>
+    <li><a href="index.html"><span>01</span>Home</a></li>
+    <li><a href="about.html"><span>02</span>About</a></li>
+    <li><a href="services.html"><span>03</span>Services</a></li>
+    <li><a href="contact.html" class="active"><span>04</span>Contact</a></li>
   </ul></nav>
-  <div class="nav-right">
-    <a class="nav-phone" href="tel:+10000000000">+1 (000) 000-0000</a>
-    <a class="btn btn-teal" href="#booking">Book a Consultation <span class="arr">&rarr;</span></a>
-    <button class="menu-btn" id="menuBtn" aria-label="Menu">&#9776;</button>
+  <div class="nav-cta">
+    <a class="btn btn-ochre" href="#booking"><span class="dot"></span>Book a Consultation</a>
+    <button class="menu-btn" id="menuBtn" aria-label="Menu"><i></i><i></i></button>
   </div>
 </div></header>
 
-<section class="page-hero">
-  <div class="wrap">
-    <p class="crumb">Home / Contact</p>
-    <h1>Let's Connect</h1>
-    <p class="lede">Book a complimentary Discovery Consultation, or send a message. Whichever suits you best.</p>
-  </div>
-</section>
+<section class="page-hero"><div class="wrap">
+  <p class="crumb" data-reveal>Home <b>/</b> Contact</p>
+  <h1 class="lines"><span><b>Let's</b></span><span><b><span class="serif-i">connect.</span></b></span></h1>
+  <p class="lede" data-reveal data-reveal-d="2">Book a complimentary Discovery Consultation, or send a message. Whichever suits you best.</p>
+</div></section>
 
-<section class="section bg-cream">
-  <div class="wrap contact-grid">
-    <div id="booking" class="book-card">
-      <span class="pill">Primary &middot; Recommended</span>
-      <h3>Discovery Consultation</h3>
-      <p>A complimentary consultation to discuss your business goals, challenges, and growth opportunities.</p>
-      <p style="font-size:12.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-bright)">30 Minutes &middot; No Obligation</p>
-      <div class="cal-embed">
-        <div class="lbl">Calendly Booking Embed</div>
-        <p style="color:#cbeae5;margin:6px 0 20px">Your live Calendly Discovery Consultation calendar appears here.</p>
-        <a class="btn btn-gold" href="#" aria-label="Schedule Consultation via Calendly">Schedule Consultation <span class="arr">&rarr;</span></a>
-      </div>
-    </div>
-    <div class="form-card">
-      <p class="eyebrow">Send an Enquiry</p>
-      <h3 class="h3" style="margin-bottom:8px">Prefer to write first?</h3>
-      <p style="color:var(--ink-soft);margin-bottom:26px">Share a few details and we will get back to you by email.</p>
-      <form>
-        <div class="field"><label for="name">Full Name</label><input id="name" type="text" placeholder="Your name" required></div>
-        <div class="field"><label for="email">Email</label><input id="email" type="email" placeholder="you@company.com" required></div>
-        <div class="field"><label for="company">Company</label><input id="company" type="text" placeholder="Company name"></div>
-        <div class="field"><label for="message">Message / Enquiry</label><textarea id="message" placeholder="How can we help you grow?" required></textarea></div>
-        <label class="consent"><input type="checkbox" required> I agree to the <a href="privacy.html" style="color:var(--teal);text-decoration:underline">Privacy Policy</a> and consent to being contacted about my enquiry.</label>
-        <button class="btn btn-coral" type="submit" style="width:100%">Send Message <span class="arr">&rarr;</span></button>
-        <p style="font-size:11.5px;color:var(--ink-mute);margin:16px 0 0;text-align:center;font-weight:500">Protected by spam filtering &middot; We typically reply within one business day.</p>
-      </form>
+<section class="section--sm bg-bone"><div class="wrap contact-grid">
+  <div id="booking" class="book" data-reveal>
+    <span class="pill">Primary &middot; Recommended</span>
+    <h3>Discovery Consultation</h3>
+    <p>A complimentary consultation to discuss your business goals, challenges, and growth opportunities.</p>
+    <p style="font-size:12.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ochre-2)">30 Minutes &middot; No Obligation</p>
+    <div class="cal">
+      <div class="l">Calendly Booking Embed</div>
+      <p style="color:#cfd5dd;margin:6px 0 20px">Your live Calendly Discovery Consultation calendar appears here.</p>
+      <a class="btn btn-ochre" href="#"><span class="dot"></span>Schedule Consultation</a>
     </div>
   </div>
-</section>
+  <div class="form" data-reveal data-reveal-d="1">
+    <span class="kicker">Send an Enquiry</span>
+    <h3 class="display d-md" style="margin:14px 0 8px;font-size:1.7rem">Prefer to write first?</h3>
+    <p style="color:var(--muted);margin-bottom:24px">Share a few details and we will get back to you by email.</p>
+    <form>
+      <div class="field"><label for="name">Full Name</label><input id="name" type="text" placeholder="Your name" required></div>
+      <div class="field"><label for="email">Email</label><input id="email" type="email" placeholder="you@company.com" required></div>
+      <div class="field"><label for="company">Company</label><input id="company" type="text" placeholder="Company name"></div>
+      <div class="field"><label for="message">Message / Enquiry</label><textarea id="message" placeholder="How can we help you grow?" required></textarea></div>
+      <label class="consent"><input type="checkbox" required> I agree to the <a href="privacy.html" style="color:var(--ochre);text-decoration:underline">Privacy Policy</a> and consent to being contacted about my enquiry.</label>
+      <button class="btn btn-ochre" type="submit" style="width:100%;justify-content:center"><span class="dot"></span>Send Message</button>
+      <p style="font-size:11.5px;color:var(--muted);margin:16px 0 0;text-align:center">Protected by spam filtering &middot; We typically reply within one business day.</p>
+    </form>
+  </div>
+</div></section>
 
-<section class="section--tight bg-mint">
-  <div class="wrap center">
-    <p class="eyebrow" style="justify-content:center">Direct Contact</p>
-    <div class="contact-direct">
-      <div><div class="l">Email</div><div class="v"><a href="mailto:hello@ianexglobal.com">hello@ianexglobal.com</a></div></div>
-      <div><div class="l">Phone</div><div class="v">+1 (000) 000-0000 <span style="font-size:11px;color:var(--ink-mute)">(if provided)</span></div></div>
-      <div><div class="l">Focus</div><div class="v">US &amp; Latin America, International</div></div>
-    </div>
+<section class="section--sm bg-bone2"><div class="wrap">
+  <span class="kicker" data-reveal>Direct Contact</span>
+  <div class="cdirect" data-reveal data-reveal-d="1" style="margin-top:18px">
+    <div class="c"><span class="l">Email</span><span class="v"><a href="mailto:hello@ianexglobal.com">hello@ianexglobal.com</a></span></div>
+    <div class="c"><span class="l">Phone</span><span class="v">+1 (000) 000-0000 <span style="font-size:11px;color:var(--muted);font-family:var(--f-body)">(if provided)</span></span></div>
+    <div class="c"><span class="l">Focus</span><span class="v">US &amp; Latin America, International</span></div>
   </div>
-</section>
+</div></section>
 
 <footer class="site-footer"><div class="wrap">
-  <div class="foot-top">
-    <div>
-      <a class="brand" href="index.html"><img src="assets/logo.svg" alt="IANEX Global"></a>
-      <p class="blurb">Strategic consulting in supply chain, business development, and international trade for companies expanding across global markets.</p>
-    </div>
+  <div class="foot-grid">
+    <div class="foot-word">IANEX<span class="g">Global</span></div>
     <div class="foot-col"><h5>Navigate</h5><ul>
       <li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li>
       <li><a href="services.html">Services</a></li><li><a href="contact.html">Contact</a></li>
     </ul></div>
-    <div class="foot-col"><h5>Services</h5><ul>
-      <li><a href="services.html">Supply Chain Solutions</a></li>
-      <li><a href="services.html">Business Development</a></li>
-      <li><a href="services.html">International Partnerships</a></li>
-    </ul></div>
-    <div class="foot-col"><h5>Get in Touch</h5><ul>
-      <li><a href="#booking">Schedule a Consultation</a></li>
+    <div class="foot-col"><h5>Contact</h5><ul>
+      <li><a href="#booking">Book a Consultation</a></li>
       <li><a href="mailto:hello@ianexglobal.com">hello@ianexglobal.com</a></li>
-      <li><a href="#booking">Send an Enquiry</a></li>
+      <li>US &amp; Latin America</li>
     </ul></div>
   </div>
   <div class="foot-bottom">
-    <span>&copy; 2026 IANEX Global Services. All rights reserved.</span>
-    <span><a href="privacy.html">Privacy Policy</a> &nbsp;·&nbsp; Designed by HaseebMadeIt, Storm Designs</span>
+    <span>&copy; 2026 IANEX Global Services</span>
+    <span><a href="privacy.html">Privacy Policy</a> &middot; Designed by HaseebMadeIt, Storm Designs</span>
   </div>
 </div></footer>
-<script>(function(){var b=document.getElementById('menuBtn'),n=document.getElementById('navlinks');if(b&&n)b.addEventListener('click',function(){n.classList.toggle('open')});})();</script>
+
+<script src="assets/site.js"></script>
 </body>
 </html>
