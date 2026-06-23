@@ -3,39 +3,37 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>IANEX Global. Website Design Proposal</title>
+<title>IANEX Global — Website Design Proposal</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;560;600;680;760&family=Newsreader:ital,opsz,wght@1,18..72,400;1,18..72,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/styles.css">
 <style>
-  .cover{min-height:1024px;display:flex;flex-direction:column;justify-content:space-between;padding:64px var(--gutter);position:relative;background:var(--bone)}
+  .cover{position:relative;min-height:1024px;display:flex;flex-direction:column;justify-content:space-between;
+    padding:60px var(--gutter);color:#fff;overflow:hidden;isolation:isolate}
+  .cover img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;filter:brightness(.62) saturate(.95)}
+  .cover::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(160deg,rgba(11,18,32,.82),rgba(17,28,48,.55))}
   .cover-top{display:flex;justify-content:space-between;align-items:center}
-  .cover-top .wordmark{font-size:24px}
-  .doc-tag{font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);border:1px solid var(--line);padding:9px 16px;border-radius:2px}
-  .doc-tag b{color:var(--ochre)}
-  .cover-mid h1{font-family:var(--f-display);font-weight:660;font-size:clamp(2.4rem,6vw,4.6rem);letter-spacing:-.04em;line-height:1.0;margin:0}
-  .cover-mid h1 .i{font-family:var(--f-serif);font-style:italic;font-weight:400;color:var(--ochre);display:block}
-  .cover-mid p{max-width:60ch;font-size:1.25rem;color:var(--ink-2);margin-top:28px}
-  .cover-strip{height:280px;margin:34px 0}
-  .cover-strip .duo{height:100%;border-radius:3px}
-  .cover-strip .duo img{height:100%;object-fit:cover}
-  .cover-foot{display:grid;grid-template-columns:repeat(4,auto);gap:54px;border-top:1px solid var(--line);padding-top:26px}
-  .cover-foot .l{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ochre);margin-bottom:6px}
-  .cover-foot .v{font-family:var(--f-display);font-size:1.05rem}
+  .cover .brand{color:#fff;font-size:18px}.cover .brand .mk{background:#fff;color:var(--dark)}.cover .brand .g{color:rgba(255,255,255,.6)}
+  .cover-mid h1{font-family:var(--f-display);font-weight:700;font-size:clamp(2.6rem,6vw,4.8rem);letter-spacing:-.04em;line-height:1.02;margin:18px 0 0;max-width:14ch}
+  .cover-mid h1 .soft{color:rgba(255,255,255,.6)}
+  .cover-mid p{max-width:56ch;font-size:1.2rem;color:rgba(255,255,255,.82);margin-top:22px}
+  .cover-foot{display:grid;grid-template-columns:repeat(4,auto);gap:52px;border-top:1px solid rgba(255,255,255,.18);padding-top:24px}
+  .cover-foot .l{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-soft);margin-bottom:6px}
+  .cover-foot .v{font-family:var(--f-display);font-weight:600;font-size:1.05rem}
 </style>
 </head>
 <body>
   <div class="cover">
+    <img class="bg" src="assets/hero.jpg" alt="">
     <div class="cover-top">
-      <span class="wordmark">IANEX<span class="g">Global</span></span>
-      <span class="doc-tag">Website Design Proposal &middot; <b>v4.0</b></span>
+      <span class="brand"><span class="mk">IX</span>IANEX<span class="g">Global</span></span>
+      <span class="badge"><span class="pulse"></span>Website Design Proposal · v5.0</span>
     </div>
     <div class="cover-mid">
-      <span class="kicker">Corporate Consulting Website</span>
-      <h1 style="margin-top:22px">Connecting opportunities,<span class="i">driving growth.</span></h1>
-      <div class="cover-strip"><div class="duo"><img src="assets/hero-port.jpg" alt="Shipping port"></div></div>
-      <p>A custom-designed, fully responsive website concept for IANEX Global Services, built to convert decision-makers into booked Discovery Consultations.</p>
+      <span class="eyebrow" style="color:var(--accent-soft)">Modern corporate website</span>
+      <h1>Connecting opportunities, <span class="soft">driving global growth.</span></h1>
+      <p>A custom, modern, fully responsive website concept for IANEX Global Services — built to turn decision-makers into booked Discovery Consultations.</p>
     </div>
     <div class="cover-foot">
       <div><div class="l">Client</div><div class="v">Ingrid Lozana</div></div>

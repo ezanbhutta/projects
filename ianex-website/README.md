@@ -1,47 +1,43 @@
-# IANEX Global Services. Website Design (v4 "Editorial")
+# IANEX Global Services — Website (v5 "Modern Minimal")
 
-A custom, editorial, motion-driven website concept for **IANEX Global Services**. This v4 is a
-ground-up rethink aimed at a minimal, creative, studio-grade feel (not a template): type-led
-layouts, asymmetry, hairline rules, numbered indices, duotone imagery, and real interaction
-built in vanilla JavaScript.
+A modern, motion-driven website concept for **IANEX Global Services**. v5 is a full
+rebuild focused on contemporary UI/UX: a floating glass navbar, a cinematic full-bleed
+hero, a bento services grid, smooth scrolling, and a clean cobalt-on-off-white system.
 
-## View it as a live frontend
-- **`ianex-global-website.html`** is a single, self-contained responsive file (all pages, CSS,
-  JS, and images inlined). Open it in any browser. **Scroll slowly** to see the motion, and
-  resize to see it respond.
-- **`ianex-website-source.zip`** is the editable multi-page source for a Wix Studio / Figma dev.
-- **`IANEX-Global-Website-Design.pdf`** is the flat proposal to send to the client.
+## View it
+- **`ianex-global-website.html`** — single self-contained responsive file (all pages, CSS,
+  JS, and images inlined). Open in any browser. Scroll to see the motion; resize to see it adapt.
+- **`ianex-website-source.zip`** — editable multi-page source for a Wix Studio / Figma dev.
+- **`IANEX-Global-Website-Design.pdf`** — flat proposal to send to the client.
 
-## What makes it distinctive (not AI/template)
-- **Type as the hero.** Oversized Archivo display with italic Newsreader accents, large negative
-  space, asymmetric meta columns. No generic centered hero + cards.
-- **Motion (vanilla JS, no framework):** masked line-reveal on scroll, a scroll progress bar,
-  count-up stats, a marquee, a hover-to-reveal duotone preview on the service index, and a
-  **pinned, scroll-driven "Approach" stepper** that advances Discover, Strategize, Grow as you
-  scroll. See `assets/site.js`.
-- **Duotone imagery** (navy + ochre) so the stock photos read as intentional and on-brand.
-- **Editorial service index** (numbered rows with hover-reveal) instead of cards/splits.
+## What's modern about it
+- **Floating glass navbar** — a rounded, blurred pill that floats over the page with an
+  active-state highlight and a compact CTA; collapses to a glass dropdown on mobile.
+- **Cinematic full-bleed hero** — a striking aerial port image with a navy scrim, large
+  Sora headline, and a glass stats bar. (No more generic stock.)
+- **Bento services grid** — mixed-size tiles (image feature tile + text tiles + a dark stat
+  tile) with a pointer-following spotlight on hover.
+- **Smooth scrolling** via [Lenis](https://github.com/darkroomengineering/lenis), plus
+  scroll reveals, count-ups, a capability marquee, hero parallax, and hover micro-interactions.
+- **Modern type** — Sora (display) + Inter (text). Pill buttons, rounded cards, soft depth.
 
-## Palette (navy as accent, not the main color)
-| Role | Token |
+## Design tokens
+| Role | Value |
 |------|-------|
-| Background (main) | Bone `#F4F0E8` / Paper `#FBF9F4` |
-| Text | Ink `#1A1813` |
-| Dark anchor (approach, CTA, footer) | Navy `#15273F` |
-| Accent (single pop) | Ochre `#BE732A` |
-| Secondary text / hairlines | Muted `#857B6B` / Line `#DAD2C2` |
+| Background | Off-white `#F4F5F7` / Surface `#FFFFFF` |
+| Text | Ink `#0D0F14` |
+| Dark sections (approach, footer, CTA, booking) | `#0B1220` |
+| Accent | Cobalt `#2F54EB` (tint `#EAF0FF`) |
 
-## Type
-Archivo (display) + Newsreader italic (accents) + Inter (body / UI).
+## Imagery
+Hero — aerial container terminal (`hero.jpg`). CTA — cinematic road/storm (`cta-bg.jpg`).
+Services — container yard, glass towers, boardroom. Founder portrait — `founder.jpg`
+(swap for Ingrid's real photo).
 
-## Imagery (stock placeholders)
-Founder portrait (`founder.jpg`), port/cargo (`hero-port.jpg`, `img-supply.jpg`), strategy
-meeting (`img-biz.jpg`), partnership (`img-partners.jpg`). Swap `founder.jpg` for Ingrid's photo.
+## To finalize with the client
+Logo, Ingrid's photo, Calendly URL, email / phone, tagline lock.
 
-## Still to finalize with the client
-Final logo files, Ingrid's photo, Calendly URL, email / phone, and the tagline lock.
-
-## Build commands
+## Build
 ```bash
 npm install
 node build-singlefile.mjs   # -> ianex-global-website.html
