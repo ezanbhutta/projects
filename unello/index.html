@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Unello — Make saying hello easier</title>
+  <meta name="description" content="Unello bracelets and rings are simple signals that you're open to connecting in real life — for friendship, community, and dating.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='8' fill='%23FF5A6E'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div id="header"></div>
+
+  <main id="main">
+
+    <!-- 1 · HERO -->
+    <section class="section">
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow reveal">Wear it. Be seen as open. Say hello.</span>
+          <h1 class="display-xl balance reveal">Make saying hello easier.</h1>
+          <p class="body-lg muted pretty maxw-prose reveal">Unello bracelets and rings are simple signals that you're open to connecting in real life — for friendship, community, and dating.</p>
+          <div class="hero-cta reveal">
+            <a class="btn btn-primary btn-lg" href="shop.html">Shop Unello</a>
+            <a class="btn btn-text" href="how-it-works.html">How it works <i data-ico="arrow"></i></a>
+          </div>
+          <div class="flex flex-wrap gap-3 reveal" style="margin-top:var(--s-2)">
+            <span class="pill-tag"><span class="signal sm" data-tier="social"></span> Social — Sun</span>
+            <span class="pill-tag"><span class="signal sm" data-tier="dating"></span> Dating — Rose</span>
+          </div>
+        </div>
+        <div class="hero-media reveal">
+          <div class="media-frame" style="aspect-ratio:4/5">
+            <img id="heroImg" alt="A person wearing the Unello signal on their wrist at a sunny café">
+            <span class="signal xl" data-tier="dating" style="right:14%;top:54%"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2 · DECODE THE SIGNAL -->
+    <section class="section" style="background:var(--surface);border-block:1px solid var(--line)">
+      <div class="wrap">
+        <div class="section-head center" style="align-items:center">
+          <span class="eyebrow reveal">Decode the signal</span>
+          <h2 class="balance reveal">Two colours. One simple code.</h2>
+          <p class="muted maxw-prose reveal" style="margin-inline:auto">Colour is the language. A glance tells someone you're open — and which way.</p>
+        </div>
+        <div class="grid cols-2">
+          <div class="decode-card reveal" data-tier="social">
+            <span class="signal lg" data-tier="social"></span>
+            <h3>Social — Sun</h3>
+            <p class="meaning">Open to friendship, conversation, and community.</p>
+            <p class="muted">A Sun signal says you're up for a chat — new friends, a hello at the café, community over isolation.</p>
+            <a class="btn btn-tier" data-tier="social" href="collection.html?tier=social">Shop Social</a>
+          </div>
+          <div class="decode-card reveal" data-tier="dating">
+            <span class="signal lg" data-tier="dating"></span>
+            <h3>Dating — Rose</h3>
+            <p class="meaning">Single and open to meeting someone in real life.</p>
+            <div class="note-control"><i data-ico="lock"></i><span>You're always in control. Open doesn't mean obligated.</span></div>
+            <a class="btn btn-tier" data-tier="dating" href="collection.html?tier=dating">Shop Dating</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3 · HOW IT WORKS -->
+    <section class="section">
+      <div class="wrap">
+        <div class="section-head reveal"><span class="eyebrow">How it works</span><h2>Four steps. That's the whole thing.</h2></div>
+        <div class="steps" id="homeSteps"></div>
+        <div class="mt-6"><a class="btn btn-secondary" href="how-it-works.html">See how it works</a></div>
+      </div>
+    </section>
+
+    <!-- 4 · SHOP SOCIAL RAIL -->
+    <section class="section-tight">
+      <div class="wrap">
+        <div class="section-head with-link reveal">
+          <div><span class="eyebrow"><span class="signal sm" data-tier="social"></span> Social — Sun</span><h2>Shop Social</h2></div>
+          <a class="btn-text" href="collection.html?tier=social">View all <i data-ico="arrow"></i></a>
+        </div>
+        <div class="rail" id="railSocial"></div>
+      </div>
+    </section>
+
+    <!-- 5 · SHOP DATING RAIL -->
+    <section class="section-tight">
+      <div class="wrap">
+        <div class="section-head with-link reveal">
+          <div><span class="eyebrow"><span class="signal sm" data-tier="dating"></span> Dating — Rose</span><h2>Shop Dating</h2></div>
+          <a class="btn-text" href="collection.html?tier=dating">View all <i data-ico="arrow"></i></a>
+        </div>
+        <div class="rail" id="railDating"></div>
+      </div>
+    </section>
+
+    <!-- 6 · THE MOVEMENT -->
+    <section class="section">
+      <div class="wrap">
+        <div class="grid cols-2" style="align-items:center">
+          <div class="stack reveal">
+            <span class="eyebrow">The movement</span>
+            <h2 class="balance">Unello is a movement that happens to sell jewelry.</h2>
+            <p class="muted maxw-prose">Every signal worn in the wild makes the next hello easier — for someone new in town, someone between friend groups, someone ready to meet a person in real life. Wear yours, and you make the code real.</p>
+            <div class="flex flex-wrap gap-3">
+              <span class="pill-tag"><i data-ico="eye"></i> Seen in 1 glance</span>
+              <span class="pill-tag"><i data-ico="wave"></i> 4,000+ hellos</span>
+              <span class="pill-tag"><i data-ico="pin"></i> On wrists worldwide</span>
+            </div>
+          </div>
+          <div class="grid cols-2 reveal" id="ugcGrid" aria-label="Community photos (placeholder)"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7 · EMAIL CAPTURE -->
+    <section class="section-tight">
+      <div class="wrap">
+        <div class="callout reveal">
+          <span class="eyebrow" style="color:var(--paper);opacity:.7">Join the movement</span>
+          <h2 class="balance" style="max-width:18ch">Be first when new pieces drop.</h2>
+          <form class="inline-capture" data-capture="home" novalidate style="width:min(440px,100%)">
+            <input class="input" type="email" placeholder="Your email" aria-label="Email" required>
+            <button class="btn btn-tier" data-tier="dating" type="submit">Join</button>
+          </form>
+          <p class="small" style="opacity:.7">No spam. Just the drop, and the occasional hello.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <div id="footer"></div>
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script>
+    const U = window.UNELLO;
+    // hero
+    document.getElementById("heroImg").src = U.ph({ tier:"dating", kind:"lifestyle", w:900, h:1100, label:"the signal, in context" });
+    // steps
+    const STEPS = [
+      { ic:"tag",  t:"Choose", d:"Pick your signal — Social (Sun) or Dating (Rose) — in a bracelet or ring." },
+      { ic:"hand", t:"Wear",   d:"Put it on where it's seen. Out the door, that's it." },
+      { ic:"sun",  t:"Signal", d:"The colour does the talking. People who know the code, read it." },
+      { ic:"wave", t:"Say hello", d:"Someone open says hi. You're never obligated — just open." },
+    ];
+    document.getElementById("homeSteps").innerHTML = STEPS.map((s,i)=>`
+      <div class="step reveal">
+        <div class="ico-wrap">${U.svg(s.ic)}</div>
+        <div class="step-head"><span class="signal sm" data-tier="${i%2?'dating':'social'}"></span><span class="step-num">Step ${i+1}</span></div>
+        <h3>${s.t}</h3><p class="muted">${s.d}</p>
+      </div>`).join("");
+    // rails
+    document.getElementById("railSocial").innerHTML = U.byTier("social").map(U.productCard).join("");
+    document.getElementById("railDating").innerHTML = U.byTier("dating").map(U.productCard).join("");
+    // ugc placeholders
+    document.getElementById("ugcGrid").innerHTML = ["social","dating","dating","social"].map((t,i)=>
+      `<div class="media-frame" style="aspect-ratio:1/1"><img src="${U.ph({tier:t,kind:'lifestyle',w:500,h:500,label:'@unello'})}" alt="Community photo placeholder"></div>`).join("");
+    U.initReveal();
+  </script>
+</body>
+</html>

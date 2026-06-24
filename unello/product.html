@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Product — Unello</title>
+  <meta name="description" content="A Unello signal piece. Wear it. Be seen as open. Say hello.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='8' fill='%23FF5A6E'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div id="header"></div>
+
+  <main id="main" data-tier="social">
+    <div class="wrap section-tight">
+      <nav class="small muted mb-4" aria-label="Breadcrumb" id="crumb"></nav>
+
+      <!-- design-review control: mock inventory states -->
+      <div class="mock-toggle mb-5" role="group" aria-label="Preview inventory state (design build only)">
+        <span class="lbl">Preview state:</span>
+        <button data-state="in" aria-pressed="true">In stock</button>
+        <button data-state="low" aria-pressed="false">Low stock</button>
+        <button data-state="out" aria-pressed="false">Sold out</button>
+        <button data-state="pre" aria-pressed="false">Pre-order</button>
+      </div>
+
+      <div class="pdp-grid">
+        <!-- gallery -->
+        <div class="gallery">
+          <div class="gallery-main">
+            <img id="mainImg" alt="">
+            <span class="signal lg" id="galSignal" data-tier="social" style="position:absolute;top:16px;left:16px"></span>
+          </div>
+          <div class="gallery-thumbs" id="thumbs" role="group" aria-label="Product images"></div>
+          <p class="small muted">Pinch to zoom on mobile. Includes the signal in context, and a macro of the dot.</p>
+        </div>
+
+        <!-- buy box -->
+        <div class="buy-box" id="buyBox"></div>
+      </div>
+
+      <!-- cross-sell -->
+      <section class="section-tight">
+        <h2 class="mb-4">Pair it — complete the set</h2>
+        <div class="grid cols-2" id="pairGrid"></div>
+      </section>
+
+      <!-- related -->
+      <section class="section-tight">
+        <div class="section-head with-link"><h2 id="relTitle">More like this</h2></div>
+        <div class="grid cols-4" id="related"></div>
+      </section>
+    </div>
+  </main>
+
+  <!-- sticky mobile add to cart -->
+  <div class="sticky-buy" id="stickyBuy">
+    <span class="price" id="stickyPrice"></span>
+    <button class="btn btn-primary" style="flex:1" id="stickyBtn">Add to Cart</button>
+  </div>
+
+  <div id="footer"></div>
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script>
+    const U = window.UNELLO, $ = (s)=>document.querySelector(s), $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
+    const id = new URLSearchParams(location.search).get("id") || U.products[0].id;
+    const p = U.getProduct(id) || U.products[0];
+    const meta = U.tiers[p.tier];
+    let state = p.inventory;      // mock-overridable
+    let size = null, qty = 1, mainIdx = 0;
+
+    document.title = `${p.name} — Unello`;
+    $("#main").dataset.tier = p.tier;
+    $("#galSignal").dataset.tier = p.tier;
+    $("#crumb").innerHTML = `<a href="shop.html">Shop</a> / <a href="collection.html?tier=${p.tier}">${meta.label}</a> / <span>${p.name}</span>`;
+
+    // gallery
+    function setMain(i){ mainIdx=i; $("#mainImg").src=p.images[i]; $("#mainImg").alt=`${p.name} — image ${i+1}`;
+      $$("#thumbs button").forEach((b,bi)=>b.setAttribute("aria-current", String(bi===i))); }
+    $("#thumbs").innerHTML = p.images.map((src,i)=>`<button aria-current="${i===0}" aria-label="Image ${i+1}"><img src="${src}" alt=""></button>`).join("");
+    $$("#thumbs button").forEach((b,i)=>b.addEventListener("click",()=>setMain(i)));
+    setMain(0);
+
+    function renderBuyBox(){
+      const inv = U.invBadge(state);
+      const out = state==="out", pre = state==="pre", low = state==="low";
+      const sizeChips = p.sizes.map(s=>`<button class="chip" role="button" aria-pressed="${s===size}" data-size="${s}" ${out?'disabled':''}>${s}</button>`).join("");
+
+      let primary;
+      if(out) primary = `<button class="btn btn-secondary btn-block btn-lg" data-waitlist="${p.id}">Join the waitlist</button>`;
+      else if(pre) primary = `<button class="btn btn-tier btn-block btn-lg" data-tier="${p.tier}" data-preorder="${p.id}">Pre-order now — ships in 3–4 weeks</button>`;
+      else primary = `<button class="btn btn-primary btn-block btn-lg" id="addBtn">Add to Cart</button>
+                      <button class="btn btn-secondary btn-block" id="buyNow">Buy Now</button>`;
+
+      const invLine = out ? `Currently sold out — join the waitlist and we'll email you the moment it's back.`
+        : pre ? `Pre-order now. Ships in 3–4 weeks.`
+        : low ? `Only a few left.`
+        : `In stock. Ships in 1–2 business days.`;
+
+      $("#buyBox").innerHTML = `
+        <div class="stack">
+          <div class="flex" style="align-items:center;gap:var(--s-3)">
+            <span class="tier-pill" data-tier="${p.tier}"><span class="signal sm" data-tier="${p.tier}"></span>${meta.label} — ${meta.colorName}</span>
+            ${inv}
+          </div>
+          <h1 class="h2" style="font-family:var(--font-display)">${p.name}</h1>
+          <div class="buy-price">${"$"+p.price}</div>
+          <p class="meaning-line" data-tier="${p.tier}">${meta.meaning}</p>
+          <p class="muted">${p.blurb}</p>
+        </div>
+
+        <div class="stack">
+          <div class="flex-between"><span class="small" style="font-weight:600">Size</span>
+            <button class="btn-text small" data-find-size style="min-height:auto;padding:4px">Find my size</button></div>
+          <div class="chip-row" id="sizeChips">${sizeChips}</div>
+          <p class="field-error" id="sizeErr" style="display:none">Please pick a size.</p>
+        </div>
+
+        ${out ? "" : `<div class="flex" style="align-items:center;gap:var(--s-4)">
+          <span class="small" style="font-weight:600">Qty</span>
+          <div class="stepper" aria-label="Quantity">
+            <button id="qDec" aria-label="Decrease">−</button>
+            <input id="qInp" value="${qty}" inputmode="numeric" aria-label="Quantity">
+            <button id="qInc" aria-label="Increase">+</button>
+          </div></div>`}
+
+        <div class="stack">${primary}</div>
+        <p class="small muted">${invLine}</p>
+
+        <div class="trust">
+          <div class="item">${U.svg("truck")} Free shipping over $75</div>
+          <div class="item">${U.svg("refresh")} 30-day returns</div>
+          <div class="item">${U.svg("box")} Ships from the US</div>
+        </div>
+
+        ${p.tier==="dating" ? `<div class="note-control">${U.svg("lock")}<span>You're always in control. Open doesn't mean obligated.</span></div>` : ""}
+
+        <div class="accordion" id="pdpAcc"></div>`;
+
+      // accordions
+      const items = [
+        ["Read the Signal — colour meaning", `<p><strong>${meta.label} is ${meta.colorName}.</strong> ${meta.long}</p><p>People who know the code read it at a glance. That's the whole idea — the colour does the talking so you don't have to.</p>`],
+        ["Sizing", `<p>Bracelets come in XS–L; rings in US 6–10. Not sure? Use <button class="btn-text" data-find-size style="min-height:auto;padding:0;text-decoration:underline">Find my size</button>.</p>`],
+        ["Shipping", `<p>Ships in 1–2 business days. Free over $75. Tracked delivery, ships from the US.</p>`],
+        ["Returns", `<p>30 days, no fuss. If it's not right, send it back for a refund or swap.</p>`],
+        ["Materials &amp; care", `<p>${p.material}</p><p>Wipe clean with a soft cloth. Water-friendly, but store dry to keep the signal bright.</p>`],
+      ];
+      $("#pdpAcc").innerHTML = items.map(([q,a],i)=>`
+        <div class="accordion-item">
+          <button class="accordion-trigger" aria-expanded="${i===0?'true':'false'}" aria-controls="pa${i}">${q}<i data-ico="plus"></i></button>
+          <div class="accordion-panel" id="pa${i}"><div class="panel-inner">${a}</div></div>
+        </div>`).join("");
+
+      U.hydrateIcons($("#buyBox"));
+      U.initAccordions($("#buyBox"));
+      bindBuy();
+      syncSticky();
+    }
+
+    function bindBuy(){
+      $$("#sizeChips .chip").forEach(c=>c.addEventListener("click",()=>{
+        if(c.disabled) return;
+        size=c.dataset.size;
+        $$("#sizeChips .chip").forEach(x=>x.setAttribute("aria-pressed", String(x===c)));
+        $("#sizeErr").style.display="none";
+        syncSticky();
+      }));
+      const qInp=$("#qInp");
+      $("#qDec")?.addEventListener("click",()=>{ qty=Math.max(1,qty-1); qInp.value=qty; });
+      $("#qInc")?.addEventListener("click",()=>{ qty=qty+1; qInp.value=qty; });
+      qInp?.addEventListener("change",()=>{ qty=Math.max(1,parseInt(qInp.value)||1); qInp.value=qty; });
+      $("#addBtn")?.addEventListener("click", addCurrent);
+      $("#buyNow")?.addEventListener("click", ()=>{ if(addCurrent()) U.toast("Buy Now → external checkout (stubbed).","info"); });
+    }
+    function addCurrent(){
+      if(!size){ $("#sizeErr").style.display="block"; U.toast("Pick a size first.","error"); return false; }
+      U.addToCart(p.id, size, qty);
+      U.toast("Added.", "success", { label:"View cart", fn:()=>U.openDrawer("cart") });
+      return true;
+    }
+
+    // sticky mobile
+    function syncSticky(){
+      $("#stickyPrice").textContent = "$"+p.price;
+      const btn=$("#stickyBtn");
+      if(state==="out"){ btn.textContent="Join the waitlist"; btn.className="btn btn-secondary"; btn.style.flex="1"; btn.onclick=()=>U.openWaitlist(p,"waitlist"); }
+      else if(state==="pre"){ btn.textContent="Pre-order"; btn.className="btn btn-tier"; btn.dataset.tier=p.tier; btn.style.flex="1"; btn.onclick=()=>U.openWaitlist(p,"pre"); }
+      else { btn.textContent="Add to Cart"; btn.className="btn btn-primary"; btn.style.flex="1"; btn.onclick=addCurrent; }
+    }
+    // show sticky once buy box scrolled past on mobile
+    const io = new IntersectionObserver((es)=>es.forEach(en=>{
+      $("#stickyBuy").classList.toggle("show", !en.isIntersecting && window.innerWidth<900);
+    }), {threshold:0});
+    window.addEventListener("load", ()=>{ const t=$("#buyBox"); if(t) io.observe(t); });
+
+    // mock toggle
+    $$(".mock-toggle button").forEach(b=>b.addEventListener("click",()=>{
+      state=b.dataset.state; size=null; qty=1;
+      $$(".mock-toggle button").forEach(x=>x.setAttribute("aria-pressed", String(x===b)));
+      renderBuyBox();
+    }));
+
+    renderBuyBox();
+
+    // pair / cross-sell: 2 same-tier others
+    const pair = U.byTier(p.tier).filter(x=>x.id!==p.id).slice(0,2);
+    $("#pairGrid").innerHTML = pair.map(U.productCard).join("");
+    U.hydrateIcons($("#pairGrid"));
+
+    // related: same tier first, then other
+    const rel = [...U.byTier(p.tier).filter(x=>x.id!==p.id), ...U.byTier(p.tier==="dating"?"social":"dating")].slice(0,4);
+    $("#relTitle").textContent = `More ${meta.label} pieces`;
+    $("#related").innerHTML = rel.map(U.productCard).join("");
+    U.hydrateIcons($("#related"));
+  </script>
+</body>
+</html>

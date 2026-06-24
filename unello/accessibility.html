@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Accessibility — Unello</title>
+  <meta name="description" content="Unello's commitment to an accessible experience.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='8' fill='%23FF5A6E'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div id="header"></div>
+  <main id="main">
+    <section class="section-tight">
+      <div class="wrap prose">
+        <span class="eyebrow">Legal</span>
+        <h1 class="display-l mt-2">Accessibility</h1>
+        <p class="muted">Last updated 24 June 2026.</p>
+        <nav class="legal-toc mt-5" aria-label="Legal pages">
+          <a href="shipping-returns.html">Shipping &amp; Returns</a>
+          <a href="privacy.html">Privacy</a>
+          <a href="terms.html">Terms</a>
+          <a href="accessibility.html" aria-current="page">Accessibility</a>
+        </nav>
+
+        <h2>Our commitment</h2>
+        <p>Unello is designed to meet <strong>WCAG 2.1 AA</strong>. Everyone should be able to learn the signal and shop, whatever device or assistive technology they use.</p>
+
+        <h2>What we've built in</h2>
+        <ul>
+          <li>Full keyboard navigation with visible focus rings on every interactive element.</li>
+          <li>Colour contrast of at least 4.5:1 for text — including text on the Sun and Rose signal colours.</li>
+          <li>Touch targets of at least 44×44px.</li>
+          <li>Labelled form fields, descriptive alt text, and semantic landmarks.</li>
+          <li>Respect for <code>prefers-reduced-motion</code> — the signal pulse and reveals stop, the static dot remains.</li>
+          <li>Content that reflows cleanly from 375px up to large screens.</li>
+        </ul>
+
+        <h2>The signal &amp; colour</h2>
+        <p>The signal is never communicated by colour alone in the interface — it's always paired with a label (e.g. "Social — Sun"), so the meaning is available to everyone.</p>
+
+        <h2>Found a barrier?</h2>
+        <p>Tell us at <a href="mailto:access@unello.example">access@unello.example</a> and we'll fix it. Accessibility is ongoing, not a checkbox.</p>
+      </div>
+    </section>
+  </main>
+  <div id="footer"></div>
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

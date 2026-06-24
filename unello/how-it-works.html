@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>How it works — Unello</title>
+  <meta name="description" content="How Unello works in four steps — and how to read the signal. The colour code, explained plainly.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='8' fill='%23FF5A6E'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div id="header"></div>
+
+  <main id="main">
+    <section class="section-tight">
+      <div class="wrap stack">
+        <span class="eyebrow">How it works</span>
+        <h1 class="display-l balance">Wear it. Be seen as open. Say hello.</h1>
+        <p class="body-lg muted maxw-prose">No app, no profile, no swiping. Just a colour that strangers can read — and a simple way to be approachable in real life.</p>
+      </div>
+    </section>
+
+    <!-- 4 steps expanded -->
+    <section class="section-tight">
+      <div class="wrap stack" id="stepsExpanded"></div>
+    </section>
+
+    <!-- Read the Signal -->
+    <section class="section" id="read-the-signal" style="background:var(--surface);border-block:1px solid var(--line)">
+      <div class="wrap">
+        <div class="section-head"><span class="eyebrow">Read the signal</span><h2 class="balance">The colour code, in plain words.</h2></div>
+        <div class="grid cols-2">
+          <div class="decode-card" data-tier="social">
+            <span class="signal lg" data-tier="social"></span>
+            <h3>Sun means Social</h3>
+            <p class="meaning">Open to friendship, conversation, and community.</p>
+            <p class="muted">See a Sun signal? That person is up for a hello — a chat in line, a new friend, community over strangers-in-silence. Low stakes, high warmth.</p>
+            <a class="btn btn-tier" data-tier="social" href="collection.html?tier=social">Shop Social</a>
+          </div>
+          <div class="decode-card" data-tier="dating">
+            <span class="signal lg" data-tier="dating"></span>
+            <h3>Rose means Dating</h3>
+            <p class="meaning">Single and open to meeting someone in real life.</p>
+            <p class="muted">A Rose signal says someone is single and open to meeting a person in real life — not on an app.</p>
+            <div class="note-control"><i data-ico="lock"></i><span>Open ≠ obligated. Saying hello is always a choice — yours and theirs.</span></div>
+            <a class="btn btn-tier" data-tier="dating" href="collection.html?tier=dating">Shop Dating</a>
+          </div>
+        </div>
+        <div class="callout mt-6">
+          <h3 style="font-family:var(--font-display)">The one rule: you're always in control.</h3>
+          <p style="opacity:.85;max-width:52ch">Wearing the signal means you're open — not that you owe anyone a conversation. Take it off any time. Say hello when you want to. That's the whole deal.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-tight">
+      <div class="wrap center stack" style="align-items:center">
+        <h2 class="balance">Ready to wear yours?</h2>
+        <div class="flex gap-3 flex-wrap" style="justify-content:center">
+          <a class="btn btn-tier" data-tier="social" href="collection.html?tier=social">Shop Social — Sun</a>
+          <a class="btn btn-tier" data-tier="dating" href="collection.html?tier=dating">Shop Dating — Rose</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="footer"></div>
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script>
+    const U = window.UNELLO;
+    const STEPS = [
+      { ic:"tag",  t:"Choose your signal", d:"Pick Social (Sun) if you're open to friendship and community, or Dating (Rose) if you're single and open to meeting someone. Bracelet or ring — your call. Stack both if that's you." },
+      { ic:"hand", t:"Wear it where it's seen", d:"On the wrist or finger, out in the world — cafés, markets, travel, a new city. The signal only works where people are, so wear it out the door." },
+      { ic:"sun",  t:"The signal does the talking", d:"You don't have to announce anything. The colour is the message. People who know the code read it at a glance — quietly, no awkward opener required." },
+      { ic:"wave", t:"Say hello — on your terms", d:"Someone open notices, and a hello happens. You're never obligated to talk to anyone. Open means available to connect, not available on demand." },
+    ];
+    document.getElementById("stepsExpanded").innerHTML = STEPS.map((s,i)=>`
+      <div class="grid cols-2" style="align-items:center;gap:var(--s-6)">
+        <div class="media-frame ${i%2?'':'order-first'}" style="aspect-ratio:16/10;${i%2?'order:2':''}">
+          <img src="${U.ph({tier:i%2?'dating':'social',kind:i===2?'macro':'lifestyle',w:900,h:560,label:s.t})}" alt="${s.t}">
+        </div>
+        <div class="stack" style="${i%2?'order:1':''}">
+          <div class="step-head"><div class="ico-wrap">${U.svg(s.ic)}</div><span class="step-num">Step ${i+1}</span></div>
+          <h2 style="font-family:var(--font-display)">${s.t}</h2>
+          <p class="muted body-lg">${s.d}</p>
+        </div>
+      </div>${i<STEPS.length-1?'<hr class="divider" style="margin-block:var(--s-2)">':''}`).join("");
+    U.hydrateIcons(document.getElementById("stepsExpanded"));
+  </script>
+</body>
+</html>

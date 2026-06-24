@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About — Unello</title>
+  <meta name="description" content="Unello means Unity + Hello. A movement to make saying hello in real life easier — founded by Alicia.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='8' fill='%23FF5A6E'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div id="header"></div>
+
+  <main id="main">
+    <section class="section-tight">
+      <div class="wrap" style="max-width:820px">
+        <span class="eyebrow">About</span>
+        <h1 class="display-l balance mt-3">Unity + Hello.</h1>
+        <p class="body-lg muted pretty mt-4">Unello is two words pressed into one: <strong>Unity</strong> and <strong>Hello</strong>. It's a small object with a big job — to make the first hello, in real life, a little easier.</p>
+      </div>
+    </section>
+
+    <section class="section-tight">
+      <div class="wrap">
+        <div class="media-frame" style="aspect-ratio:21/9">
+          <img id="founderImg" alt="Alicia, founder of Unello">
+          <span class="signal lg" data-tier="dating" style="position:absolute;right:8%;bottom:14%"></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-tight">
+      <div class="wrap prose">
+        <h2>Why it exists</h2>
+        <p>We are more connected than ever and lonelier than ever. We sit beside each other and never look up. Meeting people — for friendship or for dating — has quietly moved behind a screen, and something human got lost in the move.</p>
+        <p>Unello puts a signal back into the real world. A bracelet or a ring, in one of two colours, says a simple thing to anyone nearby who knows the code: <em>I'm open. You can say hello.</em></p>
+
+        <h2>The founder</h2>
+        <p>Unello started with Alicia — someone who moved cities one too many times and got tired of how hard it was to simply meet people. Apps felt like work. Bars felt like a gamble. The people she wanted to know were standing right there, in the same café, behind the same invisible wall.</p>
+        <p>So she made the wall a little lower. A piece of jewelry that does one honest thing: it tells the truth about whether you're open. No profile, no performance — just a colour, worn out loud.</p>
+
+        <h2>The mission</h2>
+        <p>Make saying hello easier. Turn "I wish I'd said something" into "I did." Build a shared, opt-in signal that works the same on a beach, in a market, or on a morning commute — and that always leaves the wearer in control.</p>
+
+        <h2>A movement, not a store</h2>
+        <p>If you leave understanding the signal but never buy a thing, we still did half our job — because the code only works when people know it. And if you wear one out into the world, you make the next person's hello easier too. That's the whole movement: one signal at a time.</p>
+      </div>
+    </section>
+
+    <section class="section-tight">
+      <div class="wrap">
+        <div class="callout reveal">
+          <span class="eyebrow" style="color:var(--paper);opacity:.7">Join the movement</span>
+          <h2 class="balance" style="max-width:18ch">Wear the signal. Make the first hello easier.</h2>
+          <div class="flex gap-3 flex-wrap">
+            <a class="btn btn-tier" data-tier="dating" href="shop.html">Shop Unello</a>
+          </div>
+          <form class="inline-capture mt-2" data-capture="about" novalidate style="width:min(440px,100%)">
+            <input class="input" type="email" placeholder="Your email" aria-label="Email" required>
+            <button class="btn btn-secondary" type="submit" style="background:var(--surface)">Join</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="footer"></div>
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script>document.getElementById("founderImg").src = UNELLO.ph({tier:"dating",kind:"lifestyle",w:1400,h:600,label:"Alicia — founder"});</script>
+</body>
+</html>

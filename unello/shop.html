@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shop — Unello</title>
+  <meta name="description" content="Shop Unello signal bracelets and rings. Social (Sun) for friendship, Dating (Rose) for meeting someone in real life.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='8' fill='%23FF5A6E'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div id="header"></div>
+
+  <main id="main">
+    <section class="section-tight">
+      <div class="wrap stack">
+        <span class="eyebrow">Shop</span>
+        <h1 class="display-l balance">Pick your signal.</h1>
+        <p class="body-lg muted maxw-prose">Two tiers, one simple code. Choose Social to be open to friendship and community, or Dating to be open to meeting someone in real life.</p>
+      </div>
+    </section>
+
+    <!-- collection tiles -->
+    <section class="section-tight">
+      <div class="wrap grid cols-2">
+        <a class="tile" data-tier="social" href="collection.html?tier=social">
+          <span class="signal lg" data-tier="social"></span>
+          <h3>Social — Sun</h3>
+          <p class="text-tier">Open to friendship, conversation, and community.</p>
+          <span class="tile-arrow">Shop Social <i data-ico="arrow"></i></span>
+        </a>
+        <a class="tile" data-tier="dating" href="collection.html?tier=dating">
+          <span class="signal lg" data-tier="dating"></span>
+          <h3>Dating — Rose</h3>
+          <p class="text-tier">Single and open to meeting someone in real life.</p>
+          <span class="tile-arrow">Shop Dating <i data-ico="arrow"></i></span>
+        </a>
+      </div>
+    </section>
+
+    <!-- all products + filters -->
+    <section class="section-tight">
+      <div class="wrap">
+        <div class="section-head with-link" style="align-items:center">
+          <h2>All pieces</h2>
+          <div class="field" style="min-width:180px">
+            <label class="sr-only" for="sort">Sort</label>
+            <select class="select" id="sort">
+              <option value="featured">Featured</option>
+              <option value="price-asc">Price: low to high</option>
+              <option value="price-desc">Price: high to low</option>
+              <option value="newest">Newest</option>
+            </select>
+          </div>
+        </div>
+
+        <form class="filters" id="filters" aria-label="Filter products">
+          <fieldset><legend>Tier</legend>
+            <label><input type="checkbox" name="tier" value="social"> Social</label>
+            <label><input type="checkbox" name="tier" value="dating"> Dating</label>
+          </fieldset>
+          <fieldset><legend>Type</legend>
+            <label><input type="checkbox" name="type" value="Bracelet"> Bracelet</label>
+            <label><input type="checkbox" name="type" value="Ring"> Ring</label>
+          </fieldset>
+          <fieldset><legend>Price</legend>
+            <label><input type="checkbox" name="price" value="0-45"> Under $45</label>
+            <label><input type="checkbox" name="price" value="45-60"> $45–60</label>
+            <label><input type="checkbox" name="price" value="60-999"> $60+</label>
+          </fieldset>
+          <fieldset><legend>Availability</legend>
+            <label><input type="checkbox" name="avail" value="in"> In stock</label>
+            <label><input type="checkbox" name="avail" value="pre"> Pre-order</label>
+          </fieldset>
+          <button type="button" class="btn btn-text" id="clearFilters">Clear all</button>
+        </form>
+
+        <p class="small muted mt-4" id="resultCount" aria-live="polite"></p>
+        <div class="grid cols-4 mt-4" id="grid"></div>
+        <div class="empty-state hide" id="empty">
+          <i data-ico="search"></i>
+          <div><h3>No pieces match those filters</h3><p class="muted mt-2">Try clearing a filter or two.</p></div>
+          <button class="btn btn-secondary" id="emptyClear">Clear filters</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="footer"></div>
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script>
+    const U = window.UNELLO, $ = (s)=>document.querySelector(s), $$=(s)=>Array.from(document.querySelectorAll(s));
+    const grid = $("#grid"), empty = $("#empty"), form = $("#filters");
+    function getChecked(name){ return $$(`input[name="${name}"]:checked`).map(i=>i.value); }
+    function inPrice(p, ranges){ return ranges.length===0 || ranges.some(r=>{const[a,b]=r.split("-").map(Number); return p.price>=a && p.price<=b;}); }
+    function apply(){
+      const tiers=getChecked("tier"), types=getChecked("type"), prices=getChecked("price"), avail=getChecked("avail");
+      let list = U.products.filter(p=>
+        (tiers.length===0||tiers.includes(p.tier)) &&
+        (types.length===0||types.includes(p.type)) &&
+        inPrice(p,prices) &&
+        (avail.length===0||avail.includes(p.inventory)));
+      const sort=$("#sort").value;
+      if(sort==="price-asc") list.sort((a,b)=>a.price-b.price);
+      else if(sort==="price-desc") list.sort((a,b)=>b.price-a.price);
+      else if(sort==="newest") list.reverse();
+      grid.innerHTML = list.map(U.productCard).join("");
+      U.hydrateIcons(grid);
+      $("#resultCount").textContent = `${list.length} piece${list.length===1?"":"s"}`;
+      empty.classList.toggle("hide", list.length>0);
+      grid.classList.toggle("hide", list.length===0);
+    }
+    form.addEventListener("change", apply);
+    $("#sort").addEventListener("change", apply);
+    $("#clearFilters").addEventListener("click", ()=>{ form.reset(); apply(); });
+    $("#emptyClear").addEventListener("click", ()=>{ form.reset(); apply(); });
+    // preselect tier from URL ?tier=
+    const t = new URLSearchParams(location.search).get("tier");
+    if(t){ const cb=$(`input[name="tier"][value="${t}"]`); if(cb) cb.checked=true; }
+    apply();
+  </script>
+</body>
+</html>

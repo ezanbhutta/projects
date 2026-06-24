@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FAQ — Unello</title>
+  <meta name="description" content="Questions about the Unello signal, wearing it, control, and orders.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='8' fill='%23FF5A6E'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div id="header"></div>
+
+  <main id="main">
+    <section class="section-tight">
+      <div class="wrap stack" style="max-width:760px">
+        <span class="eyebrow">FAQ</span>
+        <h1 class="display-l balance">Good questions.</h1>
+        <p class="body-lg muted">The idea, how you wear it, staying in control, and getting your order. Still stuck? <a href="contact.html" style="text-decoration:underline;text-underline-offset:3px">Talk to us</a>.</p>
+      </div>
+    </section>
+
+    <section class="section-tight">
+      <div class="wrap" style="max-width:760px" id="faqGroups"></div>
+    </section>
+
+    <section class="section-tight">
+      <div class="wrap center stack" style="align-items:center">
+        <span class="signal lg" data-tier="social"></span>
+        <h2>Still curious?</h2>
+        <p class="muted maxw-narrow">We're real people and we like saying hello. Reach out any time.</p>
+        <a class="btn btn-primary" href="contact.html">Contact us</a>
+      </div>
+    </section>
+  </main>
+
+  <div id="footer"></div>
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script>
+    const U = window.UNELLO;
+    const GROUPS = [
+      ["The idea", [
+        ["What is Unello, exactly?", "Wearable jewelry that works as a social signal. A bracelet or ring in one of two colours tells people nearby that you're open to connecting in real life — Social (Sun) for friendship, Dating (Rose) for meeting someone."],
+        ["Who reads the signal?", "Anyone who knows the code. The more people who learn it, the better it works — which is why we treat Unello as a movement, not just a product."],
+        ["Is this an app or a dating service?", "Neither. There's no profile, no matching, no swiping. The whole point is to move connection back into the real world. The jewelry is the entire interface."],
+      ]],
+      ["Wearing it & staying in control", [
+        ["Do I have to talk to everyone who notices?", "No. Open means you're approachable — not obligated. You decide, every single time, whether to say hello back. Wearing the signal is an invitation you control, not a contract."],
+        ["Can I wear Social and Dating at the same time?", "Yes. Plenty of people stack both — open to new friends and open to dating. Others keep it to one. Whatever's true for you."],
+        ["Is it safe to wear?", "The signal is subtle and only legible to people who know the code. You choose when and where to wear it, and you can take it off any time. Control stays with you."],
+        ["How do I find my size?", "Wrap a strip of paper or soft tape around your wrist (bracelets) or the base of your finger (rings), snug but not tight, and match it to our size guide. Cords are adjustable. Between ring sizes? Size up."],
+      ]],
+      ["Orders, shipping & returns", [
+        ["When will my order ship?", "In-stock pieces ship in 1–2 business days with tracked delivery. Pre-orders ship in 3–4 weeks — you'll get a heads-up before it goes out."],
+        ["How much is shipping?", "Free over $75. Below that, a flat rate is shown at checkout. We ship from the US."],
+        ["What's your return policy?", "30 days. If it's not right, send it back for a refund or a swap — no drama."],
+        ["Can I buy one for a friend?", "Please do — it's one of the best ways to grow the movement. Add a note at checkout and we'll keep the packaging gift-ready."],
+        ["Something's sold out — now what?", "Join the waitlist on the product page and we'll email you the moment it's back. If a piece is on pre-order, you can reserve it now and it ships in 3–4 weeks."],
+      ]],
+    ];
+    document.getElementById("faqGroups").innerHTML = GROUPS.map(([title, items], gi)=>`
+      <div class="mb-5">
+        <h2 class="mb-3" style="font-size:clamp(20px,2.6vw,24px)">${title}</h2>
+        <div class="accordion">
+          ${items.map(([q,a],i)=>`
+            <div class="accordion-item">
+              <button class="accordion-trigger" aria-expanded="${gi===0&&i===0?'true':'false'}" aria-controls="g${gi}q${i}">${q}<i data-ico="plus"></i></button>
+              <div class="accordion-panel" id="g${gi}q${i}"><div class="panel-inner"><p>${a}</p></div></div>
+            </div>`).join("")}
+        </div>
+      </div>`).join("");
+    U.initAccordions(document.getElementById("faqGroups"));
+    U.hydrateIcons(document.getElementById("faqGroups"));
+  </script>
+</body>
+</html>

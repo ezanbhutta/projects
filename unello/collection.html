@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Collection — Unello</title>
+  <meta name="description" content="Shop the Unello collection by tier.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='8' fill='%23FF5A6E'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div id="header"></div>
+
+  <main id="main">
+    <!-- tier band -->
+    <section class="tier-band" id="band" data-tier="social">
+      <div class="wrap stack">
+        <a class="btn-text" href="shop.html" style="padding-left:0">&larr; All pieces</a>
+        <span class="signal lg" id="bandSignal" data-tier="social"></span>
+        <h1 class="display-l" id="bandTitle">Social — Sun</h1>
+        <p class="body-lg" id="bandMeaning" style="max-width:42ch"></p>
+        <div id="controlNote"></div>
+      </div>
+    </section>
+
+    <section class="section-tight">
+      <div class="wrap">
+        <div class="flex-between" style="flex-wrap:wrap">
+          <p class="small muted" id="resultCount" aria-live="polite"></p>
+          <div class="field" style="min-width:180px">
+            <label class="sr-only" for="sort">Sort</label>
+            <select class="select" id="sort">
+              <option value="featured">Featured</option>
+              <option value="price-asc">Price: low to high</option>
+              <option value="price-desc">Price: high to low</option>
+            </select>
+          </div>
+        </div>
+        <div class="grid cols-4 mt-5" id="grid"></div>
+      </div>
+    </section>
+
+    <!-- tier FAQ -->
+    <section class="section-tight">
+      <div class="wrap" style="max-width:760px">
+        <h2 class="mb-3">Good to know</h2>
+        <div class="accordion" id="tierFaq"></div>
+      </div>
+    </section>
+
+    <!-- cross-link -->
+    <section class="section-tight">
+      <div class="wrap">
+        <a class="tile" id="crossTile" data-tier="dating" href="collection.html?tier=dating">
+          <span class="signal lg" id="crossSignal" data-tier="dating"></span>
+          <h3 id="crossTitle">Looking for something else?</h3>
+          <p class="text-tier" id="crossMeaning"></p>
+          <span class="tile-arrow" id="crossCta">Shop the other tier <i data-ico="arrow"></i></span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <div id="footer"></div>
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script>
+    const U = window.UNELLO, $ = (s)=>document.querySelector(s);
+    const tier = (new URLSearchParams(location.search).get("tier") === "dating") ? "dating" : "social";
+    const other = tier === "dating" ? "social" : "dating";
+    const meta = U.tiers[tier], om = U.tiers[other];
+    document.title = `${meta.label} Collection — Unello`;
+
+    $("#band").dataset.tier = tier;
+    $("#bandSignal").dataset.tier = tier;
+    $("#bandTitle").textContent = `${meta.label} — ${meta.colorName}`;
+    $("#bandMeaning").textContent = meta.meaning;
+    if(tier === "dating"){
+      $("#controlNote").innerHTML = `<div class="note-control" style="max-width:46ch">${U.svg("lock")}<span>Open ≠ obligated. You're always in control of who you say hello to.</span></div>`;
+    }
+
+    function render(){
+      let list = U.byTier(tier).slice();
+      const s = $("#sort").value;
+      if(s==="price-asc") list.sort((a,b)=>a.price-b.price);
+      else if(s==="price-desc") list.sort((a,b)=>b.price-a.price);
+      $("#grid").innerHTML = list.map(U.productCard).join("");
+      U.hydrateIcons($("#grid"));
+      $("#resultCount").textContent = `${list.length} ${meta.label} pieces`;
+    }
+    $("#sort").addEventListener("change", render);
+    render();
+
+    // tier FAQ
+    const faqs = tier === "dating" ? [
+      ["Do I have to talk to everyone who notices?", "No. The Rose signal says you're open — not available on demand. You decide every time whether to say hello back."],
+      ["Is wearing it safe?", "The signal is subtle and only legible to people who know the code. You're in control of when and where you wear it."],
+      ["Can I wear Social and Dating together?", "Yes. Some people stack both — open to friends and open to dating. Others keep it to one. Your call."],
+    ] : [
+      ["What does the Sun signal say?", "That you're open to friendship, conversation, and community — a low-pressure 'I'm approachable.'"],
+      ["Where should I wear it?", "Anywhere it's seen — wrist or finger. Cafés, markets, travel, new cities. That's where hellos happen."],
+      ["Can I wear Social and Dating together?", "Absolutely. Stack both if you're open to friends and dating, or keep it to one."],
+    ];
+    $("#tierFaq").innerHTML = faqs.map(([q,a],i)=>`
+      <div class="accordion-item">
+        <button class="accordion-trigger" aria-expanded="${i===0?'true':'false'}" aria-controls="tf${i}">${q}<i data-ico="plus"></i></button>
+        <div class="accordion-panel" id="tf${i}"><div class="panel-inner"><p>${a}</p></div></div>
+      </div>`).join("");
+    U.initAccordions($("#tierFaq")); U.hydrateIcons($("#tierFaq"));
+
+    // cross tile
+    $("#crossTile").dataset.tier = other;
+    $("#crossTile").href = `collection.html?tier=${other}`;
+    $("#crossSignal").dataset.tier = other;
+    $("#crossTitle").textContent = `${om.label} — ${om.colorName}`;
+    $("#crossMeaning").textContent = om.meaning;
+    $("#crossCta").firstChild.textContent = `Shop ${om.label} `;
+  </script>
+</body>
+</html>
