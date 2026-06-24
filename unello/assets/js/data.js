@@ -13,18 +13,21 @@ UNELLO.img = function (id, w, h) {
 
 /* curated, verified photo IDs */
 const P = {
-  heroWrist: "photo-1534976618208-4833d5b57d08", // clean wrist + cord bracelet
-  friends:   "photo-1555817129-2fa6b81bd8e5",     // friends laughing together
-  friendsB:  "photo-1693462467631-e013fa26062d",  // two friends, warm
-  cafe:      "photo-1542338332-76971ae8c292",      // friends at a cafe, candid
-  elegant:   "photo-1573446238824-c28afa0cd312",   // delicate bracelet, neckline
-  beadedMac: "photo-1636520326725-ef3fe2bf0557",   // beaded bracelets, detail
+  heroFriends: "photo-1511632765486-a01980e01a18", // friends at sunset, warm
+  friendsOut:  "photo-1758613171760-f0844a4bc1d5",  // two friends outdoors
+  latteWrist:  "photo-1644945591077-00b4ac750421",  // bracelet + latte, lifestyle
+  handBracelet:"photo-1621341103818-01dada8c6ef8",  // clean hand + bracelet
+  delicate:    "photo-1708221235889-244b2b9495f3",  // delicate bracelet, near face
+  goldBangle:  "photo-1655707063092-5c4509de41b8",  // gold bangle on white
+  goldChain:   "photo-1610223515982-5bae48b7c2c2",  // gold chain bracelet
+  goldClasp:   "photo-1602173574767-37ac01994b2a",  // gold bracelet, editorial
+  redBeaded:   "photo-1617191880362-aac615de3c26",  // beaded bracelets
 };
 UNELLO.P = P;
 UNELLO.IMG = {
-  hero: P.friends, story: P.cafe, craft: P.elegant, worn: P.heroWrist, friendsB: P.friendsB,
+  hero: P.heroFriends, story: P.friendsOut, craft: P.latteWrist, worn: P.handBracelet, friendsB: P.delicate,
 };
-UNELLO.lookbook = [P.friends, P.cafe, P.friendsB, P.heroWrist, P.elegant, P.beadedMac];
+UNELLO.lookbook = [P.heroFriends, P.latteWrist, P.friendsOut, P.handBracelet, P.delicate, P.goldClasp];
 
 /* ---- Bracelets (friendship) ----------------------------------------
    images = [main, lifestyle, detail] photo IDs                        */
@@ -32,27 +35,27 @@ UNELLO.products = [
   { id: "the-cord", name: "The Cord", style: "Cord", price: 38, inventory: "in",
     blurb: "A fine woven cord with the Unello mark. Light enough to forget you are wearing it, clear enough to be read.",
     material: "Waxed cotton cord, 14k gold-fill clasp. Adjustable slider.", sizes: ["XS","S","M","L"],
-    images: ["photo-1534976618208-4833d5b57d08","photo-1542338332-76971ae8c292","photo-1603321581480-12bd571a7aa2"] },
+    images: ["photo-1621341103818-01dada8c6ef8","photo-1644945591077-00b4ac750421","photo-1602173574767-37ac01994b2a"] },
   { id: "the-beaded", name: "The Beaded", style: "Beaded", price: 42, inventory: "in",
     blurb: "Hand-strung beads in warm tones, finished with the mark. Easy, everyday, yours.",
     material: "Natural stone beads, gold-fill detail, stretch fit.", sizes: ["S","M","L"],
-    images: ["photo-1598472142308-86f3ac581944","photo-1555817129-2fa6b81bd8e5","photo-1636520326725-ef3fe2bf0557"] },
+    images: ["photo-1617191880362-aac615de3c26","photo-1758613171760-f0844a4bc1d5","photo-1602173574767-37ac01994b2a"] },
   { id: "the-chain", name: "The Chain", style: "Chain", price: 58, inventory: "low",
     blurb: "A fine link chain carrying the mark. A little more dressed up, still quietly readable.",
     material: "14k gold-fill over brass, lobster clasp.", sizes: ["S","M","L"],
-    images: ["photo-1656437342100-6e99ab500845","photo-1573446238824-c28afa0cd312","photo-1632670549453-7a3dfac254a2"] },
+    images: ["photo-1610223515982-5bae48b7c2c2","photo-1644945591077-00b4ac750421","photo-1602173574767-37ac01994b2a"] },
   { id: "the-cuff", name: "The Cuff", style: "Cuff", price: 64, inventory: "in",
     blurb: "A clean open cuff with the mark set into the metal. Sculptural, minimal, unmistakable.",
     material: "Recycled stainless steel, hand-finished.", sizes: ["S","M","L"],
-    images: ["photo-1632670549453-7a3dfac254a2","photo-1693462467631-e013fa26062d","photo-1598472142308-86f3ac581944"] },
+    images: ["photo-1655707063092-5c4509de41b8","photo-1621341103818-01dada8c6ef8","photo-1610223515982-5bae48b7c2c2"] },
   { id: "the-woven", name: "The Woven", style: "Woven", price: 44, inventory: "in",
     blurb: "A flat woven band, soft on the wrist and made to be layered. Wear one, or wear five.",
     material: "Recycled poly-cotton weave, brass slider.", sizes: ["XS","S","M","L"],
-    images: ["photo-1603321581480-12bd571a7aa2","photo-1542338332-76971ae8c292","photo-1534976618208-4833d5b57d08"] },
+    images: ["photo-1708221235889-244b2b9495f3","photo-1644945591077-00b4ac750421","photo-1621341103818-01dada8c6ef8"] },
   { id: "the-charm", name: "The Charm", style: "Charm", price: 52, inventory: "pre",
     blurb: "A delicate chain with the heart charm. The most quietly expressive piece in the set.",
     material: "14k gold-fill chain and charm.", sizes: ["S","M","L"],
-    images: ["photo-1573446238824-c28afa0cd312","photo-1555817129-2fa6b81bd8e5","photo-1656437342100-6e99ab500845"] },
+    images: ["photo-1602173574767-37ac01994b2a","photo-1758613171760-f0844a4bc1d5","photo-1610223515982-5bae48b7c2c2"] },
 ];
 
 UNELLO.getProduct = (id) => UNELLO.products.find((p) => p.id === id);

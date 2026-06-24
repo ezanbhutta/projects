@@ -149,7 +149,7 @@ h3,.h3{ font-size:clamp(18px,1.6vw,21px); font-weight:500; letter-spacing:-.01em
   border-bottom:1px solid transparent;
 }
 .site-header.transparent{ color:#fff; background:transparent; }
-.site-header.solid{ color:var(--ink); background:color-mix(in srgb,var(--paper) 86%,transparent); backdrop-filter:saturate(1.4) blur(20px); border-bottom-color:var(--line); }
+.site-header.solid{ color:var(--ink); background:rgba(247,246,244,.62); backdrop-filter:saturate(1.8) blur(26px); -webkit-backdrop-filter:saturate(1.8) blur(26px); border-bottom-color:rgba(19,18,16,.07); box-shadow:0 1px 0 rgba(255,255,255,.5) inset, 0 8px 30px rgba(19,18,16,.05); }
 .header-bar{ display:flex; align-items:center; justify-content:space-between; height:var(--header-h); gap:var(--s-6); transition:height var(--t-med) var(--ease); }
 .site-header.solid .header-bar{ height:64px; }
 .header-nav{ display:none; align-items:center; gap:var(--s-7); }
@@ -202,7 +202,8 @@ h3,.h3{ font-size:clamp(18px,1.6vw,21px); font-weight:500; letter-spacing:-.01em
 .editorial{ display:grid; gap:var(--s-6); align-items:center; }
 @media(min-width:900px){ .editorial{ grid-template-columns:1fr 1fr; gap:var(--s-9); } .editorial.flip .ed-media{ order:2; } }
 .ed-copy{ display:flex; flex-direction:column; gap:var(--s-4); max-width:46ch; }
-.ed-media .frame{ aspect-ratio:4/5; }
+.ed-media .frame{ aspect-ratio:1/1; max-height:560px; margin-inline:auto; }
+@media(min-width:900px){ .editorial{ grid-template-columns:1fr 1.05fr; } }
 .section-head{ display:flex; flex-direction:column; gap:var(--s-3); margin-bottom:var(--s-7); max-width:56ch; }
 .section-head.row{ flex-direction:row; align-items:flex-end; justify-content:space-between; max-width:none; }
 
@@ -438,18 +439,21 @@ UNELLO.img = function (id, w, h) {
 
 /* curated, verified photo IDs */
 const P = {
-  heroWrist: "photo-1534976618208-4833d5b57d08", // clean wrist + cord bracelet
-  friends:   "photo-1555817129-2fa6b81bd8e5",     // friends laughing together
-  friendsB:  "photo-1693462467631-e013fa26062d",  // two friends, warm
-  cafe:      "photo-1542338332-76971ae8c292",      // friends at a cafe, candid
-  elegant:   "photo-1573446238824-c28afa0cd312",   // delicate bracelet, neckline
-  beadedMac: "photo-1636520326725-ef3fe2bf0557",   // beaded bracelets, detail
+  heroFriends: "photo-1511632765486-a01980e01a18", // friends at sunset, warm
+  friendsOut:  "photo-1758613171760-f0844a4bc1d5",  // two friends outdoors
+  latteWrist:  "photo-1644945591077-00b4ac750421",  // bracelet + latte, lifestyle
+  handBracelet:"photo-1621341103818-01dada8c6ef8",  // clean hand + bracelet
+  delicate:    "photo-1708221235889-244b2b9495f3",  // delicate bracelet, near face
+  goldBangle:  "photo-1655707063092-5c4509de41b8",  // gold bangle on white
+  goldChain:   "photo-1610223515982-5bae48b7c2c2",  // gold chain bracelet
+  goldClasp:   "photo-1602173574767-37ac01994b2a",  // gold bracelet, editorial
+  redBeaded:   "photo-1617191880362-aac615de3c26",  // beaded bracelets
 };
 UNELLO.P = P;
 UNELLO.IMG = {
-  hero: P.friends, story: P.cafe, craft: P.elegant, worn: P.heroWrist, friendsB: P.friendsB,
+  hero: P.heroFriends, story: P.friendsOut, craft: P.latteWrist, worn: P.handBracelet, friendsB: P.delicate,
 };
-UNELLO.lookbook = [P.friends, P.cafe, P.friendsB, P.heroWrist, P.elegant, P.beadedMac];
+UNELLO.lookbook = [P.heroFriends, P.latteWrist, P.friendsOut, P.handBracelet, P.delicate, P.goldClasp];
 
 /* ---- Bracelets (friendship) ----------------------------------------
    images = [main, lifestyle, detail] photo IDs                        */
@@ -457,27 +461,27 @@ UNELLO.products = [
   { id: "the-cord", name: "The Cord", style: "Cord", price: 38, inventory: "in",
     blurb: "A fine woven cord with the Unello mark. Light enough to forget you are wearing it, clear enough to be read.",
     material: "Waxed cotton cord, 14k gold-fill clasp. Adjustable slider.", sizes: ["XS","S","M","L"],
-    images: ["photo-1534976618208-4833d5b57d08","photo-1542338332-76971ae8c292","photo-1603321581480-12bd571a7aa2"] },
+    images: ["photo-1621341103818-01dada8c6ef8","photo-1644945591077-00b4ac750421","photo-1602173574767-37ac01994b2a"] },
   { id: "the-beaded", name: "The Beaded", style: "Beaded", price: 42, inventory: "in",
     blurb: "Hand-strung beads in warm tones, finished with the mark. Easy, everyday, yours.",
     material: "Natural stone beads, gold-fill detail, stretch fit.", sizes: ["S","M","L"],
-    images: ["photo-1598472142308-86f3ac581944","photo-1555817129-2fa6b81bd8e5","photo-1636520326725-ef3fe2bf0557"] },
+    images: ["photo-1617191880362-aac615de3c26","photo-1758613171760-f0844a4bc1d5","photo-1602173574767-37ac01994b2a"] },
   { id: "the-chain", name: "The Chain", style: "Chain", price: 58, inventory: "low",
     blurb: "A fine link chain carrying the mark. A little more dressed up, still quietly readable.",
     material: "14k gold-fill over brass, lobster clasp.", sizes: ["S","M","L"],
-    images: ["photo-1656437342100-6e99ab500845","photo-1573446238824-c28afa0cd312","photo-1632670549453-7a3dfac254a2"] },
+    images: ["photo-1610223515982-5bae48b7c2c2","photo-1644945591077-00b4ac750421","photo-1602173574767-37ac01994b2a"] },
   { id: "the-cuff", name: "The Cuff", style: "Cuff", price: 64, inventory: "in",
     blurb: "A clean open cuff with the mark set into the metal. Sculptural, minimal, unmistakable.",
     material: "Recycled stainless steel, hand-finished.", sizes: ["S","M","L"],
-    images: ["photo-1632670549453-7a3dfac254a2","photo-1693462467631-e013fa26062d","photo-1598472142308-86f3ac581944"] },
+    images: ["photo-1655707063092-5c4509de41b8","photo-1621341103818-01dada8c6ef8","photo-1610223515982-5bae48b7c2c2"] },
   { id: "the-woven", name: "The Woven", style: "Woven", price: 44, inventory: "in",
     blurb: "A flat woven band, soft on the wrist and made to be layered. Wear one, or wear five.",
     material: "Recycled poly-cotton weave, brass slider.", sizes: ["XS","S","M","L"],
-    images: ["photo-1603321581480-12bd571a7aa2","photo-1542338332-76971ae8c292","photo-1534976618208-4833d5b57d08"] },
+    images: ["photo-1708221235889-244b2b9495f3","photo-1644945591077-00b4ac750421","photo-1621341103818-01dada8c6ef8"] },
   { id: "the-charm", name: "The Charm", style: "Charm", price: 52, inventory: "pre",
     blurb: "A delicate chain with the heart charm. The most quietly expressive piece in the set.",
     material: "14k gold-fill chain and charm.", sizes: ["S","M","L"],
-    images: ["photo-1573446238824-c28afa0cd312","photo-1555817129-2fa6b81bd8e5","photo-1656437342100-6e99ab500845"] },
+    images: ["photo-1602173574767-37ac01994b2a","photo-1758613171760-f0844a4bc1d5","photo-1610223515982-5bae48b7c2c2"] },
 ];
 
 UNELLO.getProduct = (id) => UNELLO.products.find((p) => p.id === id);
@@ -994,7 +998,7 @@ UNELLO.MARK_WHITE = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcAAAAFoCAYAA
 
 const PAGES = {
   "home": {
-    markup: "<main id=\"main\">\n\n    <!-- HERO -->\n    <section class=\"hero\">\n      <div class=\"hero-bg\"><img id=\"heroImg\" alt=\"Friends together, in real life\"></div>\n      <div class=\"wrap\">\n        <div class=\"hero-inner\" id=\"heroInner\">\n          <p class=\"kicker hero-anim a1\" style=\"color:rgba(255,255,255,.8)\">Unello, wearable hello</p>\n          <h1 class=\"hero-anim a2 mt-4\">Make saying<br>hello easier.</h1>\n          <p class=\"lead hero-anim a3 mt-5\">A bracelet that quietly says you're open to connecting in real life. Wear it, be seen, say hello.</p>\n          <div class=\"hero-cta hero-anim a4 mt-6\">\n            <a class=\"btn btn-red btn-lg\" href=\"#/shop\">Shop the collection</a>\n            <a class=\"btn btn-outline btn-lg\" href=\"#/how-it-works\">How it works</a>\n          </div>\n        </div>\n      </div>\n      <div class=\"hero-scroll\"><span>Scroll</span><span class=\"line\"></span></div>\n    </section>\n\n    <!-- STATEMENT -->\n    <section class=\"section\">\n      <div class=\"wrap\">\n        <div class=\"grid cols-2\" style=\"align-items:start;gap:var(--s-7)\">\n          <p class=\"kicker red reveal\">The idea</p>\n          <div class=\"reveal d1\">\n            <p class=\"statement\">One bracelet. A quiet way to say <span class=\"red\">I'm open</span> to meeting people, for real.</p>\n            <a class=\"ulink mt-5\" href=\"#/how-it-works\" style=\"display:inline-block;margin-top:var(--s-5)\">Read how it works</a>\n          </div>\n        </div>\n      </div>\n    </section>\n\n    <!-- STEPS -->\n    <section class=\"section-sm\">\n      <div class=\"wrap\">\n        <div class=\"steps\" id=\"steps\"></div>\n      </div>\n    </section>\n\n    <!-- FEATURED -->\n    <section class=\"section\">\n      <div class=\"wrap\">\n        <div class=\"section-head row reveal\">\n          <div><p class=\"kicker red\">The collection</p><h2 class=\"mt-3\">Worn every day.</h2></div>\n          <a class=\"ulink\" href=\"#/shop\">View all</a>\n        </div>\n        <div class=\"rail reveal\" id=\"featured\"></div>\n      </div>\n    </section>\n\n    <!-- EDITORIAL -->\n    <section class=\"section-sm\">\n      <div class=\"wrap editorial\">\n        <div class=\"ed-media reveal\"><div class=\"frame zoom\"><img id=\"edImg\" alt=\"The signal, worn in the world\"></div></div>\n        <div class=\"ed-copy reveal d1\">\n          <p class=\"kicker red\">In the world</p>\n          <h2 class=\"balance\">A small thing, with a big job.</h2>\n          <p class=\"muted body-lg\">Water-friendly, weightless, made to be lived in. You put it on once and forget it, until someone notices, and says hello back.</p>\n          <ul class=\"stack mt-2\" style=\"gap:var(--s-3)\">\n            <li class=\"flex\" style=\"gap:12px\"><span class=\"red\">·</span> Hypoallergenic, water-safe materials</li>\n            <li class=\"flex\" style=\"gap:12px\"><span class=\"red\">·</span> Recycled, plastic-free packaging</li>\n            <li class=\"flex\" style=\"gap:12px\"><span class=\"red\">·</span> 30 day returns, here to help for life</li>\n          </ul>\n          <a class=\"btn btn-primary mt-4\" href=\"#/shop\" style=\"align-self:flex-start\">Explore the pieces</a>\n        </div>\n      </div>\n    </section>\n\n    <!-- NOIR CTA -->\n    <section class=\"section noir\">\n      <div class=\"wrap center\" style=\"max-width:840px;margin-inline:auto\">\n        <p class=\"kicker reveal\">Join us</p>\n        <h2 class=\"display reveal d1 mt-4\" style=\"font-size:clamp(34px,6vw,72px)\">Wear it.<br>Say hello.</h2>\n        <p class=\"muted body-lg reveal d2 mt-4 mx-auto\" style=\"max-width:46ch\">Be first when new pieces arrive. One quiet email, nothing else.</p>\n        <form class=\"inline-capture reveal d2 mt-6 mx-auto\" data-capture=\"home\" novalidate style=\"max-width:440px\">\n          <input class=\"input input-ghost\" type=\"email\" placeholder=\"Email address\" aria-label=\"Email\" required style=\"color:#fff\">\n          <button class=\"btn btn-red\" type=\"submit\">Join</button>\n        </form>\n      </div>\n    </section>\n\n  </main>",
+    markup: "<main id=\"main\">\n\n    <!-- HERO -->\n    <section class=\"hero\">\n      <div class=\"hero-bg\"><img id=\"heroImg\" alt=\"Friends together, in real life\"></div>\n      <div class=\"wrap\">\n        <div class=\"hero-inner\" id=\"heroInner\">\n          <p class=\"kicker hero-anim a1\" style=\"color:rgba(255,255,255,.8)\">Unello, wearable hello</p>\n          <h1 class=\"hero-anim a2 mt-4\">Make saying<br>hello easier.</h1>\n          <p class=\"lead hero-anim a3 mt-5\">A bracelet that quietly says you're open to connecting in real life. Wear it, be seen, say hello.</p>\n          <div class=\"hero-cta hero-anim a4 mt-6\">\n            <a class=\"btn btn-red btn-lg\" href=\"#/shop\">Shop the collection</a>\n            <a class=\"btn btn-outline btn-lg\" href=\"#/how-it-works\">How it works</a>\n          </div>\n        </div>\n      </div>\n      <div class=\"hero-scroll\"><span>Scroll</span><span class=\"line\"></span></div>\n    </section>\n\n    <!-- STATEMENT -->\n    <section class=\"section\">\n      <div class=\"wrap\">\n        <p class=\"kicker red reveal\">The idea</p>\n        <p class=\"statement reveal d1 mt-5\" style=\"max-width:22ch\">One bracelet. A quiet way to say <span class=\"red\">I'm open</span> to meeting people, for real.</p>\n        <a class=\"ulink reveal d2\" href=\"#/how-it-works\" style=\"display:inline-block;margin-top:var(--s-6)\">Read how it works</a>\n      </div>\n    </section>\n\n    <!-- STEPS -->\n    <section class=\"section-sm\">\n      <div class=\"wrap\">\n        <div class=\"steps\" id=\"steps\"></div>\n      </div>\n    </section>\n\n    <!-- FEATURED -->\n    <section class=\"section\">\n      <div class=\"wrap\">\n        <div class=\"section-head row reveal\">\n          <div><p class=\"kicker red\">The collection</p><h2 class=\"mt-3\">Worn every day.</h2></div>\n          <a class=\"ulink\" href=\"#/shop\">View all</a>\n        </div>\n        <div class=\"rail reveal\" id=\"featured\"></div>\n      </div>\n    </section>\n\n    <!-- EDITORIAL -->\n    <section class=\"section-sm\">\n      <div class=\"wrap editorial\">\n        <div class=\"ed-media reveal\"><div class=\"frame zoom\"><img id=\"edImg\" alt=\"The signal, worn in the world\"></div></div>\n        <div class=\"ed-copy reveal d1\">\n          <p class=\"kicker red\">In the world</p>\n          <h2 class=\"balance\">A small thing, with a big job.</h2>\n          <p class=\"muted body-lg\">Water-friendly, weightless, made to be lived in. You put it on once and forget it, until someone notices, and says hello back.</p>\n          <ul class=\"stack mt-2\" style=\"gap:var(--s-3)\">\n            <li class=\"flex\" style=\"gap:12px\"><span class=\"red\">·</span> Hypoallergenic, water-safe materials</li>\n            <li class=\"flex\" style=\"gap:12px\"><span class=\"red\">·</span> Recycled, plastic-free packaging</li>\n            <li class=\"flex\" style=\"gap:12px\"><span class=\"red\">·</span> 30 day returns, here to help for life</li>\n          </ul>\n          <a class=\"btn btn-primary mt-4\" href=\"#/shop\" style=\"align-self:flex-start\">Explore the pieces</a>\n        </div>\n      </div>\n    </section>\n\n    <!-- NOIR CTA -->\n    <section class=\"section noir\">\n      <div class=\"wrap center\" style=\"max-width:840px;margin-inline:auto\">\n        <p class=\"kicker reveal\">Join us</p>\n        <h2 class=\"display reveal d1 mt-4\" style=\"font-size:clamp(34px,6vw,72px)\">Wear it.<br>Say hello.</h2>\n        <p class=\"muted body-lg reveal d2 mt-4 mx-auto\" style=\"max-width:46ch\">Be first when new pieces arrive. One quiet email, nothing else.</p>\n        <form class=\"inline-capture reveal d2 mt-6 mx-auto\" data-capture=\"home\" novalidate style=\"max-width:440px\">\n          <input class=\"input input-ghost\" type=\"email\" placeholder=\"Email address\" aria-label=\"Email\" required style=\"color:#fff\">\n          <button class=\"btn btn-red\" type=\"submit\">Join</button>\n        </form>\n      </div>\n    </section>\n\n  </main>",
     render: function(){
 try{
 
