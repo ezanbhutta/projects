@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>How it works — Unello</title>
-  <meta name="description" content="How Unello works in four steps — and how to read the signal. The colour code, explained plainly.">
+  <title>How it works, Unello</title>
+  <meta name="description" content="How Unello works in four steps, and how to read the signal. The colour code, explained plainly.">
   <link rel="icon" href="assets/img/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
@@ -21,7 +21,7 @@
       <div class="wrap" style="max-width:880px">
         <span class="eyebrow accent">How it works</span>
         <h1 class="display-l balance mt-2">Wear it. Be seen<br>as open. Say hello.</h1>
-        <p class="body-lg muted maxw-prose mt-3">No app, no profile, no swiping. Just a colour that strangers can read — and a simple way to be approachable in real life.</p>
+        <p class="body-lg muted maxw-prose mt-3">No app, no profile, no swiping. Just a colour that strangers can read, and a simple way to be approachable in real life.</p>
       </div>
     </section>
 
@@ -39,7 +39,7 @@
             <span class="signal lg" data-tier="social"></span>
             <p class="eyebrow">Sun · Social</p>
             <p class="meaning">Open to friendship, conversation, and community.</p>
-            <p class="muted">See a Sun signal? That person is up for a hello — a chat in line, a new friend, community over strangers-in-silence.</p>
+            <p class="muted">See a Sun signal? That person is up for a hello, a chat in line, a new friend, community over strangers-in-silence.</p>
             <a class="btn-text mt-2" data-tier="social" href="collection.html?tier=social">Shop Social <i data-ico="arrow"></i></a>
           </div>
           <div class="decode-card" data-tier="dating">
@@ -47,14 +47,14 @@
             <span class="signal lg" data-tier="dating"></span>
             <p class="eyebrow">Rose · Dating</p>
             <p class="meaning">Single and open to meeting someone in real life.</p>
-            <p class="muted">A Rose signal says someone is single and open to meeting a person in real life — not on an app.</p>
+            <p class="muted">A Rose signal says someone is single and open to meeting a person in real life, not on an app.</p>
             <div class="note-control"><i data-ico="lock"></i><span>Open ≠ obligated. Saying hello is always a choice.</span></div>
           </div>
         </div>
         <div class="callout mt-6">
           <span class="eyebrow" style="color:#B9B1A5">The one rule</span>
-          <h3 class="serif" style="font-size:clamp(24px,3vw,34px);max-width:18ch">You're always in control.</h3>
-          <p class="muted" style="max-width:52ch">Wearing the signal means you're open — not that you owe anyone a conversation. Take it off any time. Say hello when you want to. That's the whole deal.</p>
+          <h3 class="serif" style="font-size:clamp(20px,2.4vw,26px);max-width:18ch">You're always in control.</h3>
+          <p class="muted" style="max-width:52ch">Wearing the signal means you're open, not that you owe anyone a conversation. Take it off any time. Say hello when you want to. That's the whole deal.</p>
         </div>
       </div>
     </section>
@@ -77,17 +77,17 @@
   <script>
     const U = window.UNELLO;
     const STEPS = [
-      ["tag","Choose your signal","Pick Social (Sun) if you're open to friendship and community, or Dating (Rose) if you're single and open to meeting someone. Bracelet or ring — your call. Stack both if that's you.", U.IMG.everyday],
-      ["hand","Wear it where it's seen","On the wrist or finger, out in the world — cafés, markets, travel, a new city. The signal only works where people are, so wear it out the door.", U.IMG.warm],
-      ["sun","The signal does the talking","You don't have to announce anything. The colour is the message. People who know the code read it at a glance — quietly, no awkward opener required.", U.IMG.hoop],
-      ["wave","Say hello — on your terms","Someone open notices, and a hello happens. You're never obligated to talk to anyone. Open means available to connect, not available on demand.", U.IMG.gesture],
+      ["tag","Choose your signal","Pick Social (Sun) if you're open to friendship and community, or Dating (Rose) if you're single and open to meeting someone. Cord, beaded, chain, or cuff. Stack a few if that's you.", U.IMG.everyday],
+      ["hand","Wear it where it's seen","On the wrist, out in the world. Cafés, markets, travel, a new city. The signal only works where people are, so wear it out the door.", U.IMG.couple],
+      ["sun","The signal does the talking","You don't have to announce anything. The colour is the message. People who know the code read it at a glance, quietly, no awkward opener required.", U.IMG.friends],
+      ["wave","Say hello, on your terms","Someone open notices, and a hello happens. You're never obligated to talk to anyone. Open means available to connect, not available on demand.", U.IMG.gesture],
     ];
     document.getElementById("stepsExpanded").innerHTML = STEPS.map((s,i)=>`
       <div class="editorial ${i%2?'flip':''} reveal">
         <div class="ed-media"><div class="frame zoom"><img src="${U.img(s[3],1000,1150)}" alt="${s[1]}"></div></div>
         <div class="ed-copy">
           <div class="step-head"><span class="step-num">0${i+1}</span><div class="step-rule" style="flex:1;max-width:60px"></div></div>
-          <h2 class="serif" style="font-size:clamp(26px,3.4vw,40px)">${s[1]}</h2>
+          <h2 class="serif">${s[1]}</h2>
           <p class="muted body-lg">${s[2]}</p>
         </div>
       </div>`).join("");

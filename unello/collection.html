@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Collection — Unello</title>
+  <title>Collection, Unello</title>
   <meta name="description" content="Shop the Unello collection by tier.">
   <link rel="icon" href="assets/img/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
@@ -81,7 +81,7 @@
     const tier = (new URLSearchParams(location.search).get("tier") === "dating") ? "dating" : "social";
     const other = tier === "dating" ? "social" : "dating";
     const meta = U.tiers[tier], om = U.tiers[other];
-    document.title = `${meta.label} Collection — Unello`;
+    document.title = `${meta.label} Collection, Unello`;
 
     $("#band").dataset.tier = tier;
     $("#bandImg").src = U.img(meta.image, 1400, 700);
@@ -107,12 +107,12 @@
     render();
 
     const faqs = tier === "dating" ? [
-      ["Do I have to talk to everyone who notices?", "No. The Rose signal says you're open — not available on demand. You decide every time whether to say hello back."],
+      ["Do I have to talk to everyone who notices?", "No. The Rose signal says you're open, not available on demand. You decide every time whether to say hello back."],
       ["Is wearing it safe?", "The signal is subtle and only legible to people who know the code. You're in control of when and where you wear it."],
-      ["Can I wear Social and Dating together?", "Yes. Some people stack both — open to friends and open to dating. Others keep it to one. Your call."],
+      ["Can I wear Social and Dating together?", "Yes. Some people stack both, open to friends and open to dating. Others keep it to one. Your call."],
     ] : [
-      ["What does the Sun signal say?", "That you're open to friendship, conversation, and community — a low-pressure 'I'm approachable.'"],
-      ["Where should I wear it?", "Anywhere it's seen — wrist or finger. Cafés, markets, travel, new cities. That's where hellos happen."],
+      ["What does the Sun signal say?", "That you're open to friendship, conversation, and community, a low-pressure 'I'm approachable.'"],
+      ["Where should I wear it?", "Anywhere it's seen, wrist or finger. Cafés, markets, travel, new cities. That's where hellos happen."],
       ["Can I wear Social and Dating together?", "Absolutely. Stack both if you're open to friends and dating, or keep it to one."],
     ];
     $("#tierFaq").innerHTML = faqs.map(([q,a],i)=>`
@@ -127,7 +127,7 @@
     $("#crossImg").src = U.img(om.image, 1400, 600);
     $("#crossSignal").dataset.tier = other;
     $("#crossEyebrow").textContent = `${om.colorName} · ${om.label}`;
-    $("#crossTitle").textContent = `${om.label} — ${om.colorName}`;
+    $("#crossTitle").textContent = `${om.label}, ${om.colorName}`;
     $("#crossMeaning").textContent = om.meaning;
     $("#crossMeaning").style.color = "rgba(255,255,255,.9)";
     $("#crossCta").firstChild.textContent = `Shop ${om.label} `;

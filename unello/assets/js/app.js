@@ -1,5 +1,5 @@
 /* =====================================================================
-   UNELLO — App  ·  shared chrome + interactions
+   UNELLO, App  ·  shared chrome + interactions
    In-memory state only (no localStorage). SVG line icons only (§2.4).
    ===================================================================== */
 (function () {
@@ -44,14 +44,14 @@
   }
   U.svg = svg;
 
-  /* brand mark — the client's exact interlocking-heart logo (embedded) */
+  /* brand mark, the client's exact interlocking-heart logo (embedded) */
   function mark(light) {
     const src = light ? (U.MARK_WHITE || "") : (U.MARK_RED || "");
     return `<img class="brand-mark" src="${src}" alt="" width="36" height="29">`;
   }
   U.brand = (variant) => {
     const light = variant === "light";
-    return `<a class="brand${light ? " invert" : ""}" href="index.html" aria-label="Unello — home">
+    return `<a class="brand${light ? " invert" : ""}" href="index.html" aria-label="Unello, home">
       ${mark(light)}<span class="brand-word"${light ? ' style="color:#fff"' : ""}>unello</span>
     </a>`;
   };
@@ -94,33 +94,32 @@
     }).join("");
 
     const announce = opts.announce === false ? "" :
-      `<div class="announce">${signal("social", "sm")} Complimentary shipping over ${money(FREE_SHIP)} · 30-day returns</div>`;
+      `<div class="announce">${signal("social", "sm")} Complimentary shipping over ${money(FREE_SHIP)} · 30 day returns</div>`;
+
+    const cartBtn = `<button class="cart-link" id="cartBtn" aria-label="Open cart" aria-haspopup="dialog">Cart <span class="cart-count" hidden>0</span></button>`;
 
     const html = `${announce}
       <header class="site-header" id="siteHeader">
         <div class="wrap header-bar">
-          ${U.brand()}
+          <div class="header-left">${U.brand()}</div>
           <nav class="nav-desktop" aria-label="Primary">${navLinks()}</nav>
           <div class="header-actions">
-            <button class="icon-btn" id="searchBtn" aria-label="Search">${svg("search")}</button>
-            <button class="icon-btn" id="cartBtn" aria-label="Open cart" aria-haspopup="dialog">
-              ${svg("cart")}<span class="cart-count" hidden>0</span>
-            </button>
-            <button class="icon-btn hamburger" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mobileSheet">${svg("menu")}</button>
+            ${cartBtn}
+            <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mobileSheet"><span class="bars"><i></i><i></i></span> Menu</button>
           </div>
         </div>
       </header>
       <div class="mobile-sheet" id="mobileSheet" role="dialog" aria-modal="true" aria-label="Menu" inert>
-        <div class="wrap header-bar">
+        <div class="sheet-top">
           ${U.brand()}
-          <button class="icon-btn" id="menuClose" aria-label="Close menu">${svg("close")}</button>
+          <button class="menu-btn" id="menuClose" aria-label="Close menu">Close ${svg("close")}</button>
         </div>
         <nav aria-label="Mobile">
           ${NAV.map((n) => `<a href="${n.href}">${n.label} ${svg("arrow")}</a>`).join("")}
           <a href="contact.html">Contact ${svg("arrow")}</a>
         </nav>
         <div class="wrap" style="padding-bottom:var(--s-6)">
-          <a class="btn btn-primary btn-block" href="shop.html">Shop Unello</a>
+          <a class="btn btn-primary btn-block" href="shop.html">Shop bracelets</a>
         </div>
       </div>`;
     const mount = $("#header") || document.body.insertBefore(document.createElement("div"), document.body.firstChild);
@@ -139,7 +138,6 @@
     $("#menuClose").addEventListener("click", closeSheet);
     $$("#mobileSheet nav a").forEach((a) => a.addEventListener("click", closeSheet));
     $("#cartBtn").addEventListener("click", () => openDrawer("cart"));
-    $("#searchBtn").addEventListener("click", () => toast("Search is a stub in this design build.", "info"));
   }
 
   /* ---------------- footer ---------------- */
@@ -149,7 +147,7 @@
         <div>
           ${U.brand("light")}
           <p class="footer-movement mt-5">A movement, not a store.</p>
-          <p class="small mt-4" style="color:#B9B1A5;max-width:34ch">Be first when new pieces drop. No noise — just the signal.</p>
+          <p class="small mt-4" style="color:#B9B1A5;max-width:34ch">Be first when new pieces drop. No noise, just the signal.</p>
           <form class="inline-capture mt-4" data-capture="footer" novalidate>
             <input class="input footer-input" type="email" placeholder="Email address" aria-label="Email" required>
             <button class="btn btn-light" type="submit">Join</button>
@@ -221,24 +219,24 @@
         <div class="drawer-head"><strong>Find my size</strong>
           <button class="icon-btn" data-close-drawer aria-label="Close">${svg("close")}</button></div>
         <div class="drawer-body stack">
-          <p class="muted">Wrap a strip of paper or a soft tape around your wrist (bracelets) or the base of your finger (rings), snug but not tight.</p>
+          <p class="muted">Wrap a strip of paper or a soft tape around your wrist, snug but not tight, then measure it against the chart below.</p>
           <table class="size-table">
-            <thead><tr><th>Size</th><th>Wrist</th><th>Ring (US)</th></tr></thead>
+            <thead><tr><th>Size</th><th>Wrist</th><th>Best for</th></tr></thead>
             <tbody>
-              <tr><td>XS</td><td>14–15 cm</td><td>5–6</td></tr>
-              <tr><td>S</td><td>15–16.5 cm</td><td>6–7</td></tr>
-              <tr><td>M</td><td>16.5–18 cm</td><td>8</td></tr>
-              <tr><td>L</td><td>18–19.5 cm</td><td>9–10</td></tr>
+              <tr><td>XS</td><td>14 to 15 cm</td><td>Petite</td></tr>
+              <tr><td>S</td><td>15 to 16.5 cm</td><td>Small</td></tr>
+              <tr><td>M</td><td>16.5 to 18 cm</td><td>Most wrists</td></tr>
+              <tr><td>L</td><td>18 to 19.5 cm</td><td>Larger</td></tr>
             </tbody>
           </table>
-          <p class="small muted">Between sizes? Cords are adjustable — size down. Rings — size up.</p>
+          <p class="small muted">Between sizes? Cord styles are adjustable, so size down. Beaded and cuff styles, size up.</p>
         </div>
       </aside>`;
     const mount = document.body.appendChild(document.createElement("div"));
     mount.id = "overlays"; mount.innerHTML = html;
     $("#scrim").addEventListener("click", closeDrawers);
     $$("[data-close-drawer]").forEach((b) => b.addEventListener("click", closeDrawers));
-    $("#checkoutBtn").addEventListener("click", () => toast("Checkout is external — stubbed in this design build.", "info"));
+    $("#checkoutBtn").addEventListener("click", () => toast("Checkout is external, stubbed in this design build.", "info"));
     syncCart();
   }
 
@@ -249,7 +247,7 @@
       foot.hidden = true;
       body.innerHTML = `<div class="empty-state">
         ${svg("cart", "ico")}
-        <div><h3>Your cart is empty</h3><p class="muted mt-2">Pick your signal — Social or Dating — and wear it out.</p></div>
+        <div><h3>Your cart is empty</h3><p class="muted mt-2">Pick your signal, Social or Dating, and wear it out.</p></div>
         <a class="btn btn-primary" href="shop.html" data-close-drawer>Shop Unello</a>
       </div>`;
       body.querySelector("[data-close-drawer]")?.addEventListener("click", closeDrawers);
@@ -335,7 +333,7 @@
         <button class="icon-btn modal-close" data-close-modal aria-label="Close">${svg("close")}</button>
         <div id="waitForm">
           <div class="eyebrow" id="waitKind">Join the waitlist</div>
-          <h2 id="waitTitle" class="mt-2">You're early — we'll hold your spot.</h2>
+          <h2 id="waitTitle" class="mt-2">You're early, we'll hold your spot.</h2>
           <p class="muted mt-2" id="waitSub">Tell us where to reach you. No spam, just the drop.</p>
           <form class="stack mt-5" id="waitlistForm" novalidate>
             <div class="field"><label for="wname">Name <span class="req">*</span></label>
@@ -345,7 +343,7 @@
             <div class="field"><label for="wproduct">Product <span class="req">*</span></label>
               <input class="input" id="wproduct" name="product" readonly></div>
             <div class="field"><label for="wtier">Tier <span class="req">*</span></label>
-              <select class="select" id="wtier" name="tier"><option value="social">Social — Sun</option><option value="dating">Dating — Rose</option></select></div>
+              <select class="select" id="wtier" name="tier"><option value="social">Social, Sun</option><option value="dating">Dating, Rose</option></select></div>
             <button class="btn btn-primary btn-block btn-lg" type="submit" id="waitSubmit">Join the waitlist</button>
           </form>
         </div>
@@ -368,7 +366,7 @@
     $("#waitForm").hidden = false; $("#waitDone").hidden = true;
     const pre = kind === "pre";
     $("#waitKind").textContent = pre ? "Pre-order" : "Join the waitlist";
-    $("#waitTitle").textContent = pre ? "Reserve yours — ships in 3–4 weeks." : "You're early — we'll hold your spot.";
+    $("#waitTitle").textContent = pre ? "Reserve yours, ships in 3 to 4 weeks." : "You're early, we'll hold your spot.";
     $("#waitSub").textContent = pre ? "Pre-order now and you're first in line when it ships." : "Tell us where to reach you. No spam, just the drop.";
     $("#waitSubmit").textContent = pre ? "Pre-order now" : "Join the waitlist";
     $("#waitProduct") || $("#wproduct").setAttribute("value", "");
@@ -476,8 +474,8 @@
       </div>
       <div class="product-body">
         <a href="product.html?id=${p.id}" class="product-title">${p.name}</a>
-        <span class="product-sub">${t.label} · ${t.colorName} · ${p.type}</span>
-        <div class="product-meta"><span class="price">${money(p.price)}</span><span class="tiny mute2">${p.inventory === "in" ? "" : ""}</span></div>
+        <span class="product-sub">${t.label} · ${p.style}</span>
+        <div class="product-meta"><span class="price">${money(p.price)}</span></div>
       </div>
     </article>`;
   };

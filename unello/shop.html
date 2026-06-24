@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Shop — Unello</title>
-  <meta name="description" content="Shop Unello signal bracelets and rings. Social (Sun) for friendship, Dating (Rose) for meeting someone in real life.">
+  <title>Shop, Unello</title>
+  <meta name="description" content="Shop Unello signal bracelets. Social (Sun) for friendship, Dating (Rose) for meeting someone in real life.">
   <link rel="icon" href="assets/img/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
@@ -41,7 +41,7 @@
           <span class="signal lg" data-tier="dating"></span>
           <p class="eyebrow">Rose · Dating</p>
           <h3>Open to meeting someone</h3>
-          <p>Single, and open to it — in real life.</p>
+          <p>Single, and open to it, in real life.</p>
           <span class="tile-cta">Shop Dating <i data-ico="arrow"></i></span>
         </a>
       </div>
@@ -68,13 +68,15 @@
             <label><input type="checkbox" name="tier" value="social"> Social</label>
             <label><input type="checkbox" name="tier" value="dating"> Dating</label>
           </fieldset>
-          <fieldset><legend>Type</legend>
-            <label><input type="checkbox" name="type" value="Bracelet"> Bracelet</label>
-            <label><input type="checkbox" name="type" value="Ring"> Ring</label>
+          <fieldset><legend>Style</legend>
+            <label><input type="checkbox" name="style" value="Cord"> Cord</label>
+            <label><input type="checkbox" name="style" value="Beaded"> Beaded</label>
+            <label><input type="checkbox" name="style" value="Chain"> Chain</label>
+            <label><input type="checkbox" name="style" value="Cuff"> Cuff</label>
           </fieldset>
           <fieldset><legend>Price</legend>
             <label><input type="checkbox" name="price" value="0-45"> Under $45</label>
-            <label><input type="checkbox" name="price" value="45-60"> $45–60</label>
+            <label><input type="checkbox" name="price" value="45-60"> $45 to 60</label>
             <label><input type="checkbox" name="price" value="60-999"> $60+</label>
           </fieldset>
           <fieldset><legend>Availability</legend>
@@ -107,10 +109,10 @@
     function getChecked(name){ return $$(`input[name="${name}"]:checked`).map(i=>i.value); }
     function inPrice(p, ranges){ return ranges.length===0 || ranges.some(r=>{const[a,b]=r.split("-").map(Number); return p.price>=a && p.price<=b;}); }
     function apply(){
-      const tiers=getChecked("tier"), types=getChecked("type"), prices=getChecked("price"), avail=getChecked("avail");
+      const tiers=getChecked("tier"), styles=getChecked("style"), prices=getChecked("price"), avail=getChecked("avail");
       let list = U.products.filter(p=>
         (tiers.length===0||tiers.includes(p.tier)) &&
-        (types.length===0||types.includes(p.type)) &&
+        (styles.length===0||styles.includes(p.style)) &&
         inPrice(p,prices) &&
         (avail.length===0||avail.includes(p.inventory)));
       const sort=$("#sort").value;

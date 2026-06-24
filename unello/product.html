@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Product — Unello</title>
+  <title>Product, Unello</title>
   <meta name="description" content="A Unello signal piece. Wear it. Be seen as open. Say hello.">
   <link rel="icon" href="assets/img/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
@@ -46,7 +46,7 @@
 
       <!-- cross-sell -->
       <section class="section-tight">
-        <h2 class="mb-4">Pair it — complete the set</h2>
+        <h2 class="mb-4">Pair it, complete the set</h2>
         <div class="grid cols-2" id="pairGrid"></div>
       </section>
 
@@ -76,13 +76,13 @@
     let state = p.inventory;      // mock-overridable
     let size = null, qty = 1, mainIdx = 0;
 
-    document.title = `${p.name} — Unello`;
+    document.title = `${p.name}, Unello`;
     $("#main").dataset.tier = p.tier;
     $("#galSignal").dataset.tier = p.tier;
     $("#crumb").innerHTML = `<a href="shop.html">Shop</a> / <a href="collection.html?tier=${p.tier}">${meta.label}</a> / <span>${p.name}</span>`;
 
     // gallery
-    function setMain(i){ mainIdx=i; $("#mainImg").src=U.pimg(p,i,1000,1250); $("#mainImg").alt=`${p.name} — image ${i+1}`;
+    function setMain(i){ mainIdx=i; $("#mainImg").src=U.pimg(p,i,1000,1250); $("#mainImg").alt=`${p.name}, image ${i+1}`;
       $$("#thumbs button").forEach((b,bi)=>b.setAttribute("aria-current", String(bi===i))); }
     $("#thumbs").innerHTML = p.images.map((id,i)=>`<button aria-current="${i===0}" aria-label="Image ${i+1}"><img src="${U.img(id,200,200)}" alt=""></button>`).join("");
     $$("#thumbs button").forEach((b,i)=>b.addEventListener("click",()=>setMain(i)));
@@ -95,19 +95,19 @@
 
       let primary;
       if(out) primary = `<button class="btn btn-secondary btn-block btn-lg" data-waitlist="${p.id}">Join the waitlist</button>`;
-      else if(pre) primary = `<button class="btn btn-tier btn-block btn-lg" data-tier="${p.tier}" data-preorder="${p.id}">Pre-order now — ships in 3–4 weeks</button>`;
+      else if(pre) primary = `<button class="btn btn-tier btn-block btn-lg" data-tier="${p.tier}" data-preorder="${p.id}">Pre-order now, ships in 3 to 4 weeks</button>`;
       else primary = `<button class="btn btn-primary btn-block btn-lg" id="addBtn">Add to Cart</button>
                       <button class="btn btn-secondary btn-block" id="buyNow">Buy Now</button>`;
 
-      const invLine = out ? `Currently sold out — join the waitlist and we'll email you the moment it's back.`
-        : pre ? `Pre-order now. Ships in 3–4 weeks.`
+      const invLine = out ? `Currently sold out, join the waitlist and we'll email you the moment it's back.`
+        : pre ? `Pre-order now. Ships in 3 to 4 weeks.`
         : low ? `Only a few left.`
-        : `In stock. Ships in 1–2 business days.`;
+        : `In stock. Ships in 1 to 2 business days.`;
 
       $("#buyBox").innerHTML = `
         <div class="stack">
           <div class="flex" style="align-items:center;gap:var(--s-3)">
-            <span class="tier-pill" data-tier="${p.tier}"><span class="signal sm" data-tier="${p.tier}"></span>${meta.label} — ${meta.colorName}</span>
+            <span class="tier-pill" data-tier="${p.tier}"><span class="signal sm" data-tier="${p.tier}"></span>${meta.label}, ${meta.colorName}</span>
             ${inv}
           </div>
           <h1 class="h2" style="font-family:var(--font-display)">${p.name}</h1>
@@ -146,9 +146,9 @@
 
       // accordions
       const items = [
-        ["Read the Signal — colour meaning", `<p><strong>${meta.label} is ${meta.colorName}.</strong> ${meta.long}</p><p>People who know the code read it at a glance. That's the whole idea — the colour does the talking so you don't have to.</p>`],
-        ["Sizing", `<p>Bracelets come in XS–L; rings in US 6–10. Not sure? Use <button class="btn-text" data-find-size style="min-height:auto;padding:0;text-decoration:underline">Find my size</button>.</p>`],
-        ["Shipping", `<p>Ships in 1–2 business days. Free over $75. Tracked delivery, ships from the US.</p>`],
+        ["Read the Signal, colour meaning", `<p><strong>${meta.label} is ${meta.colorName}.</strong> ${meta.long}</p><p>People who know the code read it at a glance. That's the whole idea, the colour does the talking so you don't have to.</p>`],
+        ["Sizing", `<p>Bracelets come in XS to L. Cord styles are adjustable. Not sure? Use <button class="btn-text" data-find-size style="min-height:auto;padding:0;text-decoration:underline">Find my size</button>.</p>`],
+        ["Shipping", `<p>Ships in 1 to 2 business days. Free over $75. Tracked delivery, ships from the US.</p>`],
         ["Returns", `<p>30 days, no fuss. If it's not right, send it back for a refund or swap.</p>`],
         ["Materials &amp; care", `<p>${p.material}</p><p>Wipe clean with a soft cloth. Water-friendly, but store dry to keep the signal bright.</p>`],
       ];

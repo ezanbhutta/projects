@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Unello — Make saying hello easier</title>
-  <meta name="description" content="Unello bracelets and rings are quiet signals that you're open to connecting in real life — for friendship, community, and dating.">
+  <title>Unello, Make saying hello easier</title>
+  <meta name="description" content="Unello bracelets are quiet signals that you're open to connecting in real life, for friendship and for dating.">
   <link rel="icon" href="assets/img/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
@@ -24,14 +24,14 @@
         <div class="hero-copy reveal">
           <span class="eyebrow">Wearable social signal · est. 2026</span>
           <h1 class="display-xl balance">Make saying<br>hello easier.</h1>
-          <p class="lead muted maxw-prose">A bracelet or ring that quietly says you're open to connecting in real life — for friendship, community, and dating.</p>
+          <p class="lead maxw-prose">A bracelet that quietly says you're open to connecting in real life. One signal for friendship, one for dating.</p>
           <div class="hero-cta">
             <a class="btn btn-primary btn-lg" href="shop.html">Shop the collection</a>
             <a class="btn-text" href="how-it-works.html">How it works <i data-ico="arrow"></i></a>
           </div>
           <div class="flex flex-wrap gap-3 mt-2">
-            <span class="pill-tag"><span class="signal sm" data-tier="social"></span> Social — Sun</span>
-            <span class="pill-tag"><span class="signal sm" data-tier="dating"></span> Dating — Rose</span>
+            <span class="pill-tag"><span class="signal sm" data-tier="social"></span> Social, Sun</span>
+            <span class="pill-tag"><span class="signal sm" data-tier="dating"></span> Dating, Rose</span>
           </div>
         </div>
         <div class="hero-media reveal">
@@ -57,7 +57,7 @@
         <div class="section-head">
           <span class="eyebrow accent">The code</span>
           <h2 class="balance">Two colours. One quiet language.</h2>
-          <p class="muted maxw-prose">Colour does the talking. A glance tells someone you're open — and which way. Worn by people who know the code.</p>
+          <p class="muted maxw-prose">Colour does the talking. A glance tells someone you're open, and which way. Worn by people who know the code.</p>
         </div>
         <div class="grid cols-2">
           <div class="decode-card reveal" data-tier="social">
@@ -86,7 +86,7 @@
         <div class="ed-copy reveal">
           <span class="eyebrow accent">Everyday fine</span>
           <h2 class="balance">Made to be lived in.</h2>
-          <p class="muted body-lg">Water-friendly, weightless, and quietly beautiful. Pieces you put on once and forget — until someone says hello.</p>
+          <p class="muted body-lg">Water-friendly, weightless, and quietly beautiful. Pieces you put on once and forget, until someone says hello.</p>
           <ul class="stack mt-2" style="gap:var(--s-3)">
             <li class="flex items-center gap-3"><i data-ico="leaf" style="color:var(--ink-soft)"></i> Hypoallergenic, water-safe materials</li>
             <li class="flex items-center gap-3"><i data-ico="box" style="color:var(--ink-soft)"></i> Recycled, plastic-free packaging</li>
@@ -131,8 +131,8 @@
         <div class="ed-media reveal"><div class="frame zoom"><img id="gestureImg" alt="A candid hello in real life"></div></div>
         <div class="ed-copy reveal">
           <span class="eyebrow accent">The whole point</span>
-          <h2 class="balance">Say hello — on your terms.</h2>
-          <p class="muted body-lg">Someone open notices, and a hello happens. No app, no profile, no pressure. Open means available to connect — never available on demand.</p>
+          <h2 class="balance">Say hello, on your terms.</h2>
+          <p class="muted body-lg">Someone open notices, and a hello happens. No app, no profile, no pressure. Open means available to connect, never available on demand.</p>
           <div class="note-control mt-2"><i data-ico="lock"></i><span>You're always in control of who you say hello to. Take it off any time.</span></div>
           <a class="btn-text mt-2" href="how-it-works.html#read-the-signal">Read the signal <i data-ico="arrow"></i></a>
         </div>
@@ -181,10 +181,10 @@
 
     // steps
     const STEPS = [
-      ["tag","Choose","Pick your signal — Sun for friendship, Rose for dating. Bracelet or ring."],
+      ["tag","Choose","Pick your signal. Sun for friendship, Rose for dating, in the style you like."],
       ["hand","Wear","Put it on where it's seen, and head out the door. That's the whole ritual."],
       ["sun","Signal","The colour does the talking. People who know the code read it at a glance."],
-      ["wave","Say hello","Someone open says hi. You're never obligated — just open."],
+      ["wave","Say hello","Someone open says hi. You're never obligated, just open."],
     ];
     document.getElementById("homeSteps").innerHTML = STEPS.map((s,i)=>`
       <div class="step reveal">
