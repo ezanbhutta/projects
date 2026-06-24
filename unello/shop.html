@@ -27,11 +27,20 @@
 
     <section class="section-sm" style="padding-top:0">
       <div class="wrap">
-        <div class="between" style="flex-wrap:wrap">
-          <p class="small faint" id="resultCount" aria-live="polite"></p>
-          <div class="field" style="min-width:190px">
+        <div class="shopbar">
+          <div class="fpills" id="fpills" role="group" aria-label="Filter by style">
+            <button class="fpill" data-value="" aria-pressed="true">All</button>
+            <button class="fpill" data-value="Cord" aria-pressed="false">Cord</button>
+            <button class="fpill" data-value="Beaded" aria-pressed="false">Beaded</button>
+            <button class="fpill" data-value="Chain" aria-pressed="false">Chain</button>
+            <button class="fpill" data-value="Cuff" aria-pressed="false">Cuff</button>
+            <button class="fpill" data-value="Woven" aria-pressed="false">Woven</button>
+            <button class="fpill" data-value="Charm" aria-pressed="false">Charm</button>
+          </div>
+          <div class="sortbar">
+            <span class="small" id="resultCount" aria-live="polite"></span>
             <label class="sr-only" for="sort">Sort</label>
-            <select class="select" id="sort">
+            <select class="sort-select" id="sort">
               <option value="featured">Featured</option>
               <option value="price-asc">Price: low to high</option>
               <option value="price-desc">Price: high to low</option>
@@ -39,32 +48,10 @@
           </div>
         </div>
 
-        <form class="filters" id="filters" aria-label="Filter products">
-          <fieldset><legend>Style</legend>
-            <label><input type="checkbox" name="style" value="Cord"> Cord</label>
-            <label><input type="checkbox" name="style" value="Beaded"> Beaded</label>
-            <label><input type="checkbox" name="style" value="Chain"> Chain</label>
-            <label><input type="checkbox" name="style" value="Cuff"> Cuff</label>
-            <label><input type="checkbox" name="style" value="Woven"> Woven</label>
-            <label><input type="checkbox" name="style" value="Charm"> Charm</label>
-          </fieldset>
-          <fieldset><legend>Price</legend>
-            <label><input type="checkbox" name="price" value="0-45"> Under $45</label>
-            <label><input type="checkbox" name="price" value="45-60"> $45 to 60</label>
-            <label><input type="checkbox" name="price" value="60-999"> $60+</label>
-          </fieldset>
-          <fieldset><legend>Availability</legend>
-            <label><input type="checkbox" name="avail" value="in"> In stock</label>
-            <label><input type="checkbox" name="avail" value="pre"> Pre-order</label>
-          </fieldset>
-          <button type="button" class="ulink" id="clearFilters">Clear all</button>
-        </form>
-
-        <div class="grid cols-3 mt-6" id="grid" style="gap:var(--s-5)"></div>
+        <div class="grid cols-3 mt-7" id="grid" style="gap:var(--s-5)"></div>
         <div class="empty-state hide" id="empty">
           <i data-ico="search"></i>
-          <div><h3>Nothing matches those filters</h3><p class="muted mt-2">Try clearing one.</p></div>
-          <button class="btn btn-outline" id="emptyClear">Clear filters</button>
+          <div><h3>Nothing here yet</h3><p class="muted mt-2">Try another style.</p></div>
         </div>
       </div>
     </section>
@@ -76,15 +63,10 @@
   <script src="assets/js/app.js"></script>
   <script>
     const U = window.UNELLO, $ = (s)=>document.querySelector(s), $$=(s)=>Array.from(document.querySelectorAll(s));
-    const grid = $("#grid"), empty = $("#empty"), form = $("#filters");
-    const checked = (n)=>$$(`input[name="${n}"]:checked`).map(i=>i.value);
-    const inPrice = (p,r)=> r.length===0 || r.some(x=>{const[a,b]=x.split("-").map(Number); return p.price>=a&&p.price<=b;});
+    const grid = $("#grid"), empty = $("#empty");
+    let style = "";
     function apply(){
-      const styles=checked("style"), prices=checked("price"), avail=checked("avail");
-      let list = U.products.filter(p=>
-        (styles.length===0||styles.includes(p.style)) &&
-        inPrice(p,prices) &&
-        (avail.length===0||avail.includes(p.inventory)));
+      let list = U.products.filter(p => !style || p.style===style);
       const s=$("#sort").value;
       if(s==="price-asc") list.sort((a,b)=>a.price-b.price);
       else if(s==="price-desc") list.sort((a,b)=>b.price-a.price);
@@ -93,10 +75,12 @@
       empty.classList.toggle("hide", list.length>0);
       grid.classList.toggle("hide", list.length===0);
     }
-    form.addEventListener("change", apply);
+    $$("#fpills .fpill").forEach(b=>b.addEventListener("click",()=>{
+      style = b.dataset.value;
+      $$("#fpills .fpill").forEach(x=>x.setAttribute("aria-pressed", String(x===b)));
+      apply();
+    }));
     $("#sort").addEventListener("change", apply);
-    $("#clearFilters").addEventListener("click", ()=>{ form.reset(); apply(); });
-    $("#emptyClear").addEventListener("click", ()=>{ form.reset(); apply(); });
     apply();
     U.hydrateIcons(document);
   </script>

@@ -385,6 +385,16 @@ h3,.h3{ font-size:clamp(18px,1.6vw,21px); font-weight:500; letter-spacing:-.01em
 .legal-toc{ display:flex; flex-wrap:wrap; gap:var(--s-2); margin-bottom:var(--s-7); }
 .legal-toc a{ padding:8px 14px; border:1px solid var(--line); border-radius:var(--r-pill); font-size:13px; color:var(--muted); }
 .legal-toc a[aria-current="page"],.legal-toc a:hover{ border-color:var(--ink); color:var(--ink); }
+/* modern filter bar */
+.shopbar{ display:flex; align-items:center; justify-content:space-between; gap:var(--s-4); flex-wrap:wrap; padding-block:var(--s-4); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+.fpills{ display:flex; flex-wrap:wrap; gap:8px; }
+.fpill{ padding:9px 17px; border:1px solid var(--line); border-radius:var(--r-pill); background:transparent; cursor:pointer; font-size:13.5px; color:var(--muted); transition:background var(--t-fast),color var(--t-fast),border-color var(--t-fast); }
+.fpill:hover{ border-color:var(--ink); color:var(--ink); }
+.fpill[aria-pressed="true"]{ background:var(--ink); color:#fff; border-color:var(--ink); }
+.sortbar{ display:flex; align-items:center; gap:var(--s-3); }
+.sortbar .small{ color:var(--faint); white-space:nowrap; }
+.sort-select{ min-height:42px; padding:0 var(--s-4); border:1px solid var(--line); border-radius:var(--r-pill); background:var(--surface); font-size:13.5px; cursor:pointer; }
+
 .filters{ display:flex; flex-wrap:wrap; gap:var(--s-6); align-items:flex-start; padding:var(--s-5) 0; border-block:1px solid var(--line); }
 .filters fieldset{ border:0; padding:0; display:flex; flex-direction:column; gap:9px; }
 .filters legend{ font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--faint); font-weight:500; margin-bottom:7px; }
@@ -439,7 +449,7 @@ UNELLO.img = function (id, w, h) {
 
 /* curated, verified photo IDs */
 const P = {
-  heroFriends: "photo-1511632765486-a01980e01a18", // friends at sunset, warm
+  heroFriends: "photo-1555817129-2fa6b81bd8e5",     // friends laughing together (preferred hero)
   friendsOut:  "photo-1758613171760-f0844a4bc1d5",  // two friends outdoors
   latteWrist:  "photo-1644945591077-00b4ac750421",  // bracelet + latte, lifestyle
   handBracelet:"photo-1621341103818-01dada8c6ef8",  // clean hand + bracelet
@@ -1028,20 +1038,15 @@ try{
 }
   },
   "shop": {
-    markup: "<main id=\"main\">\n    <section class=\"section-sm\">\n      <div class=\"wrap\">\n        <p class=\"kicker red\">The collection</p>\n        <h1 class=\"display mt-3\" style=\"font-size:clamp(40px,7vw,88px)\">Bracelets</h1>\n        <p class=\"lead maxw-prose mt-4\">Six ways to wear the same idea. Choose the one that feels like you, then wear it where it's seen.</p>\n      </div>\n    </section>\n\n    <section class=\"section-sm\" style=\"padding-top:0\">\n      <div class=\"wrap\">\n        <div class=\"between\" style=\"flex-wrap:wrap\">\n          <p class=\"small faint\" id=\"resultCount\" aria-live=\"polite\"></p>\n          <div class=\"field\" style=\"min-width:190px\">\n            <label class=\"sr-only\" for=\"sort\">Sort</label>\n            <select class=\"select\" id=\"sort\">\n              <option value=\"featured\">Featured</option>\n              <option value=\"price-asc\">Price: low to high</option>\n              <option value=\"price-desc\">Price: high to low</option>\n            </select>\n          </div>\n        </div>\n\n        <form class=\"filters\" id=\"filters\" aria-label=\"Filter products\">\n          <fieldset><legend>Style</legend>\n            <label><input type=\"checkbox\" name=\"style\" value=\"Cord\"> Cord</label>\n            <label><input type=\"checkbox\" name=\"style\" value=\"Beaded\"> Beaded</label>\n            <label><input type=\"checkbox\" name=\"style\" value=\"Chain\"> Chain</label>\n            <label><input type=\"checkbox\" name=\"style\" value=\"Cuff\"> Cuff</label>\n            <label><input type=\"checkbox\" name=\"style\" value=\"Woven\"> Woven</label>\n            <label><input type=\"checkbox\" name=\"style\" value=\"Charm\"> Charm</label>\n          </fieldset>\n          <fieldset><legend>Price</legend>\n            <label><input type=\"checkbox\" name=\"price\" value=\"0-45\"> Under $45</label>\n            <label><input type=\"checkbox\" name=\"price\" value=\"45-60\"> $45 to 60</label>\n            <label><input type=\"checkbox\" name=\"price\" value=\"60-999\"> $60+</label>\n          </fieldset>\n          <fieldset><legend>Availability</legend>\n            <label><input type=\"checkbox\" name=\"avail\" value=\"in\"> In stock</label>\n            <label><input type=\"checkbox\" name=\"avail\" value=\"pre\"> Pre-order</label>\n          </fieldset>\n          <button type=\"button\" class=\"ulink\" id=\"clearFilters\">Clear all</button>\n        </form>\n\n        <div class=\"grid cols-3 mt-6\" id=\"grid\" style=\"gap:var(--s-5)\"></div>\n        <div class=\"empty-state hide\" id=\"empty\">\n          <i data-ico=\"search\"></i>\n          <div><h3>Nothing matches those filters</h3><p class=\"muted mt-2\">Try clearing one.</p></div>\n          <button class=\"btn btn-outline\" id=\"emptyClear\">Clear filters</button>\n        </div>\n      </div>\n    </section>\n  </main>",
+    markup: "<main id=\"main\">\n    <section class=\"section-sm\">\n      <div class=\"wrap\">\n        <p class=\"kicker red\">The collection</p>\n        <h1 class=\"display mt-3\" style=\"font-size:clamp(40px,7vw,88px)\">Bracelets</h1>\n        <p class=\"lead maxw-prose mt-4\">Six ways to wear the same idea. Choose the one that feels like you, then wear it where it's seen.</p>\n      </div>\n    </section>\n\n    <section class=\"section-sm\" style=\"padding-top:0\">\n      <div class=\"wrap\">\n        <div class=\"shopbar\">\n          <div class=\"fpills\" id=\"fpills\" role=\"group\" aria-label=\"Filter by style\">\n            <button class=\"fpill\" data-value=\"\" aria-pressed=\"true\">All</button>\n            <button class=\"fpill\" data-value=\"Cord\" aria-pressed=\"false\">Cord</button>\n            <button class=\"fpill\" data-value=\"Beaded\" aria-pressed=\"false\">Beaded</button>\n            <button class=\"fpill\" data-value=\"Chain\" aria-pressed=\"false\">Chain</button>\n            <button class=\"fpill\" data-value=\"Cuff\" aria-pressed=\"false\">Cuff</button>\n            <button class=\"fpill\" data-value=\"Woven\" aria-pressed=\"false\">Woven</button>\n            <button class=\"fpill\" data-value=\"Charm\" aria-pressed=\"false\">Charm</button>\n          </div>\n          <div class=\"sortbar\">\n            <span class=\"small\" id=\"resultCount\" aria-live=\"polite\"></span>\n            <label class=\"sr-only\" for=\"sort\">Sort</label>\n            <select class=\"sort-select\" id=\"sort\">\n              <option value=\"featured\">Featured</option>\n              <option value=\"price-asc\">Price: low to high</option>\n              <option value=\"price-desc\">Price: high to low</option>\n            </select>\n          </div>\n        </div>\n\n        <div class=\"grid cols-3 mt-7\" id=\"grid\" style=\"gap:var(--s-5)\"></div>\n        <div class=\"empty-state hide\" id=\"empty\">\n          <i data-ico=\"search\"></i>\n          <div><h3>Nothing here yet</h3><p class=\"muted mt-2\">Try another style.</p></div>\n        </div>\n      </div>\n    </section>\n  </main>",
     render: function(){
 try{
 
     const U = window.UNELLO, $ = (s)=>document.querySelector(s), $$=(s)=>Array.from(document.querySelectorAll(s));
-    const grid = $("#grid"), empty = $("#empty"), form = $("#filters");
-    const checked = (n)=>$$(`input[name="${n}"]:checked`).map(i=>i.value);
-    const inPrice = (p,r)=> r.length===0 || r.some(x=>{const[a,b]=x.split("-").map(Number); return p.price>=a&&p.price<=b;});
+    const grid = $("#grid"), empty = $("#empty");
+    let style = "";
     function apply(){
-      const styles=checked("style"), prices=checked("price"), avail=checked("avail");
-      let list = U.products.filter(p=>
-        (styles.length===0||styles.includes(p.style)) &&
-        inPrice(p,prices) &&
-        (avail.length===0||avail.includes(p.inventory)));
+      let list = U.products.filter(p => !style || p.style===style);
       const s=$("#sort").value;
       if(s==="price-asc") list.sort((a,b)=>a.price-b.price);
       else if(s==="price-desc") list.sort((a,b)=>b.price-a.price);
@@ -1050,10 +1055,12 @@ try{
       empty.classList.toggle("hide", list.length>0);
       grid.classList.toggle("hide", list.length===0);
     }
-    form.addEventListener("change", apply);
+    $$("#fpills .fpill").forEach(b=>b.addEventListener("click",()=>{
+      style = b.dataset.value;
+      $$("#fpills .fpill").forEach(x=>x.setAttribute("aria-pressed", String(x===b)));
+      apply();
+    }));
     $("#sort").addEventListener("change", apply);
-    $("#clearFilters").addEventListener("click", ()=>{ form.reset(); apply(); });
-    $("#emptyClear").addEventListener("click", ()=>{ form.reset(); apply(); });
     apply();
     U.hydrateIcons(document);
   

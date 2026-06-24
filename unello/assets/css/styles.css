@@ -372,6 +372,16 @@ h3,.h3{ font-size:clamp(18px,1.6vw,21px); font-weight:500; letter-spacing:-.01em
 .legal-toc{ display:flex; flex-wrap:wrap; gap:var(--s-2); margin-bottom:var(--s-7); }
 .legal-toc a{ padding:8px 14px; border:1px solid var(--line); border-radius:var(--r-pill); font-size:13px; color:var(--muted); }
 .legal-toc a[aria-current="page"],.legal-toc a:hover{ border-color:var(--ink); color:var(--ink); }
+/* modern filter bar */
+.shopbar{ display:flex; align-items:center; justify-content:space-between; gap:var(--s-4); flex-wrap:wrap; padding-block:var(--s-4); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+.fpills{ display:flex; flex-wrap:wrap; gap:8px; }
+.fpill{ padding:9px 17px; border:1px solid var(--line); border-radius:var(--r-pill); background:transparent; cursor:pointer; font-size:13.5px; color:var(--muted); transition:background var(--t-fast),color var(--t-fast),border-color var(--t-fast); }
+.fpill:hover{ border-color:var(--ink); color:var(--ink); }
+.fpill[aria-pressed="true"]{ background:var(--ink); color:#fff; border-color:var(--ink); }
+.sortbar{ display:flex; align-items:center; gap:var(--s-3); }
+.sortbar .small{ color:var(--faint); white-space:nowrap; }
+.sort-select{ min-height:42px; padding:0 var(--s-4); border:1px solid var(--line); border-radius:var(--r-pill); background:var(--surface); font-size:13.5px; cursor:pointer; }
+
 .filters{ display:flex; flex-wrap:wrap; gap:var(--s-6); align-items:flex-start; padding:var(--s-5) 0; border-block:1px solid var(--line); }
 .filters fieldset{ border:0; padding:0; display:flex; flex-direction:column; gap:9px; }
 .filters legend{ font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--faint); font-weight:500; margin-bottom:7px; }

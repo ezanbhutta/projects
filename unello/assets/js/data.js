@@ -13,7 +13,7 @@ UNELLO.img = function (id, w, h) {
 
 /* curated, verified photo IDs */
 const P = {
-  heroFriends: "photo-1511632765486-a01980e01a18", // friends at sunset, warm
+  heroFriends: "photo-1555817129-2fa6b81bd8e5",     // friends laughing together (preferred hero)
   friendsOut:  "photo-1758613171760-f0844a4bc1d5",  // two friends outdoors
   latteWrist:  "photo-1644945591077-00b4ac750421",  // bracelet + latte, lifestyle
   handBracelet:"photo-1621341103818-01dada8c6ef8",  // clean hand + bracelet
