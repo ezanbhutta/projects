@@ -1,5 +1,13 @@
 # Unello — UI/UX Design Build
 
+> **v2 — "Quiet Signal".** Reworked into a minimal, editorial, timeless system
+> (inspired by the calm of Mejuri, pushed further): warm-white canvas, ink type,
+> a single crimson accent (**#E4002B**, the brand red), **Fraunces × Inter**
+> typography, full-bleed real photography, and generous negative space. Uses the
+> client's **exact interlocking-heart logo** (vectorised from the supplied `.ai`
+> and embedded) and **real curated Unsplash photography** throughout.
+
+
 A high-fidelity, static front-end implementing the **Unello "Open Signal"** design
 system from `Unello_UI_UX_Design_Spec_FINAL.md`. This is the **design source-of-truth
 and approval artifact** — every page in §5 and every state in §6 of the spec, built

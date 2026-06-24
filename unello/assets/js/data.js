@@ -1,9 +1,48 @@
 /* =====================================================================
-   UNELLO — Data layer (in-memory; no localStorage per build directive)
-   Products, copy, and SVG placeholder imagery generator.
+   UNELLO — Data layer (in-memory; no localStorage)
+   Real photography via Unsplash CDN (verified IDs) + product catalogue.
    ===================================================================== */
-
 window.UNELLO = window.UNELLO || {};
+
+/* ---- Image helper: responsive Unsplash URL ------------------------ */
+UNELLO.img = function (id, w, h, focus) {
+  let u = "https://images.unsplash.com/" + id + "?auto=format&fit=crop&w=" + (w || 1200) + "&q=80";
+  if (h) u += "&h=" + h;
+  if (focus) u += "&crop=" + focus;
+  return u;
+};
+
+/* ---- Curated, verified photo IDs (role-mapped) -------------------- */
+const P = {
+  heroPortrait: "photo-1598218940656-7126545fd283", // refined earring portrait
+  everydayCuffs: "photo-1740567389909-b36e9cadbef9", // two clean gold cuffs
+  warmModel:    "photo-1756355201570-4437a6e34717",  // warm gold necklace
+  modernModel:  "photo-1756355202062-cf9eb87f5250",  // sunglasses, modern
+  gesture:      "photo-1762890815740-4cb1376e8df3",   // hand to ear — "say hi"
+  portraitNeck: "photo-1673279495269-bc0d925c0612",  // statement necklace
+  founder:      "photo-1613966561243-c6959a886009",  // editorial, hand to face
+  datingNeck:   "photo-1616837874254-8d5aaa63e273",  // intimate necklace, blazer
+  hoopModel:    "photo-1756355201130-3692200da782",  // gold hoop editorial
+  bwModel:      "photo-1777817117637-27c6b1559536",  // b&w model
+  flatlay:      "photo-1686575131650-e02f84970212",  // books + jewelry
+  greenery:     "photo-1628453208660-b0dd0daac755",  // bracelet, plant
+};
+UNELLO.P = P;
+
+/* role images used across editorial sections */
+UNELLO.IMG = {
+  hero: P.heroPortrait, everyday: P.everydayCuffs, warm: P.warmModel,
+  modern: P.modernModel, gesture: P.gesture, portrait: P.portraitNeck,
+  founder: P.founder, datingNeck: P.datingNeck, hoop: P.hoopModel,
+  bw: P.bwModel, flatlay: P.flatlay, greenery: P.greenery,
+};
+
+/* lookbook / community grid */
+UNELLO.lookbook = [
+  "photo-1756355201130-3692200da782", "photo-1756355201570-4437a6e34717",
+  "photo-1756355202062-cf9eb87f5250", "photo-1762890815740-4cb1376e8df3",
+  "photo-1673279495269-bc0d925c0612", "photo-1777817117637-27c6b1559536",
+];
 
 /* ---- Tier meta ---------------------------------------------------- */
 UNELLO.tiers = {
@@ -11,105 +50,57 @@ UNELLO.tiers = {
     key: "social", label: "Social", colorName: "Sun",
     meaning: "Open to friendship, conversation, and community.",
     long: "A Sun signal says you're up for a chat — new friends, a hello at the café, community over isolation.",
+    image: P.gesture,
   },
   dating: {
     key: "dating", label: "Dating", colorName: "Rose",
     meaning: "Single and open to meeting someone in real life.",
     long: "A Rose signal says you're single and open to meeting someone in person. Open doesn't mean obligated — you're always in control.",
+    image: P.datingNeck,
   },
 };
 
-/* ---- Placeholder imagery -----------------------------------------
-   Warm, on-brand SVG placeholders. Lifestyle variants render a hand/
-   wrist with the signal visible (spec §2.5). Returns a data-URI.       */
-UNELLO.ph = function (opts) {
-  const o = Object.assign({ w: 800, h: 1000, tier: "social", kind: "product", label: "" }, opts);
-  const tint = o.tier === "dating" ? "#FFE0E4" : "#FDEFD9";
-  const tint2 = o.tier === "dating" ? "#FFC9D0" : "#FBE0B4";
-  const sig = o.tier === "dating" ? "#FF5A6E" : "#F59E2C";
-  let body = "";
-
-  if (o.kind === "lifestyle") {
-    // abstract warm scene + wrist + visible signal dot
-    body = `
-      <rect width="100%" height="100%" fill="url(#g)"/>
-      <circle cx="${o.w*0.5}" cy="${o.h*0.32}" r="${o.w*0.22}" fill="#FFFFFF" opacity=".35"/>
-      <path d="M${o.w*0.12} ${o.h*0.78} q ${o.w*0.2} -${o.h*0.18} ${o.w*0.42} -${o.h*0.05}
-               q ${o.w*0.18} ${o.h*0.1} ${o.w*0.36} ${o.h*0.02} l0 ${o.h*0.4} l-${o.w} 0 z"
-            fill="#E8B98E" opacity=".55"/>
-      <rect x="${o.w*0.42}" y="${o.h*0.55}" width="${o.w*0.16}" height="${o.h*0.06}" rx="${o.h*0.03}" fill="${sig}" opacity=".9"/>
-      <circle cx="${o.w*0.5}" cy="${o.h*0.58}" r="${o.w*0.045}" fill="#FFFFFF"/>
-      <circle cx="${o.w*0.5}" cy="${o.h*0.58}" r="${o.w*0.028}" fill="${sig}"/>
-    `;
-  } else if (o.kind === "macro") {
-    body = `
-      <rect width="100%" height="100%" fill="#FCFBF8"/>
-      <circle cx="${o.w*0.5}" cy="${o.h*0.5}" r="${o.w*0.3}" fill="none" stroke="${tint2}" stroke-width="${o.w*0.05}"/>
-      <circle cx="${o.w*0.5}" cy="${o.h*0.5}" r="${o.w*0.12}" fill="${sig}"/>
-      <circle cx="${o.w*0.5}" cy="${o.h*0.5}" r="${o.w*0.12}" fill="none" stroke="#FFFFFF" stroke-width="2" opacity=".6"/>
-    `;
-  } else { // product
-    body = `
-      <rect width="100%" height="100%" fill="url(#g)"/>
-      <circle cx="${o.w*0.5}" cy="${o.h*0.46}" r="${o.w*0.27}" fill="none" stroke="#FFFFFF" stroke-width="${o.w*0.055}" opacity=".75"/>
-      <circle cx="${o.w*0.5}" cy="${o.h*0.46}" r="${o.w*0.1}" fill="${sig}"/>
-      <circle cx="${o.w*0.5}" cy="${o.h*0.46}" r="${o.w*0.16}" fill="none" stroke="${sig}" stroke-width="2" opacity=".5"/>
-    `;
-  }
-
-  const txt = o.label
-    ? `<text x="50%" y="${o.h - 26}" text-anchor="middle" font-family="Inter,sans-serif" font-size="${Math.round(o.w*0.035)}" fill="#181410" opacity=".4">${o.label}</text>`
-    : "";
-
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${o.w}" height="${o.h}" viewBox="0 0 ${o.w} ${o.h}">
-    <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="${tint}"/><stop offset="1" stop-color="${tint2}"/>
-    </linearGradient></defs>${body}${txt}</svg>`;
-  return "data:image/svg+xml;utf8," + encodeURIComponent(svg);
-};
-
 /* ---- Products ----------------------------------------------------- */
-/* inventory: in | low | out | pre  (PDP can override via mock toggle) */
+/* images = [main, lifestyle, macro/detail, alt] photo IDs            */
 UNELLO.products = [
-  // Social
+  // Social — Sun
   { id: "sun-cord", name: "Sun Cord Bracelet", tier: "social", type: "Bracelet", price: 38, inventory: "in",
-    blurb: "Woven cord with the Sun signal bead. Everyday, water-friendly.",
-    material: "Waxed cotton cord, brass-tone signal bead. Adjustable.", sizes: ["XS","S","M","L"] },
+    blurb: "A fine woven cord carrying the Sun signal. Light enough to forget you're wearing it.",
+    material: "Waxed cotton cord, 14k-gold-fill signal bead. Adjustable slider.", sizes: ["XS","S","M","L"],
+    images: ["photo-1744472457504-f99a96ecbd3e","photo-1628453208660-b0dd0daac755","photo-1623279743107-152e86999257","photo-1642609881636-f8f67f770c0c"] },
   { id: "sun-band", name: "Sun Band Bracelet", tier: "social", type: "Bracelet", price: 46, inventory: "low",
-    blurb: "Soft silicone band — comfortable for all-day, all-summer wear.",
-    material: "Medical-grade silicone, enamel signal inlay.", sizes: ["S","M","L"] },
+    blurb: "A soft, sculptural band in the Sun signal — made for all-day, every-day.",
+    material: "Hand-finished silicone, enamel signal inlay.", sizes: ["S","M","L"],
+    images: ["photo-1625792508553-5e66a81659fa","photo-1741071520895-47d81779c11e","photo-1625792508272-bc6ad2788b14","photo-1686575131650-e02f84970212"] },
   { id: "sun-ring", name: "Sun Signal Ring", tier: "social", type: "Ring", price: 52, inventory: "in",
-    blurb: "A clean band with a single warm Sun dot. Subtle, readable.",
-    material: "Stainless steel, hot-enamel signal dot.", sizes: ["6","7","8","9","10"] },
+    blurb: "A quiet band with a single warm Sun dot. Subtle, readable, yours.",
+    material: "Solid stainless steel, hot-enamel signal dot.", sizes: ["6","7","8","9","10"],
+    images: ["photo-1705854937134-dd130d90df5d","photo-1731406322274-fb018de6fa97","photo-1610489800994-1330ea56e30f","photo-1623251209756-e7a6fad1cf94"] },
   { id: "sun-chain", name: "Sun Chain Bracelet", tier: "social", type: "Bracelet", price: 64, inventory: "pre",
-    blurb: "Fine chain with the Sun token charm. A little more dressed up.",
-    material: "18k gold-plate over brass.", sizes: ["S","M","L"] },
+    blurb: "A fine link chain with the Sun token. A little more dressed up.",
+    material: "14k gold-fill over brass, lobster clasp.", sizes: ["S","M","L"],
+    images: ["photo-1703034390242-1174e133db0a","photo-1728647771933-9946a13e29f6","photo-1725114073768-b437fb81e26c","photo-1628453208660-b0dd0daac755"] },
 
-  // Dating
+  // Dating — Rose
   { id: "rose-cord", name: "Rose Cord Bracelet", tier: "dating", type: "Bracelet", price: 38, inventory: "in",
-    blurb: "Woven cord with the Rose signal bead. Single and open — quietly.",
-    material: "Waxed cotton cord, rose-enamel signal bead. Adjustable.", sizes: ["XS","S","M","L"] },
+    blurb: "The woven cord in the Rose signal. Single and open — quietly said.",
+    material: "Waxed cotton cord, rose-enamel signal bead. Adjustable slider.", sizes: ["XS","S","M","L"],
+    images: ["photo-1655707063092-5c4509de41b8","photo-1633810543462-77c4a3b13f07","photo-1625792508553-5e66a81659fa","photo-1642609881636-f8f67f770c0c"] },
   { id: "rose-band", name: "Rose Band Bracelet", tier: "dating", type: "Bracelet", price: 46, inventory: "in",
-    blurb: "Soft silicone band in the Rose signal. Wear it where it's seen.",
-    material: "Medical-grade silicone, enamel signal inlay.", sizes: ["S","M","L"] },
+    blurb: "The sculptural band in the Rose signal. Wear it where it's seen.",
+    material: "Hand-finished silicone, enamel signal inlay.", sizes: ["S","M","L"],
+    images: ["photo-1655707063513-a08dad26440e","photo-1721206624468-2b3496c3bcfc","photo-1625792508272-bc6ad2788b14","photo-1686575131650-e02f84970212"] },
   { id: "rose-ring", name: "Rose Signal Ring", tier: "dating", type: "Ring", price: 52, inventory: "out",
     blurb: "A clean band with a single Rose dot. Open doesn't mean obligated.",
-    material: "Stainless steel, hot-enamel signal dot.", sizes: ["6","7","8","9","10"] },
+    material: "Solid stainless steel, hot-enamel signal dot.", sizes: ["6","7","8","9","10"],
+    images: ["photo-1706196612848-0cd22cb6231e","photo-1643387774657-01bffa461627","photo-1610489800994-1330ea56e30f","photo-1623251209756-e7a6fad1cf94"] },
   { id: "rose-chain", name: "Rose Chain Bracelet", tier: "dating", type: "Bracelet", price: 64, inventory: "low",
-    blurb: "Fine chain with the Rose token charm. For when you're out, out.",
-    material: "18k gold-plate over brass.", sizes: ["S","M","L"] },
+    blurb: "The fine link chain with the Rose token. For when you're out, out.",
+    material: "14k gold-fill over brass, lobster clasp.", sizes: ["S","M","L"],
+    images: ["photo-1725114073768-b437fb81e26c","photo-1777126413468-4049400fe441","photo-1703034390242-1174e133db0a","photo-1628453208660-b0dd0daac755"] },
 ];
-
-/* attach generated imagery */
-UNELLO.products.forEach((p, i) => {
-  p.images = [
-    UNELLO.ph({ tier: p.tier, kind: "product",   label: p.name }),
-    UNELLO.ph({ tier: p.tier, kind: "lifestyle", label: "the signal, in context" }),
-    UNELLO.ph({ tier: p.tier, kind: "macro",     label: "macro" }),
-    UNELLO.ph({ tier: p.tier, kind: "product",   w: 800, h: 1000, label: "on paper" }),
-    UNELLO.ph({ tier: p.tier, kind: "lifestyle", label: "worn" }),
-  ];
-});
 
 UNELLO.getProduct = (id) => UNELLO.products.find((p) => p.id === id);
 UNELLO.byTier = (t) => UNELLO.products.filter((p) => p.tier === t);
+/* product image at size */
+UNELLO.pimg = (p, i, w, h) => UNELLO.img(p.images[i] || p.images[0], w || 800, h || 1000);

@@ -5,10 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Shop — Unello</title>
   <meta name="description" content="Shop Unello signal bracelets and rings. Social (Sun) for friendship, Dating (Rose) for meeting someone in real life.">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='8' fill='%23FF5A6E'/%3E%3C/svg%3E">
+  <link rel="icon" href="assets/img/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
@@ -17,10 +18,10 @@
 
   <main id="main">
     <section class="section-tight">
-      <div class="wrap stack">
-        <span class="eyebrow">Shop</span>
-        <h1 class="display-l balance">Pick your signal.</h1>
-        <p class="body-lg muted maxw-prose">Two tiers, one simple code. Choose Social to be open to friendship and community, or Dating to be open to meeting someone in real life.</p>
+      <div class="wrap">
+        <span class="eyebrow accent">Shop</span>
+        <h1 class="display-l balance mt-2">Pick your signal.</h1>
+        <p class="body-lg muted maxw-prose mt-3">Two tiers, one quiet code. Choose Social to be open to friendship and community, or Dating to be open to meeting someone in real life.</p>
       </div>
     </section>
 
@@ -28,16 +29,20 @@
     <section class="section-tight">
       <div class="wrap grid cols-2">
         <a class="tile" data-tier="social" href="collection.html?tier=social">
+          <img id="tileSocial" alt="Social collection">
           <span class="signal lg" data-tier="social"></span>
-          <h3>Social — Sun</h3>
-          <p class="text-tier">Open to friendship, conversation, and community.</p>
-          <span class="tile-arrow">Shop Social <i data-ico="arrow"></i></span>
+          <p class="eyebrow">Sun · Social</p>
+          <h3>Open to friendship</h3>
+          <p>Conversation, community, new friends.</p>
+          <span class="tile-cta">Shop Social <i data-ico="arrow"></i></span>
         </a>
         <a class="tile" data-tier="dating" href="collection.html?tier=dating">
+          <img id="tileDating" alt="Dating collection">
           <span class="signal lg" data-tier="dating"></span>
-          <h3>Dating — Rose</h3>
-          <p class="text-tier">Single and open to meeting someone in real life.</p>
-          <span class="tile-arrow">Shop Dating <i data-ico="arrow"></i></span>
+          <p class="eyebrow">Rose · Dating</p>
+          <h3>Open to meeting someone</h3>
+          <p>Single, and open to it — in real life.</p>
+          <span class="tile-cta">Shop Dating <i data-ico="arrow"></i></span>
         </a>
       </div>
     </section>
@@ -45,9 +50,9 @@
     <!-- all products + filters -->
     <section class="section-tight">
       <div class="wrap">
-        <div class="section-head with-link" style="align-items:center">
+        <div class="section-head row" style="margin-bottom:var(--s-4)">
           <h2>All pieces</h2>
-          <div class="field" style="min-width:180px">
+          <div class="field" style="min-width:190px">
             <label class="sr-only" for="sort">Sort</label>
             <select class="select" id="sort">
               <option value="featured">Featured</option>
@@ -76,10 +81,10 @@
             <label><input type="checkbox" name="avail" value="in"> In stock</label>
             <label><input type="checkbox" name="avail" value="pre"> Pre-order</label>
           </fieldset>
-          <button type="button" class="btn btn-text" id="clearFilters">Clear all</button>
+          <button type="button" class="btn-text" id="clearFilters">Clear all</button>
         </form>
 
-        <p class="small muted mt-4" id="resultCount" aria-live="polite"></p>
+        <p class="small mute2 mt-4" id="resultCount" aria-live="polite"></p>
         <div class="grid cols-4 mt-4" id="grid"></div>
         <div class="empty-state hide" id="empty">
           <i data-ico="search"></i>
@@ -92,9 +97,12 @@
 
   <div id="footer"></div>
   <script src="assets/js/data.js"></script>
+  <script src="assets/js/brand.js"></script>
   <script src="assets/js/app.js"></script>
   <script>
     const U = window.UNELLO, $ = (s)=>document.querySelector(s), $$=(s)=>Array.from(document.querySelectorAll(s));
+    $("#tileSocial").src = U.img(U.tiers.social.image, 900, 1100);
+    $("#tileDating").src = U.img(U.tiers.dating.image, 900, 1100);
     const grid = $("#grid"), empty = $("#empty"), form = $("#filters");
     function getChecked(name){ return $$(`input[name="${name}"]:checked`).map(i=>i.value); }
     function inPrice(p, ranges){ return ranges.length===0 || ranges.some(r=>{const[a,b]=r.split("-").map(Number); return p.price>=a && p.price<=b;}); }
@@ -119,10 +127,10 @@
     $("#sort").addEventListener("change", apply);
     $("#clearFilters").addEventListener("click", ()=>{ form.reset(); apply(); });
     $("#emptyClear").addEventListener("click", ()=>{ form.reset(); apply(); });
-    // preselect tier from URL ?tier=
     const t = new URLSearchParams(location.search).get("tier");
     if(t){ const cb=$(`input[name="tier"][value="${t}"]`); if(cb) cb.checked=true; }
     apply();
+    U.hydrateIcons(document);
   </script>
 </body>
 </html>

@@ -44,15 +44,17 @@
   }
   U.svg = svg;
 
-  /* brand mark — interlocking links forming a heart (Unity + Hello) */
-  /* two interlocking links tilted into a heart (Unity + Hello) */
-  const MARK = `<svg class="brand-mark" viewBox="0 0 64 56" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-      <rect x="-13" y="-19" width="26" height="38" rx="13" transform="translate(25 25) rotate(-40)"/>
-      <rect x="-13" y="-19" width="26" height="38" rx="13" transform="translate(39 25) rotate(40)"/>
-    </svg>`;
-  U.brand = (sub) => `<a class="brand" href="index.html" aria-label="Unello — home">
-      ${MARK}<span class="brand-word">unello</span>${sub ? `<span class="sr-only">${sub}</span>` : ""}
+  /* brand mark — the client's exact interlocking-heart logo (embedded) */
+  function mark(light) {
+    const src = light ? (U.MARK_WHITE || "") : (U.MARK_RED || "");
+    return `<img class="brand-mark" src="${src}" alt="" width="36" height="29">`;
+  }
+  U.brand = (variant) => {
+    const light = variant === "light";
+    return `<a class="brand${light ? " invert" : ""}" href="index.html" aria-label="Unello — home">
+      ${mark(light)}<span class="brand-word"${light ? ' style="color:#fff"' : ""}>unello</span>
     </a>`;
+  };
 
   function signal(tier, size = "md") { return `<span class="signal ${size}" data-tier="${tier}" role="img" aria-label="${tier} signal"></span>`; }
   U.signal = signal;
@@ -92,7 +94,7 @@
     }).join("");
 
     const announce = opts.announce === false ? "" :
-      `<div class="announce">${signal("social", "sm")} Free shipping over ${money(FREE_SHIP)} · new pieces dropping soon</div>`;
+      `<div class="announce">${signal("social", "sm")} Complimentary shipping over ${money(FREE_SHIP)} · 30-day returns</div>`;
 
     const html = `${announce}
       <header class="site-header" id="siteHeader">
@@ -145,11 +147,12 @@
     const html = `<footer class="site-footer">
       <div class="wrap footer-grid">
         <div>
-          ${U.brand()}
-          <p class="footer-movement mt-4">Unello is a movement, not a store.</p>
+          ${U.brand("light")}
+          <p class="footer-movement mt-5">A movement, not a store.</p>
+          <p class="small mt-4" style="color:#B9B1A5;max-width:34ch">Be first when new pieces drop. No noise — just the signal.</p>
           <form class="inline-capture mt-4" data-capture="footer" novalidate>
-            <input class="input" type="email" placeholder="Your email" aria-label="Email" required>
-            <button class="btn btn-primary" type="submit">Join</button>
+            <input class="input footer-input" type="email" placeholder="Email address" aria-label="Email" required>
+            <button class="btn btn-light" type="submit">Join</button>
           </form>
         </div>
         <div>
@@ -195,7 +198,7 @@
     mount.id = "footer"; mount.innerHTML = html;
   }
   function payBadge(t) {
-    return `<svg viewBox="0 0 48 22" role="img" aria-label="${t}"><rect width="48" height="22" rx="4" fill="#181410" opacity=".08"/><text x="24" y="15" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" font-weight="700" fill="#181410" opacity=".7">${t}</text></svg>`;
+    return `<svg viewBox="0 0 48 22" role="img" aria-label="${t}"><rect width="48" height="22" rx="4" fill="#FFFFFF" opacity=".1"/><text x="24" y="15" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" font-weight="700" fill="#FFFFFF" opacity=".75">${t}</text></svg>`;
   }
 
   /* ---------------- cart drawer ---------------- */
@@ -452,32 +455,35 @@
   /* ---------------- product card (reusable) ---------------- */
   U.productCard = function (p) {
     const t = U.tiers[p.tier];
-    const inv = U.invBadge(p.inventory);
     const soldOut = p.inventory === "out";
     const pre = p.inventory === "pre";
+    const img0 = U.pimg(p, 0, 700, 875), img1 = U.pimg(p, 1, 700, 875);
     let cta;
-    if (soldOut) cta = `<button class="btn btn-secondary btn-block quick-add" data-waitlist="${p.id}">Join the waitlist</button>`;
-    else if (pre) cta = `<button class="btn btn-tier btn-block quick-add" data-tier="${p.tier}" data-preorder="${p.id}">Pre-order</button>`;
-    else cta = `<button class="btn btn-primary btn-block quick-add" data-quickadd="${p.id}">Quick add ${svg("plus")}</button>`;
-    return `<article class="card product-card" data-tier="${p.tier}">
+    if (soldOut) cta = `<button class="btn btn-block quick-add" data-waitlist="${p.id}">Join the waitlist</button>`;
+    else if (pre) cta = `<button class="btn btn-block quick-add" data-preorder="${p.id}">Pre-order</button>`;
+    else cta = `<button class="btn btn-block quick-add" data-quickadd="${p.id}">Quick add ${svg("plus")}</button>`;
+    const flag = (p.inventory === "low" || p.inventory === "out" || p.inventory === "pre")
+      ? `<div class="inv-flag">${U.invBadge(p.inventory)}</div>` : "";
+    return `<article class="product-card" data-tier="${p.tier}">
       <div class="product-media">
         <a href="product.html?id=${p.id}" aria-label="${p.name}" tabindex="-1">
-          <img src="${p.images[0]}" alt="${p.name}" loading="lazy">
-          <img class="img-2" src="${p.images[1]}" alt="" loading="lazy">
+          <img class="img-1" src="${img0}" alt="${p.name}" loading="lazy">
+          <img class="img-2" src="${img1}" alt="" loading="lazy">
         </a>
         ${signal(p.tier, "md")}
+        ${flag}
         ${cta}
       </div>
       <div class="product-body">
         <a href="product.html?id=${p.id}" class="product-title">${p.name}</a>
-        <span class="small muted">${t.label} · ${p.type}</span>
-        <div class="product-meta"><span class="price">${money(p.price)}</span>${inv}</div>
+        <span class="product-sub">${t.label} · ${t.colorName} · ${p.type}</span>
+        <div class="product-meta"><span class="price">${money(p.price)}</span><span class="tiny mute2">${p.inventory === "in" ? "" : ""}</span></div>
       </div>
     </article>`;
   };
   U.invBadge = function (inv) {
     if (inv === "in") return `<span class="badge in"><span class="dot"></span>In stock</span>`;
-    if (inv === "low") return `<span class="badge low"><span class="dot"></span>Only a few left</span>`;
+    if (inv === "low") return `<span class="badge low"><span class="dot"></span>Low stock</span>`;
     if (inv === "out") return `<span class="badge out"><span class="dot"></span>Sold out</span>`;
     if (inv === "pre") return `<span class="badge pre"><span class="dot"></span>Pre-order</span>`;
     return "";

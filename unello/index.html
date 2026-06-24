@@ -4,11 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Unello — Make saying hello easier</title>
-  <meta name="description" content="Unello bracelets and rings are simple signals that you're open to connecting in real life — for friendship, community, and dating.">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='8' fill='%23FF5A6E'/%3E%3C/svg%3E">
+  <meta name="description" content="Unello bracelets and rings are quiet signals that you're open to connecting in real life — for friendship, community, and dating.">
+  <link rel="icon" href="assets/img/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
@@ -17,119 +18,147 @@
 
   <main id="main">
 
-    <!-- 1 · HERO -->
-    <section class="section">
-      <div class="wrap hero-grid">
-        <div class="hero-copy">
-          <span class="eyebrow reveal">Wear it. Be seen as open. Say hello.</span>
-          <h1 class="display-xl balance reveal">Make saying hello easier.</h1>
-          <p class="body-lg muted pretty maxw-prose reveal">Unello bracelets and rings are simple signals that you're open to connecting in real life — for friendship, community, and dating.</p>
-          <div class="hero-cta reveal">
-            <a class="btn btn-primary btn-lg" href="shop.html">Shop Unello</a>
-            <a class="btn btn-text" href="how-it-works.html">How it works <i data-ico="arrow"></i></a>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="wrap hero-split">
+        <div class="hero-copy reveal">
+          <span class="eyebrow">Wearable social signal · est. 2026</span>
+          <h1 class="display-xl balance">Make saying<br>hello easier.</h1>
+          <p class="lead muted maxw-prose">A bracelet or ring that quietly says you're open to connecting in real life — for friendship, community, and dating.</p>
+          <div class="hero-cta">
+            <a class="btn btn-primary btn-lg" href="shop.html">Shop the collection</a>
+            <a class="btn-text" href="how-it-works.html">How it works <i data-ico="arrow"></i></a>
           </div>
-          <div class="flex flex-wrap gap-3 reveal" style="margin-top:var(--s-2)">
+          <div class="flex flex-wrap gap-3 mt-2">
             <span class="pill-tag"><span class="signal sm" data-tier="social"></span> Social — Sun</span>
             <span class="pill-tag"><span class="signal sm" data-tier="dating"></span> Dating — Rose</span>
           </div>
         </div>
         <div class="hero-media reveal">
-          <div class="media-frame" style="aspect-ratio:4/5">
-            <img id="heroImg" alt="A person wearing the Unello signal on their wrist at a sunny café">
-            <span class="signal xl" data-tier="dating" style="right:14%;top:54%"></span>
+          <div class="frame grad-b zoom">
+            <img id="heroImg" alt="A person wearing the Unello signal, warm natural light">
+            <div class="img-cap flex items-center gap-3">
+              <span class="signal lg" data-tier="dating"></span>
+              <span class="small">The signal, worn out loud.</span>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 2 · DECODE THE SIGNAL -->
-    <section class="section" style="background:var(--surface);border-block:1px solid var(--line)">
+    <!-- MARQUEE -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track" id="marquee"></div>
+    </div>
+
+    <!-- DECODE THE SIGNAL -->
+    <section class="section">
       <div class="wrap">
-        <div class="section-head center" style="align-items:center">
-          <span class="eyebrow reveal">Decode the signal</span>
-          <h2 class="balance reveal">Two colours. One simple code.</h2>
-          <p class="muted maxw-prose reveal" style="margin-inline:auto">Colour is the language. A glance tells someone you're open — and which way.</p>
+        <div class="section-head">
+          <span class="eyebrow accent">The code</span>
+          <h2 class="balance">Two colours. One quiet language.</h2>
+          <p class="muted maxw-prose">Colour does the talking. A glance tells someone you're open — and which way. Worn by people who know the code.</p>
         </div>
         <div class="grid cols-2">
           <div class="decode-card reveal" data-tier="social">
+            <span class="swatch"></span>
             <span class="signal lg" data-tier="social"></span>
-            <h3>Social — Sun</h3>
+            <p class="eyebrow">Sun · Social</p>
             <p class="meaning">Open to friendship, conversation, and community.</p>
-            <p class="muted">A Sun signal says you're up for a chat — new friends, a hello at the café, community over isolation.</p>
-            <a class="btn btn-tier" data-tier="social" href="collection.html?tier=social">Shop Social</a>
+            <a class="btn-text mt-2" href="collection.html?tier=social">Shop Social <i data-ico="arrow"></i></a>
           </div>
           <div class="decode-card reveal" data-tier="dating">
+            <span class="swatch"></span>
             <span class="signal lg" data-tier="dating"></span>
-            <h3>Dating — Rose</h3>
+            <p class="eyebrow">Rose · Dating</p>
             <p class="meaning">Single and open to meeting someone in real life.</p>
-            <div class="note-control"><i data-ico="lock"></i><span>You're always in control. Open doesn't mean obligated.</span></div>
-            <a class="btn btn-tier" data-tier="dating" href="collection.html?tier=dating">Shop Dating</a>
+            <div class="note-control"><i data-ico="lock"></i><span>Open doesn't mean obligated. You're always in control.</span></div>
+            <a class="btn-text mt-2" href="collection.html?tier=dating">Shop Dating <i data-ico="arrow"></i></a>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 3 · HOW IT WORKS -->
-    <section class="section">
-      <div class="wrap">
-        <div class="section-head reveal"><span class="eyebrow">How it works</span><h2>Four steps. That's the whole thing.</h2></div>
-        <div class="steps" id="homeSteps"></div>
-        <div class="mt-6"><a class="btn btn-secondary" href="how-it-works.html">See how it works</a></div>
+    <!-- EDITORIAL: everyday -->
+    <section class="section stone">
+      <div class="wrap editorial">
+        <div class="ed-media reveal"><div class="frame zoom"><img id="everydayImg" alt="Everyday signal pieces, worn"></div></div>
+        <div class="ed-copy reveal">
+          <span class="eyebrow accent">Everyday fine</span>
+          <h2 class="balance">Made to be lived in.</h2>
+          <p class="muted body-lg">Water-friendly, weightless, and quietly beautiful. Pieces you put on once and forget — until someone says hello.</p>
+          <ul class="stack mt-2" style="gap:var(--s-3)">
+            <li class="flex items-center gap-3"><i data-ico="leaf" style="color:var(--ink-soft)"></i> Hypoallergenic, water-safe materials</li>
+            <li class="flex items-center gap-3"><i data-ico="box" style="color:var(--ink-soft)"></i> Recycled, plastic-free packaging</li>
+            <li class="flex items-center gap-3"><i data-ico="refresh" style="color:var(--ink-soft)"></i> 30-day returns, lifetime guidance</li>
+          </ul>
+          <a class="btn btn-secondary mt-3" href="shop.html">Explore the pieces</a>
+        </div>
       </div>
     </section>
 
-    <!-- 4 · SHOP SOCIAL RAIL -->
+    <!-- SHOP RAILS -->
     <section class="section-tight">
       <div class="wrap">
-        <div class="section-head with-link reveal">
-          <div><span class="eyebrow"><span class="signal sm" data-tier="social"></span> Social — Sun</span><h2>Shop Social</h2></div>
+        <div class="section-head row reveal">
+          <div><span class="eyebrow"><span class="signal sm" data-tier="social"></span> Sun</span><h2 class="mt-2">Social</h2></div>
           <a class="btn-text" href="collection.html?tier=social">View all <i data-ico="arrow"></i></a>
         </div>
         <div class="rail" id="railSocial"></div>
       </div>
     </section>
-
-    <!-- 5 · SHOP DATING RAIL -->
     <section class="section-tight">
       <div class="wrap">
-        <div class="section-head with-link reveal">
-          <div><span class="eyebrow"><span class="signal sm" data-tier="dating"></span> Dating — Rose</span><h2>Shop Dating</h2></div>
+        <div class="section-head row reveal">
+          <div><span class="eyebrow"><span class="signal sm" data-tier="dating"></span> Rose</span><h2 class="mt-2">Dating</h2></div>
           <a class="btn-text" href="collection.html?tier=dating">View all <i data-ico="arrow"></i></a>
         </div>
         <div class="rail" id="railDating"></div>
       </div>
     </section>
 
-    <!-- 6 · THE MOVEMENT -->
+    <!-- HOW IT WORKS -->
     <section class="section">
       <div class="wrap">
-        <div class="grid cols-2" style="align-items:center">
-          <div class="stack reveal">
-            <span class="eyebrow">The movement</span>
-            <h2 class="balance">Unello is a movement that happens to sell jewelry.</h2>
-            <p class="muted maxw-prose">Every signal worn in the wild makes the next hello easier — for someone new in town, someone between friend groups, someone ready to meet a person in real life. Wear yours, and you make the code real.</p>
-            <div class="flex flex-wrap gap-3">
-              <span class="pill-tag"><i data-ico="eye"></i> Seen in 1 glance</span>
-              <span class="pill-tag"><i data-ico="wave"></i> 4,000+ hellos</span>
-              <span class="pill-tag"><i data-ico="pin"></i> On wrists worldwide</span>
-            </div>
-          </div>
-          <div class="grid cols-2 reveal" id="ugcGrid" aria-label="Community photos (placeholder)"></div>
+        <div class="section-head reveal"><span class="eyebrow accent">How it works</span><h2>Four steps. That's all.</h2></div>
+        <div class="steps" id="homeSteps"></div>
+      </div>
+    </section>
+
+    <!-- EDITORIAL: say hello / control -->
+    <section class="section stone">
+      <div class="wrap editorial flip">
+        <div class="ed-media reveal"><div class="frame zoom"><img id="gestureImg" alt="A candid hello in real life"></div></div>
+        <div class="ed-copy reveal">
+          <span class="eyebrow accent">The whole point</span>
+          <h2 class="balance">Say hello — on your terms.</h2>
+          <p class="muted body-lg">Someone open notices, and a hello happens. No app, no profile, no pressure. Open means available to connect — never available on demand.</p>
+          <div class="note-control mt-2"><i data-ico="lock"></i><span>You're always in control of who you say hello to. Take it off any time.</span></div>
+          <a class="btn-text mt-2" href="how-it-works.html#read-the-signal">Read the signal <i data-ico="arrow"></i></a>
         </div>
       </div>
     </section>
 
-    <!-- 7 · EMAIL CAPTURE -->
+    <!-- LOOKBOOK / MOVEMENT -->
+    <section class="section">
+      <div class="wrap">
+        <div class="section-head reveal"><span class="eyebrow accent">The movement</span><h2 class="balance">Worn in the world.</h2>
+          <p class="muted maxw-prose">Every signal worn in the wild makes the next hello easier. Tag <strong>@unello</strong> to be featured.</p></div>
+        <div class="lookbook reveal" id="lookbook"></div>
+      </div>
+    </section>
+
+    <!-- NEWSLETTER -->
     <section class="section-tight">
       <div class="wrap">
         <div class="callout reveal">
-          <span class="eyebrow" style="color:var(--paper);opacity:.7">Join the movement</span>
-          <h2 class="balance" style="max-width:18ch">Be first when new pieces drop.</h2>
-          <form class="inline-capture" data-capture="home" novalidate style="width:min(440px,100%)">
-            <input class="input" type="email" placeholder="Your email" aria-label="Email" required>
-            <button class="btn btn-tier" data-tier="dating" type="submit">Join</button>
+          <span class="eyebrow" style="color:#B9B1A5">Join the movement</span>
+          <h2 class="balance" style="max-width:16ch">Be first when new pieces drop.</h2>
+          <p class="muted" style="max-width:46ch">One quiet email when something new arrives. Nothing else.</p>
+          <form class="inline-capture mt-2" data-capture="home" novalidate style="width:min(460px,100%)">
+            <input class="input footer-input" type="email" placeholder="Email address" aria-label="Email" required>
+            <button class="btn btn-light" type="submit">Join</button>
           </form>
-          <p class="small" style="opacity:.7">No spam. Just the drop, and the occasional hello.</p>
         </div>
       </div>
     </section>
@@ -138,31 +167,41 @@
 
   <div id="footer"></div>
   <script src="assets/js/data.js"></script>
+  <script src="assets/js/brand.js"></script>
   <script src="assets/js/app.js"></script>
   <script>
     const U = window.UNELLO;
-    // hero
-    document.getElementById("heroImg").src = U.ph({ tier:"dating", kind:"lifestyle", w:900, h:1100, label:"the signal, in context" });
+    document.getElementById("heroImg").src = U.img(U.IMG.hero, 1100, 1400);
+    document.getElementById("everydayImg").src = U.img(U.IMG.everyday, 1000, 1250);
+    document.getElementById("gestureImg").src = U.img(U.IMG.gesture, 1000, 1250);
+
+    // marquee
+    const phrase = `<span>say hi <span class="signal" data-tier="dating"></span></span><span>be seen as open <span class="signal" data-tier="social"></span></span><span>say hi <span class="signal" data-tier="social"></span></span><span>open in real life <span class="signal" data-tier="dating"></span></span>`;
+    document.getElementById("marquee").innerHTML = phrase + phrase;
+
     // steps
     const STEPS = [
-      { ic:"tag",  t:"Choose", d:"Pick your signal — Social (Sun) or Dating (Rose) — in a bracelet or ring." },
-      { ic:"hand", t:"Wear",   d:"Put it on where it's seen. Out the door, that's it." },
-      { ic:"sun",  t:"Signal", d:"The colour does the talking. People who know the code, read it." },
-      { ic:"wave", t:"Say hello", d:"Someone open says hi. You're never obligated — just open." },
+      ["tag","Choose","Pick your signal — Sun for friendship, Rose for dating. Bracelet or ring."],
+      ["hand","Wear","Put it on where it's seen, and head out the door. That's the whole ritual."],
+      ["sun","Signal","The colour does the talking. People who know the code read it at a glance."],
+      ["wave","Say hello","Someone open says hi. You're never obligated — just open."],
     ];
     document.getElementById("homeSteps").innerHTML = STEPS.map((s,i)=>`
       <div class="step reveal">
-        <div class="ico-wrap">${U.svg(s.ic)}</div>
-        <div class="step-head"><span class="signal sm" data-tier="${i%2?'dating':'social'}"></span><span class="step-num">Step ${i+1}</span></div>
-        <h3>${s.t}</h3><p class="muted">${s.d}</p>
+        <div class="step-head"><span class="step-num">0${i+1}</span><div class="step-rule" style="flex:1"></div></div>
+        <div class="ico-wrap">${U.svg(s[0])}</div>
+        <h3>${s[1]}</h3><p class="muted">${s[2]}</p>
       </div>`).join("");
+
     // rails
     document.getElementById("railSocial").innerHTML = U.byTier("social").map(U.productCard).join("");
     document.getElementById("railDating").innerHTML = U.byTier("dating").map(U.productCard).join("");
-    // ugc placeholders
-    document.getElementById("ugcGrid").innerHTML = ["social","dating","dating","social"].map((t,i)=>
-      `<div class="media-frame" style="aspect-ratio:1/1"><img src="${U.ph({tier:t,kind:'lifestyle',w:500,h:500,label:'@unello'})}" alt="Community photo placeholder"></div>`).join("");
-    U.initReveal();
+
+    // lookbook
+    document.getElementById("lookbook").innerHTML = U.lookbook.map((id,i)=>
+      `<a class="frame zoom l${i}" href="shop.html"><img src="${U.img(id,700,700)}" alt="Community look"></a>`).join("");
+
+    U.hydrateIcons(document); U.initReveal();
   </script>
 </body>
 </html>
