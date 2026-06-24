@@ -1,0 +1,1819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Unello — Open Signal (standalone preview)</title>
+  <meta name="description" content="Unello UI/UX design — single-file standalone preview. Make saying hello easier.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='8' fill='%23FF5A6E'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+/* =====================================================================
+   UNELLO — Design System  ·  "Open Signal"
+   Single source of truth for tokens + components (spec §2, §3, §7).
+   No hardcoded colour/space in components — variables only.
+   ===================================================================== */
+
+/* ------------------------------------------------------------------ */
+/* 1. TOKENS (§2)                                                      */
+/* ------------------------------------------------------------------ */
+:root {
+  /* --- Colour · Base --- */
+  --paper:        #FCFBF8;
+  --surface:      #FFFFFF;
+  --ink:          #181410;
+  --ink-soft:     #6A6157;
+  --line:         #ECE6DC;
+
+  /* --- Signal colours · protagonists --- */
+  --social:       #F59E2C;   /* "Sun"  — Social tier */
+  --social-tint:  #FDEFD9;
+  --social-ink:   #8A5408;   /* darkened Sun for AA text on tint */
+  --dating:       #FF5A6E;   /* "Rose" — Dating tier */
+  --dating-tint:  #FFE0E4;
+  --dating-ink:   #B23044;   /* darkened Rose for AA text on tint */
+
+  /* --- System --- */
+  --ok:           #2FA36B;
+  --warn:         #D9534F;
+
+  /* --- Per-tier dynamic slots (set by [data-tier]) --- */
+  --tier:         var(--social);
+  --tier-tint:    var(--social-tint);
+  --tier-ink:     var(--social-ink);
+
+  /* --- Spacing (4px base) --- */
+  --s-1: 4px;   --s-2: 8px;   --s-3: 12px;  --s-4: 16px;  --s-5: 24px;
+  --s-6: 32px;  --s-7: 48px;  --s-8: 64px;  --s-9: 96px;  --s-10: 128px;
+
+  /* --- Radius --- */
+  --r-sm: 10px; --r-md: 16px; --r-lg: 24px; --r-pill: 999px;
+
+  /* --- Elevation (warm-tinted) --- */
+  --shadow-sm: 0 1px 2px rgba(24,20,16,.04);
+  --shadow:    0 1px 2px rgba(24,20,16,.04), 0 10px 30px rgba(24,20,16,.07);
+  --shadow-lg: 0 2px 6px rgba(24,20,16,.06), 0 24px 60px rgba(24,20,16,.12);
+
+  /* --- Motion --- */
+  --ease: cubic-bezier(.22,.61,.36,1);
+  --t-fast: 150ms;
+  --t-med:  220ms;
+  --t-slow: 300ms;
+
+  /* --- Type --- */
+  --font-display: "Bricolage Grotesque", "Inter", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  --maxw: 1200px;
+  --header-h: 64px;
+}
+
+[data-tier="social"] { --tier: var(--social); --tier-tint: var(--social-tint); --tier-ink: var(--social-ink); }
+[data-tier="dating"] { --tier: var(--dating); --tier-tint: var(--dating-tint); --tier-ink: var(--dating-ink); }
+
+/* ------------------------------------------------------------------ */
+/* 2. RESET / BASE                                                     */
+/* ------------------------------------------------------------------ */
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--ink);
+  background: var(--paper);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+img, svg, video { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+button, input, select, textarea { font: inherit; color: inherit; }
+ul { list-style: none; padding: 0; }
+:focus { outline: none; }
+:focus-visible {
+  outline: 3px solid var(--ink);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+.skip-link {
+  position: absolute; left: var(--s-4); top: -200px; z-index: 200;
+  background: var(--ink); color: var(--paper);
+  padding: var(--s-3) var(--s-4); border-radius: var(--r-sm);
+  transition: top var(--t-fast) var(--ease);
+}
+.skip-link:focus { top: var(--s-4); }
+
+/* ------------------------------------------------------------------ */
+/* 3. TYPOGRAPHY (§2.2)                                                */
+/* ------------------------------------------------------------------ */
+.display-xl, .display-l, h1, h2, h3 { font-family: var(--font-display); line-height: 1.05; }
+.display-xl { font-size: clamp(44px, 8vw, 72px); font-weight: 700; letter-spacing: -.02em; }
+.display-l  { font-size: clamp(34px, 6vw, 52px); font-weight: 700; letter-spacing: -.015em; }
+h1 { font-size: clamp(34px, 6vw, 52px); font-weight: 700; letter-spacing: -.015em; }
+h2, .h2 { font-size: clamp(26px, 4vw, 36px); font-weight: 600; letter-spacing: -.01em; }
+h3, .h3 { font-size: clamp(20px, 2.6vw, 24px); font-weight: 600; line-height: 1.15; }
+.body-lg { font-size: clamp(16px, 2.2vw, 18px); }
+.small { font-size: 14px; }
+.eyebrow {
+  font-size: 12px; font-weight: 500; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--ink-soft);
+}
+.muted { color: var(--ink-soft); }
+.text-tier { color: var(--tier-ink); }
+.balance { text-wrap: balance; }
+.pretty { text-wrap: pretty; }
+
+/* ------------------------------------------------------------------ */
+/* 4. LAYOUT                                                           */
+/* ------------------------------------------------------------------ */
+.wrap { width: 100%; max-width: var(--maxw); margin-inline: auto; padding-inline: var(--s-4); }
+@media (min-width: 768px){ .wrap { padding-inline: var(--s-6); } }
+.section { padding-block: var(--s-8); }
+@media (min-width: 768px){ .section { padding-block: var(--s-9); } }
+.section-tight { padding-block: var(--s-7); }
+.stack > * + * { margin-top: var(--s-4); }
+.center { text-align: center; }
+.grid { display: grid; gap: var(--s-5); }
+.cols-2 { grid-template-columns: 1fr; }
+.cols-3 { grid-template-columns: 1fr; }
+.cols-4 { grid-template-columns: repeat(2, 1fr); }
+@media (min-width: 768px){
+  .cols-2 { grid-template-columns: repeat(2, 1fr); }
+  .cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .cols-4 { grid-template-columns: repeat(4, 1fr); }
+}
+.flex { display: flex; gap: var(--s-3); }
+.flex-between { display: flex; align-items: center; justify-content: space-between; gap: var(--s-4); }
+.flex-wrap { flex-wrap: wrap; }
+.divider { height: 1px; background: var(--line); border: 0; }
+
+/* ------------------------------------------------------------------ */
+/* 5. SIGNAL TOKEN (§3 signature) — dot + pulsing ring (§7)            */
+/* ------------------------------------------------------------------ */
+.signal {
+  --dot: 14px;
+  position: relative;
+  display: inline-grid; place-items: center;
+  width: var(--dot); height: var(--dot);
+  flex: 0 0 auto;
+}
+.signal::before { /* the dot */
+  content: ""; grid-area: 1/1;
+  width: 100%; height: 100%; border-radius: 50%;
+  background: var(--tier);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--tier) 18%, transparent);
+}
+.signal::after { /* the pulse ring */
+  content: ""; grid-area: 1/1;
+  width: 100%; height: 100%; border-radius: 50%;
+  border: 2px solid var(--tier);
+  animation: pulse 2s var(--ease) infinite;
+}
+.signal.sm { --dot: 10px; }
+.signal.md { --dot: 14px; }
+.signal.lg { --dot: 22px; }
+.signal.xl { --dot: 40px; }
+@keyframes pulse {
+  0%   { transform: scale(1);   opacity: .7; }
+  70%  { transform: scale(2.6); opacity: 0;  }
+  100% { transform: scale(2.6); opacity: 0;  }
+}
+@media (prefers-reduced-motion: reduce){
+  .signal::after { animation: none; opacity: 0; }
+}
+
+/* ------------------------------------------------------------------ */
+/* 6. BRAND LOCKUP (logo)                                              */
+/* ------------------------------------------------------------------ */
+.brand { display: inline-flex; align-items: center; gap: var(--s-2); }
+.brand-mark { width: 30px; height: 26px; color: var(--dating); }
+.brand-word {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: 22px; letter-spacing: -.02em; color: var(--ink);
+}
+
+/* ------------------------------------------------------------------ */
+/* 7. BUTTONS (§3)                                                     */
+/* ------------------------------------------------------------------ */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--s-2);
+  min-height: 48px; padding: 0 var(--s-5);
+  font-weight: 600; font-size: 16px; line-height: 1;
+  border-radius: var(--r-pill); border: 1.5px solid transparent;
+  cursor: pointer; user-select: none; white-space: nowrap;
+  transition: transform var(--t-fast) var(--ease), background var(--t-fast) var(--ease),
+              border-color var(--t-fast) var(--ease), box-shadow var(--t-fast) var(--ease), opacity var(--t-fast);
+}
+.btn:active { transform: translateY(1px) scale(.99); }
+.btn-primary { background: var(--ink); color: var(--paper); }
+.btn-primary:hover { box-shadow: var(--shadow); transform: translateY(-1px); }
+.btn-secondary { background: transparent; color: var(--ink); border-color: var(--ink); }
+.btn-secondary:hover { background: var(--ink); color: var(--paper); }
+.btn-text { min-height: 44px; padding: 0 var(--s-2); background: transparent; color: var(--ink); }
+.btn-text::after { content: ""; }
+.btn-text:hover { text-decoration: underline; text-underline-offset: 4px; }
+.btn-tier { background: var(--tier); color: var(--ink); }
+.btn-tier:hover { box-shadow: var(--shadow); transform: translateY(-1px); filter: saturate(1.05); }
+.btn-block { width: 100%; }
+.btn-lg { min-height: 54px; font-size: 17px; padding: 0 var(--s-6); }
+.btn:disabled, .btn[aria-disabled="true"] {
+  opacity: .45; cursor: not-allowed; pointer-events: none;
+}
+.btn .ico { width: 18px; height: 18px; }
+
+/* ------------------------------------------------------------------ */
+/* 8. HEADER (§4.2)                                                    */
+/* ------------------------------------------------------------------ */
+.announce {
+  background: var(--ink); color: var(--paper);
+  font-size: 13px; text-align: center; padding: var(--s-2) var(--s-4);
+  letter-spacing: .01em;
+}
+.announce .signal { --dot: 8px; vertical-align: middle; margin-right: 6px; }
+.announce::before { content:""; }
+.site-header {
+  position: sticky; top: 0; z-index: 90;
+  background: color-mix(in srgb, var(--paper) 86%, transparent);
+  backdrop-filter: saturate(1.4) blur(12px);
+  border-bottom: 1px solid transparent;
+  transition: border-color var(--t-med) var(--ease), background var(--t-med);
+}
+.site-header.scrolled { border-bottom-color: var(--line); background: color-mix(in srgb, var(--paper) 94%, transparent); }
+.header-bar {
+  display: flex; align-items: center; justify-content: space-between;
+  height: var(--header-h); gap: var(--s-4);
+}
+.site-header.scrolled .header-bar { height: 56px; }
+.nav-desktop { display: none; gap: var(--s-6); }
+.nav-desktop a { font-weight: 500; font-size: 15px; color: var(--ink); position: relative; padding-block: var(--s-2); }
+.nav-desktop a::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px;
+  background: var(--dating); transform: scaleX(0); transform-origin: left;
+  transition: transform var(--t-med) var(--ease);
+}
+.nav-desktop a:hover::after, .nav-desktop a[aria-current="page"]::after { transform: scaleX(1); }
+.header-actions { display: flex; align-items: center; gap: var(--s-2); }
+.icon-btn {
+  width: 44px; height: 44px; display: inline-grid; place-items: center;
+  background: transparent; border: 0; border-radius: var(--r-pill); cursor: pointer;
+  position: relative; transition: background var(--t-fast);
+}
+.icon-btn:hover { background: var(--line); }
+.icon-btn .ico { width: 22px; height: 22px; }
+.cart-count {
+  position: absolute; top: 4px; right: 2px;
+  min-width: 18px; height: 18px; padding: 0 4px;
+  background: var(--dating); color: var(--ink);
+  font-size: 11px; font-weight: 700; line-height: 18px; text-align: center;
+  border-radius: var(--r-pill);
+}
+.cart-count[hidden] { display: none; }
+.hamburger { display: inline-grid; }
+@media (min-width: 900px){
+  .nav-desktop { display: flex; }
+  .hamburger { display: none; }
+}
+
+/* Mobile full-screen sheet */
+.mobile-sheet {
+  position: fixed; inset: 0; z-index: 100;
+  background: var(--paper);
+  transform: translateY(-100%);
+  transition: transform var(--t-slow) var(--ease);
+  display: flex; flex-direction: column;
+  visibility: hidden;
+}
+.mobile-sheet.open { transform: translateY(0); visibility: visible; }
+.mobile-sheet nav { display: flex; flex-direction: column; gap: var(--s-2); padding: var(--s-6) var(--s-4); }
+.mobile-sheet nav a {
+  font-family: var(--font-display); font-size: 30px; font-weight: 600;
+  padding: var(--s-3) 0; border-bottom: 1px solid var(--line);
+  display: flex; align-items: center; gap: var(--s-3);
+}
+
+/* ------------------------------------------------------------------ */
+/* 9. CARDS, RAILS, TILES (§3)                                         */
+/* ------------------------------------------------------------------ */
+.card {
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--r-lg); overflow: hidden;
+  transition: transform var(--t-med) var(--ease), box-shadow var(--t-med) var(--ease);
+}
+.card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+
+/* product card */
+.product-card { display: flex; flex-direction: column; position: relative; }
+.product-media {
+  position: relative; aspect-ratio: 4/5; background: var(--paper); overflow: hidden;
+}
+.product-media > a { display: block; width: 100%; height: 100%; }
+.product-media img { width: 100%; height: 100%; object-fit: cover; transition: opacity var(--t-slow) var(--ease); }
+.product-media .img-2 { position: absolute; inset: 0; opacity: 0; }
+.product-card:hover .img-2 { opacity: 1; }
+.product-media .signal { position: absolute; top: var(--s-3); left: var(--s-3); }
+.product-body { padding: var(--s-4); display: flex; flex-direction: column; gap: var(--s-1); flex: 1; }
+.product-title { font-weight: 600; font-size: 16px; }
+.product-meta { display: flex; align-items: center; justify-content: space-between; margin-top: auto; padding-top: var(--s-2); }
+.price { font-weight: 600; }
+.quick-add {
+  position: absolute; left: var(--s-3); right: var(--s-3); bottom: var(--s-3);
+  opacity: 0; transform: translateY(8px);
+  transition: opacity var(--t-med) var(--ease), transform var(--t-med) var(--ease);
+}
+.product-card:hover .quick-add, .product-card:focus-within .quick-add { opacity: 1; transform: translateY(0); }
+@media (hover: none){ .quick-add { opacity: 1; transform: none; position: static; margin-top: var(--s-3); } }
+
+/* rail */
+.rail {
+  display: grid; grid-auto-flow: column; grid-auto-columns: 78%;
+  gap: var(--s-4); overflow-x: auto; scroll-snap-type: x mandatory;
+  padding-bottom: var(--s-4); margin-inline: calc(var(--s-4) * -1); padding-inline: var(--s-4);
+  scrollbar-width: thin;
+}
+.rail > * { scroll-snap-align: start; }
+@media (min-width: 768px){
+  .rail { grid-auto-flow: row; grid-template-columns: repeat(4, 1fr); grid-auto-columns: auto;
+          overflow: visible; margin-inline: 0; padding-inline: 0; }
+}
+
+/* collection tile */
+.tile {
+  position: relative; border-radius: var(--r-lg); overflow: hidden;
+  padding: var(--s-7) var(--s-5); min-height: 260px;
+  display: flex; flex-direction: column; justify-content: flex-end; gap: var(--s-3);
+  background: var(--tier-tint); border: 1px solid color-mix(in srgb, var(--tier) 22%, var(--line));
+  transition: transform var(--t-med) var(--ease), box-shadow var(--t-med) var(--ease);
+}
+.tile:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+.tile .signal { position: absolute; top: var(--s-5); left: var(--s-5); }
+.tile h3 { font-family: var(--font-display); font-size: 28px; }
+.tile-arrow { display: inline-flex; align-items: center; gap: var(--s-2); font-weight: 600; }
+
+/* ------------------------------------------------------------------ */
+/* 10. BADGES / CHIPS / STEPPER                                        */
+/* ------------------------------------------------------------------ */
+.badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 12px; font-weight: 600; letter-spacing: .02em;
+  padding: 5px 10px; border-radius: var(--r-pill);
+  background: var(--line); color: var(--ink-soft);
+}
+.badge.in   { background: color-mix(in srgb, var(--ok) 14%, transparent); color: #1c6e47; }
+.badge.low  { background: var(--social-tint); color: var(--social-ink); }
+.badge.out  { background: var(--line); color: var(--ink-soft); }
+.badge.pre  { background: var(--dating-tint); color: var(--dating-ink); }
+.badge .dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+
+.tier-pill {
+  display: inline-flex; align-items: center; gap: var(--s-2);
+  padding: 6px 12px 6px 8px; border-radius: var(--r-pill);
+  background: var(--tier-tint); color: var(--tier-ink);
+  font-size: 13px; font-weight: 600;
+}
+
+.chip-row { display: flex; flex-wrap: wrap; gap: var(--s-2); }
+.chip {
+  min-width: 48px; min-height: 44px; padding: 0 var(--s-4);
+  display: inline-flex; align-items: center; justify-content: center;
+  border: 1.5px solid var(--line); background: var(--surface);
+  border-radius: var(--r-sm); cursor: pointer; font-weight: 500;
+  transition: border-color var(--t-fast), background var(--t-fast), color var(--t-fast);
+}
+.chip:hover { border-color: var(--ink); }
+.chip[aria-pressed="true"], .chip.selected { border-color: var(--ink); background: var(--ink); color: var(--paper); }
+.chip:disabled { opacity: .4; cursor: not-allowed; text-decoration: line-through; }
+
+.stepper {
+  display: inline-flex; align-items: center;
+  border: 1.5px solid var(--line); border-radius: var(--r-pill); overflow: hidden;
+}
+.stepper button {
+  width: 44px; height: 44px; background: var(--surface); border: 0; cursor: pointer;
+  font-size: 20px; line-height: 1; transition: background var(--t-fast);
+}
+.stepper button:hover { background: var(--line); }
+.stepper button:disabled { opacity: .4; cursor: not-allowed; }
+.stepper input {
+  width: 44px; height: 44px; text-align: center; border: 0;
+  background: var(--surface); -moz-appearance: textfield;
+}
+.stepper input::-webkit-outer-spin-button, .stepper input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+
+/* ------------------------------------------------------------------ */
+/* 11. FORMS                                                           */
+/* ------------------------------------------------------------------ */
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field label { font-size: 14px; font-weight: 500; }
+.field .req { color: var(--dating-ink); }
+.input, .textarea, .select {
+  width: 100%; min-height: 48px; padding: var(--s-3) var(--s-4);
+  background: var(--surface); border: 1.5px solid var(--line); border-radius: var(--r-sm);
+  transition: border-color var(--t-fast), box-shadow var(--t-fast);
+}
+.textarea { min-height: 120px; resize: vertical; padding-top: var(--s-3); }
+.input:hover, .textarea:hover, .select:hover { border-color: var(--ink-soft); }
+.input:focus, .textarea:focus, .select:focus {
+  border-color: var(--ink); box-shadow: 0 0 0 3px color-mix(in srgb, var(--ink) 12%, transparent);
+}
+.input[aria-invalid="true"], .textarea[aria-invalid="true"] { border-color: var(--warn); }
+.field-error { font-size: 13px; color: var(--warn); display: none; }
+.field[data-invalid="true"] .field-error { display: block; }
+.field-hint { font-size: 13px; color: var(--ink-soft); }
+
+.inline-capture { display: flex; gap: var(--s-2); flex-wrap: wrap; }
+.inline-capture .input { flex: 1; min-width: 200px; }
+
+/* ------------------------------------------------------------------ */
+/* 12. ACCORDION (§3)                                                  */
+/* ------------------------------------------------------------------ */
+.accordion { border-top: 1px solid var(--line); }
+.accordion-item { border-bottom: 1px solid var(--line); }
+.accordion-trigger {
+  width: 100%; display: flex; align-items: center; justify-content: space-between; gap: var(--s-4);
+  padding: var(--s-4) 0; background: transparent; border: 0; cursor: pointer;
+  font-weight: 600; font-size: 16px; text-align: left;
+}
+.accordion-trigger .ico { width: 20px; height: 20px; transition: transform var(--t-med) var(--ease); flex: 0 0 auto; }
+.accordion-trigger[aria-expanded="true"] .ico { transform: rotate(45deg); }
+.accordion-panel {
+  display: grid; grid-template-rows: 0fr;
+  transition: grid-template-rows var(--t-med) var(--ease);
+}
+.accordion-panel > div { overflow: hidden; }
+.accordion-trigger[aria-expanded="true"] + .accordion-panel { grid-template-rows: 1fr; }
+.accordion-panel .panel-inner { padding-bottom: var(--s-4); color: var(--ink-soft); }
+.accordion-panel .panel-inner > * + * { margin-top: var(--s-3); }
+
+/* ------------------------------------------------------------------ */
+/* 13. TRUST STRIP / DECODE / STEPS                                    */
+/* ------------------------------------------------------------------ */
+.trust {
+  display: flex; flex-wrap: wrap; gap: var(--s-4);
+  padding: var(--s-4); border: 1px solid var(--line); border-radius: var(--r-md);
+  background: var(--paper);
+}
+.trust .item { display: flex; align-items: center; gap: var(--s-2); font-size: 14px; }
+.trust .ico { width: 20px; height: 20px; color: var(--ink-soft); flex: 0 0 auto; }
+
+.decode-card {
+  border-radius: var(--r-lg); padding: var(--s-6); border: 1px solid var(--line);
+  background: var(--tier-tint); display: flex; flex-direction: column; gap: var(--s-3);
+  position: relative; overflow: hidden;
+}
+.decode-card .signal { --dot: 26px; }
+.decode-card .meaning { font-size: clamp(18px, 2.4vw, 22px); font-family: var(--font-display); font-weight: 600; }
+
+.steps { display: grid; gap: var(--s-5); counter-reset: step; }
+@media (min-width: 768px){ .steps { grid-template-columns: repeat(4, 1fr); } }
+.step { display: flex; flex-direction: column; gap: var(--s-3); }
+.step-head { display: flex; align-items: center; gap: var(--s-3); }
+.step-num {
+  font-family: var(--font-display); font-weight: 700; font-size: 14px;
+  color: var(--ink-soft);
+}
+.step .ico-wrap {
+  width: 52px; height: 52px; border-radius: var(--r-md);
+  display: grid; place-items: center; background: var(--paper); border: 1px solid var(--line);
+}
+.step .ico-wrap .ico { width: 26px; height: 26px; color: var(--ink); }
+
+/* ------------------------------------------------------------------ */
+/* 14. CART DRAWER + MODAL + TOAST (§3)                                */
+/* ------------------------------------------------------------------ */
+.scrim {
+  position: fixed; inset: 0; z-index: 110; background: rgba(24,20,16,.42);
+  opacity: 0; visibility: hidden; transition: opacity var(--t-med) var(--ease), visibility var(--t-med);
+}
+.scrim.open { opacity: 1; visibility: visible; }
+
+.drawer {
+  position: fixed; top: 0; right: 0; bottom: 0; z-index: 120;
+  width: min(440px, 100vw); background: var(--paper);
+  display: flex; flex-direction: column;
+  transform: translateX(100%); transition: transform var(--t-slow) var(--ease);
+  box-shadow: var(--shadow-lg);
+}
+.drawer.open { transform: translateX(0); }
+.drawer.from-left { left: 0; right: auto; transform: translateX(-100%); }
+.drawer.from-left.open { transform: translateX(0); }
+.drawer-head { display: flex; align-items: center; justify-content: space-between; padding: var(--s-4); border-bottom: 1px solid var(--line); }
+.drawer-body { flex: 1; overflow-y: auto; padding: var(--s-4); }
+.drawer-foot { border-top: 1px solid var(--line); padding: var(--s-4); display: flex; flex-direction: column; gap: var(--s-3); }
+
+.ship-bar { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-md); padding: var(--s-3); }
+.ship-bar .track { height: 8px; border-radius: var(--r-pill); background: var(--line); overflow: hidden; margin-top: var(--s-2); }
+.ship-bar .fill { height: 100%; background: var(--social); border-radius: var(--r-pill); transition: width var(--t-slow) var(--ease); }
+
+.cart-line { display: flex; gap: var(--s-3); padding: var(--s-3) 0; border-bottom: 1px solid var(--line); }
+.cart-line img { width: 72px; height: 90px; object-fit: cover; border-radius: var(--r-sm); flex: 0 0 auto; background: var(--surface); }
+.cart-line .info { flex: 1; display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.cart-line .row { display: flex; align-items: center; justify-content: space-between; gap: var(--s-2); }
+.link-remove { background: 0; border: 0; color: var(--ink-soft); cursor: pointer; font-size: 13px; text-decoration: underline; text-underline-offset: 3px; padding: 4px; }
+.link-remove:hover { color: var(--warn); }
+
+.modal {
+  position: fixed; z-index: 120; inset: 0; display: grid; place-items: center; padding: var(--s-4);
+  opacity: 0; visibility: hidden; transition: opacity var(--t-med) var(--ease), visibility var(--t-med);
+}
+.modal.open { opacity: 1; visibility: visible; }
+.modal-card {
+  width: min(480px, 100%); background: var(--paper); border-radius: var(--r-lg);
+  padding: var(--s-6); box-shadow: var(--shadow-lg); position: relative;
+  transform: translateY(12px) scale(.98); transition: transform var(--t-med) var(--ease);
+  max-height: 90vh; overflow-y: auto;
+}
+.modal.open .modal-card { transform: none; }
+.modal-close { position: absolute; top: var(--s-3); right: var(--s-3); }
+
+.toast-wrap {
+  position: fixed; left: 50%; bottom: var(--s-6); transform: translateX(-50%);
+  z-index: 200; display: flex; flex-direction: column; gap: var(--s-2); width: min(420px, calc(100vw - 32px));
+  pointer-events: none;
+}
+.toast {
+  display: flex; align-items: center; gap: var(--s-3);
+  background: var(--ink); color: var(--paper); padding: var(--s-3) var(--s-4);
+  border-radius: var(--r-md); box-shadow: var(--shadow-lg);
+  transform: translateY(16px); opacity: 0; transition: transform var(--t-med) var(--ease), opacity var(--t-med);
+  pointer-events: auto;
+}
+.toast.show { transform: none; opacity: 1; }
+.toast.error { background: var(--warn); }
+.toast .ico { width: 20px; height: 20px; flex: 0 0 auto; }
+.toast a { text-decoration: underline; text-underline-offset: 3px; margin-left: auto; font-weight: 600; }
+
+/* ------------------------------------------------------------------ */
+/* 15. SKELETON / EMPTY / FALLBACK (§6)                                */
+/* ------------------------------------------------------------------ */
+.skeleton {
+  background: linear-gradient(100deg, var(--line) 30%, color-mix(in srgb, var(--line) 40%, var(--surface)) 50%, var(--line) 70%);
+  background-size: 200% 100%; animation: shimmer 1.4s infinite linear; border-radius: var(--r-sm);
+}
+@keyframes shimmer { to { background-position: -200% 0; } }
+@media (prefers-reduced-motion: reduce){ .skeleton { animation: none; } }
+.empty-state { text-align: center; padding: var(--s-8) var(--s-4); display: flex; flex-direction: column; align-items: center; gap: var(--s-4); }
+.empty-state .ico { width: 48px; height: 48px; color: var(--ink-soft); }
+
+/* ------------------------------------------------------------------ */
+/* 16. FOOTER (§4.3)                                                   */
+/* ------------------------------------------------------------------ */
+.site-footer { background: var(--surface); border-top: 1px solid var(--line); margin-top: var(--s-9); }
+.footer-grid { display: grid; gap: var(--s-7); padding-block: var(--s-8); }
+@media (min-width: 768px){ .footer-grid { grid-template-columns: 1.4fr 1fr 1fr 1fr; } }
+.footer-grid h4 { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: var(--s-3); font-family: var(--font-body); font-weight: 600; }
+.footer-grid a { display: inline-block; padding: 6px 0; color: var(--ink-soft); }
+.footer-grid a:hover { color: var(--ink); }
+.footer-movement { font-family: var(--font-display); font-size: clamp(20px, 3vw, 26px); font-weight: 600; max-width: 24ch; }
+.footer-bottom { border-top: 1px solid var(--line); padding-block: var(--s-5); display: flex; flex-wrap: wrap; gap: var(--s-4); align-items: center; justify-content: space-between; }
+.pay-badges { display: flex; gap: var(--s-2); align-items: center; opacity: .7; }
+.pay-badges svg { height: 22px; width: auto; }
+.social-links { display: flex; gap: var(--s-2); }
+.social-links a { display: grid; place-items: center; width: 40px; height: 40px; border: 1px solid var(--line); border-radius: var(--r-pill); padding: 0; }
+.social-links a:hover { background: var(--ink); color: var(--paper); }
+.social-links .ico { width: 18px; height: 18px; }
+
+/* ------------------------------------------------------------------ */
+/* 17. HERO + MISC SECTIONS                                            */
+/* ------------------------------------------------------------------ */
+.hero-grid { display: grid; gap: var(--s-6); align-items: center; }
+@media (min-width: 900px){ .hero-grid { grid-template-columns: 1.05fr 1fr; gap: var(--s-8); } }
+.hero-copy { display: flex; flex-direction: column; gap: var(--s-5); order: 2; }
+.hero-media { order: 1; }
+@media (min-width: 900px){ .hero-copy { order: 1; } .hero-media { order: 2; } }
+.hero-cta { display: flex; gap: var(--s-3); flex-wrap: wrap; align-items: center; }
+.media-frame { position: relative; border-radius: var(--r-lg); overflow: hidden; background: var(--paper); border: 1px solid var(--line); }
+.media-frame img { width: 100%; height: 100%; object-fit: cover; }
+.media-frame .signal { position: absolute; }
+
+.section-head { display: flex; flex-direction: column; gap: var(--s-2); margin-bottom: var(--s-6); }
+.section-head.with-link { flex-direction: row; align-items: flex-end; justify-content: space-between; }
+.tier-band { padding-block: var(--s-7); background: var(--tier-tint); }
+
+.callout {
+  background: var(--ink); color: var(--paper); border-radius: var(--r-lg);
+  padding: var(--s-7); display: flex; flex-direction: column; gap: var(--s-4); align-items: flex-start;
+}
+.callout .input { background: var(--surface); }
+
+.note-control {
+  display: flex; gap: var(--s-3); align-items: flex-start;
+  padding: var(--s-4); border-radius: var(--r-md);
+  background: var(--dating-tint); color: var(--dating-ink); font-weight: 500;
+}
+.note-control .ico { width: 22px; height: 22px; flex: 0 0 auto; }
+
+/* PDP */
+.pdp-grid { display: grid; gap: var(--s-6); }
+@media (min-width: 900px){ .pdp-grid { grid-template-columns: 1.15fr .85fr; gap: var(--s-7); align-items: start; } }
+.gallery { display: flex; flex-direction: column; gap: var(--s-3); }
+.gallery-main { aspect-ratio: 1/1; border-radius: var(--r-lg); overflow: hidden; background: var(--paper); border: 1px solid var(--line); position: relative; }
+.gallery-main img { width: 100%; height: 100%; object-fit: cover; }
+.gallery-thumbs { display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--s-2); }
+.gallery-thumbs button { aspect-ratio: 1/1; border-radius: var(--r-sm); overflow: hidden; border: 2px solid transparent; cursor: pointer; padding: 0; background: var(--paper); }
+.gallery-thumbs button[aria-current="true"] { border-color: var(--ink); }
+.buy-box { display: flex; flex-direction: column; gap: var(--s-5); }
+@media (min-width: 900px){ .buy-box { position: sticky; top: calc(var(--header-h) + var(--s-4)); } }
+.buy-price { font-size: 26px; font-weight: 600; font-family: var(--font-display); }
+.meaning-line { font-family: var(--font-display); font-size: 18px; font-weight: 500; color: var(--tier-ink); }
+
+/* sticky mobile add-to-cart */
+.sticky-buy {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 80;
+  background: color-mix(in srgb, var(--paper) 94%, transparent);
+  backdrop-filter: blur(10px); border-top: 1px solid var(--line);
+  padding: var(--s-3) var(--s-4); display: flex; gap: var(--s-3); align-items: center;
+  transform: translateY(110%); transition: transform var(--t-med) var(--ease);
+}
+.sticky-buy.show { transform: none; }
+.sticky-buy .price { font-size: 18px; }
+@media (min-width: 900px){ .sticky-buy { display: none !important; } }
+
+/* state mock toggle (design-review control) */
+.mock-toggle {
+  display: flex; gap: 6px; flex-wrap: wrap; align-items: center;
+  padding: var(--s-3); border: 1px dashed var(--ink-soft); border-radius: var(--r-md);
+  background: var(--paper); font-size: 13px;
+}
+.mock-toggle .lbl { font-weight: 600; margin-right: var(--s-2); }
+.mock-toggle button {
+  padding: 6px 12px; min-height: 36px; border-radius: var(--r-pill);
+  border: 1px solid var(--line); background: var(--surface); cursor: pointer; font-size: 13px; font-weight: 500;
+}
+.mock-toggle button[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+
+/* beach campaign */
+.beach { min-height: 100svh; display: flex; flex-direction: column; }
+.beach-hero { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: var(--s-5); padding: var(--s-6) var(--s-4); }
+.beach-codes { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-3); }
+.beach-code { padding: var(--s-4); border-radius: var(--r-md); background: var(--tier-tint); display: flex; flex-direction: column; gap: var(--s-2); }
+
+/* utilities */
+.hide { display: none !important; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+.mt-0{margin-top:0}.mt-2{margin-top:var(--s-2)}.mt-3{margin-top:var(--s-3)}.mt-4{margin-top:var(--s-4)}.mt-5{margin-top:var(--s-5)}.mt-6{margin-top:var(--s-6)}
+.mb-2{margin-bottom:var(--s-2)}.mb-3{margin-bottom:var(--s-3)}.mb-4{margin-bottom:var(--s-4)}.mb-5{margin-bottom:var(--s-5)}
+.gap-2{gap:var(--s-2)}.gap-3{gap:var(--s-3)}.gap-4{gap:var(--s-4)}
+.maxw-prose{max-width:62ch}.maxw-narrow{max-width:46ch}
+.pill-tag{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;padding:5px 12px;border-radius:var(--r-pill);background:var(--paper);border:1px solid var(--line)}
+
+/* prose (legal / long-form) */
+.prose { max-width: 70ch; }
+.prose h2 { margin-top: var(--s-7); margin-bottom: var(--s-3); }
+.prose h3 { margin-top: var(--s-5); margin-bottom: var(--s-2); }
+.prose p, .prose li { color: var(--ink-soft); }
+.prose p + p { margin-top: var(--s-3); }
+.prose ul { padding-left: var(--s-5); list-style: disc; display: flex; flex-direction: column; gap: var(--s-2); margin-top: var(--s-3); }
+.prose a { text-decoration: underline; text-underline-offset: 3px; }
+.legal-toc { display: flex; flex-wrap: wrap; gap: var(--s-2); margin-bottom: var(--s-6); }
+.legal-toc a { padding: 6px 12px; border: 1px solid var(--line); border-radius: var(--r-pill); font-size: 13px; color: var(--ink-soft); }
+.legal-toc a:hover { border-color: var(--ink); color: var(--ink); }
+
+/* filters */
+.filters { display: flex; flex-wrap: wrap; gap: var(--s-5); align-items: flex-start; padding: var(--s-4) 0; border-block: 1px solid var(--line); }
+.filters fieldset { border: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.filters legend { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-soft); font-weight: 600; margin-bottom: 6px; }
+.filters label { display: flex; align-items: center; gap: 8px; font-size: 14px; cursor: pointer; min-height: 28px; }
+.filters input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--ink); cursor: pointer; }
+.filters .btn-text { margin-left: auto; align-self: center; }
+
+/* size table */
+.size-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.size-table th, .size-table td { text-align: left; padding: var(--s-3) var(--s-2); border-bottom: 1px solid var(--line); }
+.size-table th { font-weight: 600; color: var(--ink-soft); font-size: 13px; }
+
+/* page-enter */
+@media (prefers-reduced-motion: no-preference){
+  .reveal { opacity: 0; transform: translateY(14px); }
+  .reveal.in { opacity: 1; transform: none; transition: opacity var(--t-slow) var(--ease), transform var(--t-slow) var(--ease); }
+}
+
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div id="header"></div>
+  <div id="view"></div>
+  <div id="footer"></div>
+  <script>
+/* =====================================================================
+   UNELLO — Data layer (in-memory; no localStorage per build directive)
+   Products, copy, and SVG placeholder imagery generator.
+   ===================================================================== */
+
+window.UNELLO = window.UNELLO || {};
+
+/* ---- Tier meta ---------------------------------------------------- */
+UNELLO.tiers = {
+  social: {
+    key: "social", label: "Social", colorName: "Sun",
+    meaning: "Open to friendship, conversation, and community.",
+    long: "A Sun signal says you're up for a chat — new friends, a hello at the café, community over isolation.",
+  },
+  dating: {
+    key: "dating", label: "Dating", colorName: "Rose",
+    meaning: "Single and open to meeting someone in real life.",
+    long: "A Rose signal says you're single and open to meeting someone in person. Open doesn't mean obligated — you're always in control.",
+  },
+};
+
+/* ---- Placeholder imagery -----------------------------------------
+   Warm, on-brand SVG placeholders. Lifestyle variants render a hand/
+   wrist with the signal visible (spec §2.5). Returns a data-URI.       */
+UNELLO.ph = function (opts) {
+  const o = Object.assign({ w: 800, h: 1000, tier: "social", kind: "product", label: "" }, opts);
+  const tint = o.tier === "dating" ? "#FFE0E4" : "#FDEFD9";
+  const tint2 = o.tier === "dating" ? "#FFC9D0" : "#FBE0B4";
+  const sig = o.tier === "dating" ? "#FF5A6E" : "#F59E2C";
+  let body = "";
+
+  if (o.kind === "lifestyle") {
+    // abstract warm scene + wrist + visible signal dot
+    body = `
+      <rect width="100%" height="100%" fill="url(#g)"/>
+      <circle cx="${o.w*0.5}" cy="${o.h*0.32}" r="${o.w*0.22}" fill="#FFFFFF" opacity=".35"/>
+      <path d="M${o.w*0.12} ${o.h*0.78} q ${o.w*0.2} -${o.h*0.18} ${o.w*0.42} -${o.h*0.05}
+               q ${o.w*0.18} ${o.h*0.1} ${o.w*0.36} ${o.h*0.02} l0 ${o.h*0.4} l-${o.w} 0 z"
+            fill="#E8B98E" opacity=".55"/>
+      <rect x="${o.w*0.42}" y="${o.h*0.55}" width="${o.w*0.16}" height="${o.h*0.06}" rx="${o.h*0.03}" fill="${sig}" opacity=".9"/>
+      <circle cx="${o.w*0.5}" cy="${o.h*0.58}" r="${o.w*0.045}" fill="#FFFFFF"/>
+      <circle cx="${o.w*0.5}" cy="${o.h*0.58}" r="${o.w*0.028}" fill="${sig}"/>
+    `;
+  } else if (o.kind === "macro") {
+    body = `
+      <rect width="100%" height="100%" fill="#FCFBF8"/>
+      <circle cx="${o.w*0.5}" cy="${o.h*0.5}" r="${o.w*0.3}" fill="none" stroke="${tint2}" stroke-width="${o.w*0.05}"/>
+      <circle cx="${o.w*0.5}" cy="${o.h*0.5}" r="${o.w*0.12}" fill="${sig}"/>
+      <circle cx="${o.w*0.5}" cy="${o.h*0.5}" r="${o.w*0.12}" fill="none" stroke="#FFFFFF" stroke-width="2" opacity=".6"/>
+    `;
+  } else { // product
+    body = `
+      <rect width="100%" height="100%" fill="url(#g)"/>
+      <circle cx="${o.w*0.5}" cy="${o.h*0.46}" r="${o.w*0.27}" fill="none" stroke="#FFFFFF" stroke-width="${o.w*0.055}" opacity=".75"/>
+      <circle cx="${o.w*0.5}" cy="${o.h*0.46}" r="${o.w*0.1}" fill="${sig}"/>
+      <circle cx="${o.w*0.5}" cy="${o.h*0.46}" r="${o.w*0.16}" fill="none" stroke="${sig}" stroke-width="2" opacity=".5"/>
+    `;
+  }
+
+  const txt = o.label
+    ? `<text x="50%" y="${o.h - 26}" text-anchor="middle" font-family="Inter,sans-serif" font-size="${Math.round(o.w*0.035)}" fill="#181410" opacity=".4">${o.label}</text>`
+    : "";
+
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${o.w}" height="${o.h}" viewBox="0 0 ${o.w} ${o.h}">
+    <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="${tint}"/><stop offset="1" stop-color="${tint2}"/>
+    </linearGradient></defs>${body}${txt}</svg>`;
+  return "data:image/svg+xml;utf8," + encodeURIComponent(svg);
+};
+
+/* ---- Products ----------------------------------------------------- */
+/* inventory: in | low | out | pre  (PDP can override via mock toggle) */
+UNELLO.products = [
+  // Social
+  { id: "sun-cord", name: "Sun Cord Bracelet", tier: "social", type: "Bracelet", price: 38, inventory: "in",
+    blurb: "Woven cord with the Sun signal bead. Everyday, water-friendly.",
+    material: "Waxed cotton cord, brass-tone signal bead. Adjustable.", sizes: ["XS","S","M","L"] },
+  { id: "sun-band", name: "Sun Band Bracelet", tier: "social", type: "Bracelet", price: 46, inventory: "low",
+    blurb: "Soft silicone band — comfortable for all-day, all-summer wear.",
+    material: "Medical-grade silicone, enamel signal inlay.", sizes: ["S","M","L"] },
+  { id: "sun-ring", name: "Sun Signal Ring", tier: "social", type: "Ring", price: 52, inventory: "in",
+    blurb: "A clean band with a single warm Sun dot. Subtle, readable.",
+    material: "Stainless steel, hot-enamel signal dot.", sizes: ["6","7","8","9","10"] },
+  { id: "sun-chain", name: "Sun Chain Bracelet", tier: "social", type: "Bracelet", price: 64, inventory: "pre",
+    blurb: "Fine chain with the Sun token charm. A little more dressed up.",
+    material: "18k gold-plate over brass.", sizes: ["S","M","L"] },
+
+  // Dating
+  { id: "rose-cord", name: "Rose Cord Bracelet", tier: "dating", type: "Bracelet", price: 38, inventory: "in",
+    blurb: "Woven cord with the Rose signal bead. Single and open — quietly.",
+    material: "Waxed cotton cord, rose-enamel signal bead. Adjustable.", sizes: ["XS","S","M","L"] },
+  { id: "rose-band", name: "Rose Band Bracelet", tier: "dating", type: "Bracelet", price: 46, inventory: "in",
+    blurb: "Soft silicone band in the Rose signal. Wear it where it's seen.",
+    material: "Medical-grade silicone, enamel signal inlay.", sizes: ["S","M","L"] },
+  { id: "rose-ring", name: "Rose Signal Ring", tier: "dating", type: "Ring", price: 52, inventory: "out",
+    blurb: "A clean band with a single Rose dot. Open doesn't mean obligated.",
+    material: "Stainless steel, hot-enamel signal dot.", sizes: ["6","7","8","9","10"] },
+  { id: "rose-chain", name: "Rose Chain Bracelet", tier: "dating", type: "Bracelet", price: 64, inventory: "low",
+    blurb: "Fine chain with the Rose token charm. For when you're out, out.",
+    material: "18k gold-plate over brass.", sizes: ["S","M","L"] },
+];
+
+/* attach generated imagery */
+UNELLO.products.forEach((p, i) => {
+  p.images = [
+    UNELLO.ph({ tier: p.tier, kind: "product",   label: p.name }),
+    UNELLO.ph({ tier: p.tier, kind: "lifestyle", label: "the signal, in context" }),
+    UNELLO.ph({ tier: p.tier, kind: "macro",     label: "macro" }),
+    UNELLO.ph({ tier: p.tier, kind: "product",   w: 800, h: 1000, label: "on paper" }),
+    UNELLO.ph({ tier: p.tier, kind: "lifestyle", label: "worn" }),
+  ];
+});
+
+UNELLO.getProduct = (id) => UNELLO.products.find((p) => p.id === id);
+UNELLO.byTier = (t) => UNELLO.products.filter((p) => p.tier === t);
+
+/* =====================================================================
+   UNELLO — App  ·  shared chrome + interactions
+   In-memory state only (no localStorage). SVG line icons only (§2.4).
+   ===================================================================== */
+(function () {
+  "use strict";
+  const U = window.UNELLO;
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+  const money = (n) => "$" + n.toFixed(0);
+  const FREE_SHIP = 75;
+
+  /* ---------------- SVG line icons ---------------- */
+  const I = {
+    cart: '<path d="M3 4h2l2.4 12.3a2 2 0 0 0 2 1.7h7.7a2 2 0 0 0 2-1.6L21 8H6"/><circle cx="10" cy="21" r="1.4"/><circle cx="18" cy="21" r="1.4"/>',
+    menu: '<path d="M3 6h18M3 12h18M3 18h18"/>',
+    close: '<path d="M5 5l14 14M19 5L5 19"/>',
+    plus: '<path d="M12 5v14M5 12h14"/>',
+    minus: '<path d="M5 12h14"/>',
+    search: '<circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/>',
+    arrow: '<path d="M5 12h14M13 6l6 6-6 6"/>',
+    check: '<path d="M4 12.5l5 5L20 6.5"/>',
+    alert: '<circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/>',
+    truck: '<path d="M3 6h11v9H3zM14 9h4l3 3v3h-7z"/><circle cx="7" cy="18" r="1.6"/><circle cx="17.5" cy="18" r="1.6"/>',
+    refresh: '<path d="M3 12a9 9 0 0 1 15.5-6.2M21 4v4h-4"/><path d="M21 12a9 9 0 0 1-15.5 6.2M3 20v-4h4"/>',
+    pin: '<path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/>',
+    insta: '<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/>',
+    tiktok: '<path d="M14 4v9.5a3.5 3.5 0 1 1-3-3.46"/><path d="M14 4a4.5 4.5 0 0 0 4.5 4.5"/>',
+    sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/>',
+    eye: '<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/>',
+    hand: '<path d="M7 11V6a1.5 1.5 0 0 1 3 0v4M10 10V4.5a1.5 1.5 0 0 1 3 0V10M13 10V6a1.5 1.5 0 0 1 3 0v6c0 4-2.5 7-6 7s-6-2.5-6-6v-1l-1.4-1.4a1.4 1.4 0 0 1 2-2L7 11"/>',
+    wave: '<path d="M3 12a9 9 0 0 1 18 0M6 12a6 6 0 0 1 12 0M9 12a3 3 0 0 1 6 0"/>',
+    tag: '<path d="M3 12V4h8l9 9-8 8-9-9z"/><circle cx="7.5" cy="7.5" r="1.3"/>',
+    ruler: '<rect x="3" y="8" width="18" height="8" rx="1.5"/><path d="M7 8v3M11 8v4M15 8v3M19 8v4"/>',
+    lock: '<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',
+    mail: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/>',
+    spark: '<path d="M12 3v6M12 15v6M3 12h6M15 12h6"/>',
+    box: '<path d="M3 8l9-5 9 5-9 5-9-5z"/><path d="M3 8v8l9 5 9-5V8M12 13v8"/>',
+    chat: '<path d="M4 5h16v11H9l-5 4z"/>',
+    leaf: '<path d="M5 19c0-8 6-13 14-13 0 8-5 14-14 14M5 19c2-4 5-6 9-7"/>',
+  };
+  function svg(name, cls = "ico") {
+    return `<svg class="${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${I[name] || ""}</svg>`;
+  }
+  U.svg = svg;
+
+  /* brand mark — interlocking links forming a heart (Unity + Hello) */
+  /* two interlocking links tilted into a heart (Unity + Hello) */
+  const MARK = `<svg class="brand-mark" viewBox="0 0 64 56" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <rect x="-13" y="-19" width="26" height="38" rx="13" transform="translate(25 25) rotate(-40)"/>
+      <rect x="-13" y="-19" width="26" height="38" rx="13" transform="translate(39 25) rotate(40)"/>
+    </svg>`;
+  U.brand = (sub) => `<a class="brand" href="#/" aria-label="Unello — home">
+      ${MARK}<span class="brand-word">unello</span>${sub ? `<span class="sr-only">${sub}</span>` : ""}
+    </a>`;
+
+  function signal(tier, size = "md") { return `<span class="signal ${size}" data-tier="${tier}" role="img" aria-label="${tier} signal"></span>`; }
+  U.signal = signal;
+
+  /* ---------------- in-memory cart ---------------- */
+  const cart = []; // {id, size, qty}
+  U.cart = cart;
+  function cartCount() { return cart.reduce((s, l) => s + l.qty, 0); }
+  function cartSubtotal() { return cart.reduce((s, l) => s + U.getProduct(l.id).price * l.qty, 0); }
+  function addToCart(id, size, qty = 1) {
+    const line = cart.find((l) => l.id === id && l.size === size);
+    if (line) line.qty += qty; else cart.push({ id, size, qty });
+    syncCart();
+  }
+  function removeLine(idx) { cart.splice(idx, 1); syncCart(); }
+  function setQty(idx, q) { if (q <= 0) removeLine(idx); else { cart[idx].qty = q; syncCart(); } }
+  U.addToCart = addToCart;
+
+  function syncCart() {
+    const c = cartCount();
+    $$(".cart-count").forEach((el) => { el.textContent = c; el.hidden = c === 0; });
+    renderCartBody();
+  }
+
+  /* ---------------- header ---------------- */
+  const NAV = [
+    { href: "#/shop", label: "Shop" },
+    { href: "#/how-it-works", label: "How It Works" },
+    { href: "#/about", label: "About" },
+    { href: "#/faq", label: "FAQ" },
+  ];
+  function renderHeader(opts = {}) {
+    const cur = location.pathname.split("/").pop() || "#/";
+    const navLinks = (cls) => NAV.map((n) => {
+      const active = cur === n.href || (n.href === "#/shop" && /collection|product/.test(cur));
+      return `<a href="${n.href}"${active ? ' aria-current="page"' : ""}>${n.label}</a>`;
+    }).join("");
+
+    const announce = opts.announce === false ? "" :
+      `<div class="announce">${signal("social", "sm")} Free shipping over ${money(FREE_SHIP)} · new pieces dropping soon</div>`;
+
+    const html = `${announce}
+      <header class="site-header" id="siteHeader">
+        <div class="wrap header-bar">
+          ${U.brand()}
+          <nav class="nav-desktop" aria-label="Primary">${navLinks()}</nav>
+          <div class="header-actions">
+            <button class="icon-btn" id="searchBtn" aria-label="Search">${svg("search")}</button>
+            <button class="icon-btn" id="cartBtn" aria-label="Open cart" aria-haspopup="dialog">
+              ${svg("cart")}<span class="cart-count" hidden>0</span>
+            </button>
+            <button class="icon-btn hamburger" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mobileSheet">${svg("menu")}</button>
+          </div>
+        </div>
+      </header>
+      <div class="mobile-sheet" id="mobileSheet" role="dialog" aria-modal="true" aria-label="Menu" inert>
+        <div class="wrap header-bar">
+          ${U.brand()}
+          <button class="icon-btn" id="menuClose" aria-label="Close menu">${svg("close")}</button>
+        </div>
+        <nav aria-label="Mobile">
+          ${NAV.map((n) => `<a href="${n.href}">${n.label} ${svg("arrow")}</a>`).join("")}
+          <a href="#/contact">Contact ${svg("arrow")}</a>
+        </nav>
+        <div class="wrap" style="padding-bottom:var(--s-6)">
+          <a class="btn btn-primary btn-block" href="#/shop">Shop Unello</a>
+        </div>
+      </div>`;
+    const mount = $("#header") || document.body.insertBefore(document.createElement("div"), document.body.firstChild);
+    mount.id = "header"; mount.innerHTML = html;
+
+    // scroll condense
+    const head = $("#siteHeader");
+    const onScroll = () => head.classList.toggle("scrolled", window.scrollY > 8);
+    window.addEventListener("scroll", onScroll, { passive: true }); onScroll();
+
+    // mobile sheet
+    const sheet = $("#mobileSheet");
+    const openSheet = () => { sheet.classList.add("open"); sheet.removeAttribute("inert"); $("#menuBtn").setAttribute("aria-expanded", "true"); lockScroll(true); };
+    const closeSheet = () => { sheet.classList.remove("open"); sheet.setAttribute("inert", ""); $("#menuBtn").setAttribute("aria-expanded", "false"); lockScroll(false); };
+    $("#menuBtn").addEventListener("click", openSheet);
+    $("#menuClose").addEventListener("click", closeSheet);
+    $$("#mobileSheet nav a").forEach((a) => a.addEventListener("click", closeSheet));
+    $("#cartBtn").addEventListener("click", () => openDrawer("cart"));
+    $("#searchBtn").addEventListener("click", () => toast("Search is a stub in this design build.", "info"));
+  }
+
+  /* ---------------- footer ---------------- */
+  function renderFooter() {
+    const html = `<footer class="site-footer">
+      <div class="wrap footer-grid">
+        <div>
+          ${U.brand()}
+          <p class="footer-movement mt-4">Unello is a movement, not a store.</p>
+          <form class="inline-capture mt-4" data-capture="footer" novalidate>
+            <input class="input" type="email" placeholder="Your email" aria-label="Email" required>
+            <button class="btn btn-primary" type="submit">Join</button>
+          </form>
+        </div>
+        <div>
+          <h4>Shop</h4>
+          <a href="#/collection?tier=social">Social Collection</a>
+          <a href="#/collection?tier=dating">Dating Collection</a>
+          <a href="#/shop">All pieces</a>
+          <a href="#/beach">/beach campaign</a>
+        </div>
+        <div>
+          <h4>Learn</h4>
+          <a href="#/how-it-works">How it works</a>
+          <a href="#/how-it-works">Read the Signal</a>
+          <a href="#/about">About</a>
+          <a href="#/faq">FAQ</a>
+          <a href="#/contact">Contact</a>
+        </div>
+        <div>
+          <h4>Legal</h4>
+          <a href="#/shipping-returns">Shipping &amp; Returns</a>
+          <a href="#/privacy">Privacy</a>
+          <a href="#/terms">Terms</a>
+          <a href="#/accessibility">Accessibility</a>
+        </div>
+      </div>
+      <div class="wrap footer-bottom">
+        <div class="flex" style="align-items:center;gap:var(--s-4)">
+          <span class="small muted">© 2026 Unello</span>
+          <span class="small muted">Designed to teach the signal, then sell the way in.</span>
+        </div>
+        <div class="flex" style="align-items:center;gap:var(--s-5)">
+          <div class="social-links">
+            <a href="#" aria-label="Instagram">${svg("insta")}</a>
+            <a href="#" aria-label="TikTok">${svg("tiktok")}</a>
+          </div>
+          <div class="pay-badges" aria-label="Accepted payments">
+            ${payBadge("VISA")}${payBadge("AMEX")}${payBadge("PAY")}
+          </div>
+        </div>
+      </div>
+    </footer>`;
+    const mount = $("#footer") || document.body.appendChild(document.createElement("div"));
+    mount.id = "footer"; mount.innerHTML = html;
+  }
+  function payBadge(t) {
+    return `<svg viewBox="0 0 48 22" role="img" aria-label="${t}"><rect width="48" height="22" rx="4" fill="#181410" opacity=".08"/><text x="24" y="15" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" font-weight="700" fill="#181410" opacity=".7">${t}</text></svg>`;
+  }
+
+  /* ---------------- cart drawer ---------------- */
+  function renderCartDrawer() {
+    const html = `<div class="scrim" id="scrim"></div>
+      <aside class="drawer" id="cartDrawer" role="dialog" aria-modal="true" aria-label="Your cart" inert>
+        <div class="drawer-head">
+          <strong>Your cart</strong>
+          <button class="icon-btn" data-close-drawer aria-label="Close cart">${svg("close")}</button>
+        </div>
+        <div class="drawer-body" id="cartBody"></div>
+        <div class="drawer-foot" id="cartFoot" hidden>
+          <div class="flex-between"><span>Subtotal</span><strong id="cartSubtotal">$0</strong></div>
+          <p class="small muted">Shipping &amp; taxes calculated at checkout.</p>
+          <button class="btn btn-primary btn-block btn-lg" id="checkoutBtn">Checkout</button>
+          <button class="btn btn-text" data-close-drawer>Continue shopping</button>
+        </div>
+      </aside>
+      <aside class="drawer from-left" id="sizeDrawer" role="dialog" aria-modal="true" aria-label="Find my size" inert>
+        <div class="drawer-head"><strong>Find my size</strong>
+          <button class="icon-btn" data-close-drawer aria-label="Close">${svg("close")}</button></div>
+        <div class="drawer-body stack">
+          <p class="muted">Wrap a strip of paper or a soft tape around your wrist (bracelets) or the base of your finger (rings), snug but not tight.</p>
+          <table class="size-table">
+            <thead><tr><th>Size</th><th>Wrist</th><th>Ring (US)</th></tr></thead>
+            <tbody>
+              <tr><td>XS</td><td>14–15 cm</td><td>5–6</td></tr>
+              <tr><td>S</td><td>15–16.5 cm</td><td>6–7</td></tr>
+              <tr><td>M</td><td>16.5–18 cm</td><td>8</td></tr>
+              <tr><td>L</td><td>18–19.5 cm</td><td>9–10</td></tr>
+            </tbody>
+          </table>
+          <p class="small muted">Between sizes? Cords are adjustable — size down. Rings — size up.</p>
+        </div>
+      </aside>`;
+    const mount = document.body.appendChild(document.createElement("div"));
+    mount.id = "overlays"; mount.innerHTML = html;
+    $("#scrim").addEventListener("click", closeDrawers);
+    $$("[data-close-drawer]").forEach((b) => b.addEventListener("click", closeDrawers));
+    $("#checkoutBtn").addEventListener("click", () => toast("Checkout is external — stubbed in this design build.", "info"));
+    syncCart();
+  }
+
+  function renderCartBody() {
+    const body = $("#cartBody"); if (!body) return;
+    const foot = $("#cartFoot");
+    if (!cart.length) {
+      foot.hidden = true;
+      body.innerHTML = `<div class="empty-state">
+        ${svg("cart", "ico")}
+        <div><h3>Your cart is empty</h3><p class="muted mt-2">Pick your signal — Social or Dating — and wear it out.</p></div>
+        <a class="btn btn-primary" href="#/shop" data-close-drawer>Shop Unello</a>
+      </div>`;
+      body.querySelector("[data-close-drawer]")?.addEventListener("click", closeDrawers);
+      return;
+    }
+    foot.hidden = false;
+    const sub = cartSubtotal();
+    const remain = Math.max(0, FREE_SHIP - sub);
+    const pct = Math.min(100, (sub / FREE_SHIP) * 100);
+    const ship = `<div class="ship-bar">
+      <div class="small">${remain > 0 ? `You're ${money(remain)} from <strong>free shipping</strong>` : `🎉 You've unlocked <strong>free shipping</strong>`}</div>
+      <div class="track"><div class="fill" style="width:${pct}%"></div></div>
+    </div>`;
+
+    const lines = cart.map((l, i) => {
+      const p = U.getProduct(l.id);
+      return `<div class="cart-line" data-tier="${p.tier}">
+        <img src="${p.images[0]}" alt="${p.name}">
+        <div class="info">
+          <div class="row"><strong class="small">${p.name}</strong><span class="price small">${money(p.price * l.qty)}</span></div>
+          <div class="small muted flex" style="align-items:center;gap:6px">${signal(p.tier, "sm")} ${U.tiers[p.tier].label} · Size ${l.size}</div>
+          <div class="row mt-2">
+            <div class="stepper" aria-label="Quantity for ${p.name}">
+              <button data-dec="${i}" aria-label="Decrease">−</button>
+              <input value="${l.qty}" inputmode="numeric" aria-label="Quantity" data-qty="${i}">
+              <button data-inc="${i}" aria-label="Increase">+</button>
+            </div>
+            <button class="link-remove" data-rm="${i}">Remove</button>
+          </div>
+        </div>
+      </div>`;
+    }).join("");
+
+    // cross-sell: a piece from the cart's first tier not already in cart
+    const inCart = new Set(cart.map((l) => l.id));
+    const firstTier = U.getProduct(cart[0].id).tier;
+    const xs = U.byTier(firstTier).find((p) => !inCart.has(p.id) && p.inventory !== "out");
+    const cross = xs ? `<div class="mt-5"><div class="eyebrow">Complete the set</div>
+      <div class="cart-line" data-tier="${xs.tier}" style="border:0">
+        <img src="${xs.images[0]}" alt="${xs.name}">
+        <div class="info">
+          <div class="row"><strong class="small">${xs.name}</strong><span class="price small">${money(xs.price)}</span></div>
+          <p class="small muted">${xs.blurb}</p>
+          <button class="btn btn-secondary" style="min-height:40px" data-xadd="${xs.id}" data-xsize="${xs.sizes[1] || xs.sizes[0]}">Add ${svg("plus")}</button>
+        </div>
+      </div></div>` : "";
+
+    body.innerHTML = ship + `<div class="mt-4">${lines}</div>` + cross;
+    $("#cartSubtotal").textContent = money(sub);
+
+    body.querySelectorAll("[data-inc]").forEach((b) => b.onclick = () => setQty(+b.dataset.inc, cart[+b.dataset.inc].qty + 1));
+    body.querySelectorAll("[data-dec]").forEach((b) => b.onclick = () => setQty(+b.dataset.dec, cart[+b.dataset.dec].qty - 1));
+    body.querySelectorAll("[data-rm]").forEach((b) => b.onclick = () => { removeLine(+b.dataset.rm); toast("Removed.", "info"); });
+    body.querySelectorAll("[data-qty]").forEach((inp) => inp.onchange = () => { const q = parseInt(inp.value) || 1; setQty(+inp.dataset.qty, q); });
+    body.querySelectorAll("[data-xadd]").forEach((b) => b.onclick = () => { addToCart(b.dataset.xadd, b.dataset.xsize); toast("Added to your set."); });
+  }
+
+  /* ---------------- drawers / focus / scroll lock ---------------- */
+  let lastFocus = null;
+  function lockScroll(on) { document.documentElement.style.overflow = on ? "hidden" : ""; }
+  function openDrawer(which) {
+    lastFocus = document.activeElement;
+    $("#scrim").classList.add("open");
+    const el = which === "size" ? $("#sizeDrawer") : $("#cartDrawer");
+    el.classList.add("open"); el.removeAttribute("inert");
+    lockScroll(true);
+    el.querySelector("button, a, input")?.focus();
+  }
+  U.openDrawer = openDrawer;
+  function closeDrawers() {
+    $("#scrim")?.classList.remove("open");
+    $$(".drawer").forEach((d) => { d.classList.remove("open"); d.setAttribute("inert", ""); });
+    lockScroll(false);
+    lastFocus?.focus();
+  }
+  U.closeDrawers = closeDrawers;
+
+  /* ---------------- modal (waitlist / pre-order) ---------------- */
+  function renderModal() {
+    const html = `<div class="modal" id="waitModal" role="dialog" aria-modal="true" aria-labelledby="waitTitle" inert>
+      <div class="scrim" data-close-modal style="position:absolute"></div>
+      <div class="modal-card">
+        <button class="icon-btn modal-close" data-close-modal aria-label="Close">${svg("close")}</button>
+        <div id="waitForm">
+          <div class="eyebrow" id="waitKind">Join the waitlist</div>
+          <h2 id="waitTitle" class="mt-2">You're early — we'll hold your spot.</h2>
+          <p class="muted mt-2" id="waitSub">Tell us where to reach you. No spam, just the drop.</p>
+          <form class="stack mt-5" id="waitlistForm" novalidate>
+            <div class="field"><label for="wname">Name <span class="req">*</span></label>
+              <input class="input" id="wname" name="name" required autocomplete="name"><span class="field-error">Please add your name.</span></div>
+            <div class="field"><label for="wemail">Email <span class="req">*</span></label>
+              <input class="input" id="wemail" name="email" type="email" required autocomplete="email"><span class="field-error">Enter a valid email.</span></div>
+            <div class="field"><label for="wproduct">Product <span class="req">*</span></label>
+              <input class="input" id="wproduct" name="product" readonly></div>
+            <div class="field"><label for="wtier">Tier <span class="req">*</span></label>
+              <select class="select" id="wtier" name="tier"><option value="social">Social — Sun</option><option value="dating">Dating — Rose</option></select></div>
+            <button class="btn btn-primary btn-block btn-lg" type="submit" id="waitSubmit">Join the waitlist</button>
+          </form>
+        </div>
+        <div id="waitDone" hidden class="center stack">
+          <span class="signal lg" data-tier="social" style="margin-inline:auto"></span>
+          <h2>You're on the list.</h2>
+          <p class="muted">We'll email you the moment it's back. Welcome to the movement.</p>
+          <button class="btn btn-primary" data-close-modal>Done</button>
+        </div>
+      </div>
+    </div>`;
+    const mount = document.body.appendChild(document.createElement("div"));
+    mount.id = "modals"; mount.innerHTML = html;
+    $$("[data-close-modal]").forEach((b) => b.addEventListener("click", closeModal));
+    $("#waitlistForm").addEventListener("submit", onWaitSubmit);
+  }
+  function openWaitlist(product, kind) {
+    lastFocus = document.activeElement;
+    const m = $("#waitModal"); m.classList.add("open"); m.removeAttribute("inert"); lockScroll(true);
+    $("#waitForm").hidden = false; $("#waitDone").hidden = true;
+    const pre = kind === "pre";
+    $("#waitKind").textContent = pre ? "Pre-order" : "Join the waitlist";
+    $("#waitTitle").textContent = pre ? "Reserve yours — ships in 3–4 weeks." : "You're early — we'll hold your spot.";
+    $("#waitSub").textContent = pre ? "Pre-order now and you're first in line when it ships." : "Tell us where to reach you. No spam, just the drop.";
+    $("#waitSubmit").textContent = pre ? "Pre-order now" : "Join the waitlist";
+    $("#waitProduct") || $("#wproduct").setAttribute("value", "");
+    if (product) { $("#wproduct").value = product.name; $("#wtier").value = product.tier; $("#waitDone .signal").setAttribute("data-tier", product.tier); }
+    $("#wname").focus();
+  }
+  U.openWaitlist = openWaitlist;
+  function closeModal() { const m = $("#waitModal"); m.classList.remove("open"); m.setAttribute("inert", ""); lockScroll(false); lastFocus?.focus(); }
+  function onWaitSubmit(e) {
+    e.preventDefault();
+    const f = e.target;
+    let ok = true;
+    ["wname", "wemail"].forEach((id) => {
+      const el = $("#" + id), field = el.closest(".field");
+      const bad = id === "wemail" ? !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(el.value) : !el.value.trim();
+      field.dataset.invalid = bad; el.setAttribute("aria-invalid", bad); if (bad) ok = false;
+    });
+    if (!ok) return;
+    $("#waitForm").hidden = true; $("#waitDone").hidden = false;
+    $("#waitDone .signal").setAttribute("data-tier", $("#wtier").value);
+    f.reset();
+  }
+
+  /* ---------------- toast ---------------- */
+  function renderToastWrap() { const w = document.createElement("div"); w.className = "toast-wrap"; w.id = "toasts"; w.setAttribute("aria-live", "polite"); document.body.appendChild(w); }
+  function toast(msg, type = "success", action) {
+    const w = $("#toasts"); if (!w) return;
+    const t = document.createElement("div");
+    t.className = "toast" + (type === "error" ? " error" : "");
+    t.innerHTML = `${svg(type === "error" ? "alert" : type === "info" ? "spark" : "check")}<span>${msg}</span>${action ? `<a href="#" data-act>${action.label}</a>` : ""}`;
+    w.appendChild(t);
+    if (action) t.querySelector("[data-act]").onclick = (e) => { e.preventDefault(); action.fn(); t.remove(); };
+    requestAnimationFrame(() => t.classList.add("show"));
+    setTimeout(() => { t.classList.remove("show"); setTimeout(() => t.remove(), 300); }, action ? 5000 : 2600);
+  }
+  U.toast = toast;
+
+  /* ---------------- icon hydration ----------------
+     Lets static HTML place icons with <i data-ico="arrow"></i>.        */
+  function hydrateIcons(root = document) {
+    $$("[data-ico]", root).forEach((el) => {
+      if (el.dataset.icoDone) return; el.dataset.icoDone = "1";
+      el.innerHTML = svg(el.dataset.ico, el.dataset.icoCls || "ico");
+    });
+  }
+  U.hydrateIcons = hydrateIcons;
+
+  /* ---------------- accordion ---------------- */
+  function initAccordions(root = document) {
+    $$(".accordion-trigger", root).forEach((btn) => {
+      if (btn.dataset.bound) return; btn.dataset.bound = "1";
+      btn.addEventListener("click", () => {
+        const open = btn.getAttribute("aria-expanded") === "true";
+        btn.setAttribute("aria-expanded", String(!open));
+      });
+    });
+  }
+  U.initAccordions = initAccordions;
+
+  /* ---------------- captures (email) ---------------- */
+  function initCaptures(root = document) {
+    $$("[data-capture]", root).forEach((form) => {
+      if (form.dataset.bound) return; form.dataset.bound = "1";
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const email = form.querySelector('input[type="email"]');
+        if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email.value)) { email.setAttribute("aria-invalid", "true"); toast("Enter a valid email.", "error"); return; }
+        email.setAttribute("aria-invalid", "false"); form.reset();
+        toast("You're in. We'll be in touch.");
+      });
+    });
+  }
+  U.initCaptures = initCaptures;
+
+  /* ---------------- reveal on scroll ---------------- */
+  function prefersReduced() { return window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches; }
+  function initReveal() {
+    if (prefersReduced()) { $$(".reveal").forEach((el) => el.classList.add("in")); return; }
+    const io = new IntersectionObserver((es) => es.forEach((en) => { if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); } }), { threshold: 0.12 });
+    $$(".reveal").forEach((el) => io.observe(el));
+  }
+  U.initReveal = initReveal;
+
+  /* ---------------- product card (reusable) ---------------- */
+  U.productCard = function (p) {
+    const t = U.tiers[p.tier];
+    const inv = U.invBadge(p.inventory);
+    const soldOut = p.inventory === "out";
+    const pre = p.inventory === "pre";
+    let cta;
+    if (soldOut) cta = `<button class="btn btn-secondary btn-block quick-add" data-waitlist="${p.id}">Join the waitlist</button>`;
+    else if (pre) cta = `<button class="btn btn-tier btn-block quick-add" data-tier="${p.tier}" data-preorder="${p.id}">Pre-order</button>`;
+    else cta = `<button class="btn btn-primary btn-block quick-add" data-quickadd="${p.id}">Quick add ${svg("plus")}</button>`;
+    return `<article class="card product-card" data-tier="${p.tier}">
+      <div class="product-media">
+        <a href="#/product?id=${p.id}" aria-label="${p.name}" tabindex="-1">
+          <img src="${p.images[0]}" alt="${p.name}" loading="lazy">
+          <img class="img-2" src="${p.images[1]}" alt="" loading="lazy">
+        </a>
+        ${signal(p.tier, "md")}
+        ${cta}
+      </div>
+      <div class="product-body">
+        <a href="#/product?id=${p.id}" class="product-title">${p.name}</a>
+        <span class="small muted">${t.label} · ${p.type}</span>
+        <div class="product-meta"><span class="price">${money(p.price)}</span>${inv}</div>
+      </div>
+    </article>`;
+  };
+  U.invBadge = function (inv) {
+    if (inv === "in") return `<span class="badge in"><span class="dot"></span>In stock</span>`;
+    if (inv === "low") return `<span class="badge low"><span class="dot"></span>Only a few left</span>`;
+    if (inv === "out") return `<span class="badge out"><span class="dot"></span>Sold out</span>`;
+    if (inv === "pre") return `<span class="badge pre"><span class="dot"></span>Pre-order</span>`;
+    return "";
+  };
+
+  /* delegate quick-add / waitlist / preorder on any product grid */
+  document.addEventListener("click", (e) => {
+    const qa = e.target.closest("[data-quickadd]");
+    if (qa) { e.preventDefault(); const p = U.getProduct(qa.dataset.quickadd); addToCart(p.id, p.sizes[1] || p.sizes[0]); toast("Added.", "success", { label: "View cart", fn: () => openDrawer("cart") }); return; }
+    const wl = e.target.closest("[data-waitlist]");
+    if (wl) { e.preventDefault(); openWaitlist(U.getProduct(wl.dataset.waitlist), "waitlist"); return; }
+    const po = e.target.closest("[data-preorder]");
+    if (po) { e.preventDefault(); openWaitlist(U.getProduct(po.dataset.preorder), "pre"); return; }
+    const fs = e.target.closest("[data-find-size]");
+    if (fs) { e.preventDefault(); openDrawer("size"); }
+  });
+
+  /* global ESC */
+  document.addEventListener("keydown", (e) => {
+    if (e.key !== "Escape") return;
+    if ($("#waitModal")?.classList.contains("open")) return closeModal();
+    if ($(".drawer.open")) return closeDrawers();
+    if ($("#mobileSheet")?.classList.contains("open")) { $("#mobileSheet").classList.remove("open"); $("#mobileSheet").setAttribute("inert", ""); $("#menuBtn").setAttribute("aria-expanded", "false"); lockScroll(false); }
+  });
+
+  /* ---------------- boot ---------------- */
+  U.mountChrome = function (opts = {}) {
+    renderHeader(opts); renderFooter(); renderCartDrawer(); renderModal(); renderToastWrap();
+    hydrateIcons(); initAccordions(); initCaptures(); initReveal();
+  };
+
+  /* chrome mounted by SPA bootstrap */
+})();
+
+
+const PAGES = {
+  "home": {
+    markup: "<main id=\"main\">\n\n    <!-- 1 · HERO -->\n    <section class=\"section\">\n      <div class=\"wrap hero-grid\">\n        <div class=\"hero-copy\">\n          <span class=\"eyebrow reveal\">Wear it. Be seen as open. Say hello.</span>\n          <h1 class=\"display-xl balance reveal\">Make saying hello easier.</h1>\n          <p class=\"body-lg muted pretty maxw-prose reveal\">Unello bracelets and rings are simple signals that you're open to connecting in real life — for friendship, community, and dating.</p>\n          <div class=\"hero-cta reveal\">\n            <a class=\"btn btn-primary btn-lg\" href=\"#/shop\">Shop Unello</a>\n            <a class=\"btn btn-text\" href=\"#/how-it-works\">How it works <i data-ico=\"arrow\"></i></a>\n          </div>\n          <div class=\"flex flex-wrap gap-3 reveal\" style=\"margin-top:var(--s-2)\">\n            <span class=\"pill-tag\"><span class=\"signal sm\" data-tier=\"social\"></span> Social — Sun</span>\n            <span class=\"pill-tag\"><span class=\"signal sm\" data-tier=\"dating\"></span> Dating — Rose</span>\n          </div>\n        </div>\n        <div class=\"hero-media reveal\">\n          <div class=\"media-frame\" style=\"aspect-ratio:4/5\">\n            <img id=\"heroImg\" alt=\"A person wearing the Unello signal on their wrist at a sunny café\">\n            <span class=\"signal xl\" data-tier=\"dating\" style=\"right:14%;top:54%\"></span>\n          </div>\n        </div>\n      </div>\n    </section>\n\n    <!-- 2 · DECODE THE SIGNAL -->\n    <section class=\"section\" style=\"background:var(--surface);border-block:1px solid var(--line)\">\n      <div class=\"wrap\">\n        <div class=\"section-head center\" style=\"align-items:center\">\n          <span class=\"eyebrow reveal\">Decode the signal</span>\n          <h2 class=\"balance reveal\">Two colours. One simple code.</h2>\n          <p class=\"muted maxw-prose reveal\" style=\"margin-inline:auto\">Colour is the language. A glance tells someone you're open — and which way.</p>\n        </div>\n        <div class=\"grid cols-2\">\n          <div class=\"decode-card reveal\" data-tier=\"social\">\n            <span class=\"signal lg\" data-tier=\"social\"></span>\n            <h3>Social — Sun</h3>\n            <p class=\"meaning\">Open to friendship, conversation, and community.</p>\n            <p class=\"muted\">A Sun signal says you're up for a chat — new friends, a hello at the café, community over isolation.</p>\n            <a class=\"btn btn-tier\" data-tier=\"social\" href=\"#/collection?tier=social\">Shop Social</a>\n          </div>\n          <div class=\"decode-card reveal\" data-tier=\"dating\">\n            <span class=\"signal lg\" data-tier=\"dating\"></span>\n            <h3>Dating — Rose</h3>\n            <p class=\"meaning\">Single and open to meeting someone in real life.</p>\n            <div class=\"note-control\"><i data-ico=\"lock\"></i><span>You're always in control. Open doesn't mean obligated.</span></div>\n            <a class=\"btn btn-tier\" data-tier=\"dating\" href=\"#/collection?tier=dating\">Shop Dating</a>\n          </div>\n        </div>\n      </div>\n    </section>\n\n    <!-- 3 · HOW IT WORKS -->\n    <section class=\"section\">\n      <div class=\"wrap\">\n        <div class=\"section-head reveal\"><span class=\"eyebrow\">How it works</span><h2>Four steps. That's the whole thing.</h2></div>\n        <div class=\"steps\" id=\"homeSteps\"></div>\n        <div class=\"mt-6\"><a class=\"btn btn-secondary\" href=\"#/how-it-works\">See how it works</a></div>\n      </div>\n    </section>\n\n    <!-- 4 · SHOP SOCIAL RAIL -->\n    <section class=\"section-tight\">\n      <div class=\"wrap\">\n        <div class=\"section-head with-link reveal\">\n          <div><span class=\"eyebrow\"><span class=\"signal sm\" data-tier=\"social\"></span> Social — Sun</span><h2>Shop Social</h2></div>\n          <a class=\"btn-text\" href=\"#/collection?tier=social\">View all <i data-ico=\"arrow\"></i></a>\n        </div>\n        <div class=\"rail\" id=\"railSocial\"></div>\n      </div>\n    </section>\n\n    <!-- 5 · SHOP DATING RAIL -->\n    <section class=\"section-tight\">\n      <div class=\"wrap\">\n        <div class=\"section-head with-link reveal\">\n          <div><span class=\"eyebrow\"><span class=\"signal sm\" data-tier=\"dating\"></span> Dating — Rose</span><h2>Shop Dating</h2></div>\n          <a class=\"btn-text\" href=\"#/collection?tier=dating\">View all <i data-ico=\"arrow\"></i></a>\n        </div>\n        <div class=\"rail\" id=\"railDating\"></div>\n      </div>\n    </section>\n\n    <!-- 6 · THE MOVEMENT -->\n    <section class=\"section\">\n      <div class=\"wrap\">\n        <div class=\"grid cols-2\" style=\"align-items:center\">\n          <div class=\"stack reveal\">\n            <span class=\"eyebrow\">The movement</span>\n            <h2 class=\"balance\">Unello is a movement that happens to sell jewelry.</h2>\n            <p class=\"muted maxw-prose\">Every signal worn in the wild makes the next hello easier — for someone new in town, someone between friend groups, someone ready to meet a person in real life. Wear yours, and you make the code real.</p>\n            <div class=\"flex flex-wrap gap-3\">\n              <span class=\"pill-tag\"><i data-ico=\"eye\"></i> Seen in 1 glance</span>\n              <span class=\"pill-tag\"><i data-ico=\"wave\"></i> 4,000+ hellos</span>\n              <span class=\"pill-tag\"><i data-ico=\"pin\"></i> On wrists worldwide</span>\n            </div>\n          </div>\n          <div class=\"grid cols-2 reveal\" id=\"ugcGrid\" aria-label=\"Community photos (placeholder)\"></div>\n        </div>\n      </div>\n    </section>\n\n    <!-- 7 · EMAIL CAPTURE -->\n    <section class=\"section-tight\">\n      <div class=\"wrap\">\n        <div class=\"callout reveal\">\n          <span class=\"eyebrow\" style=\"color:var(--paper);opacity:.7\">Join the movement</span>\n          <h2 class=\"balance\" style=\"max-width:18ch\">Be first when new pieces drop.</h2>\n          <form class=\"inline-capture\" data-capture=\"home\" novalidate style=\"width:min(440px,100%)\">\n            <input class=\"input\" type=\"email\" placeholder=\"Your email\" aria-label=\"Email\" required>\n            <button class=\"btn btn-tier\" data-tier=\"dating\" type=\"submit\">Join</button>\n          </form>\n          <p class=\"small\" style=\"opacity:.7\">No spam. Just the drop, and the occasional hello.</p>\n        </div>\n      </div>\n    </section>\n\n  </main>",
+    render: function(){
+try{
+
+    const U = window.UNELLO;
+    // hero
+    document.getElementById("heroImg").src = U.ph({ tier:"dating", kind:"lifestyle", w:900, h:1100, label:"the signal, in context" });
+    // steps
+    const STEPS = [
+      { ic:"tag",  t:"Choose", d:"Pick your signal — Social (Sun) or Dating (Rose) — in a bracelet or ring." },
+      { ic:"hand", t:"Wear",   d:"Put it on where it's seen. Out the door, that's it." },
+      { ic:"sun",  t:"Signal", d:"The colour does the talking. People who know the code, read it." },
+      { ic:"wave", t:"Say hello", d:"Someone open says hi. You're never obligated — just open." },
+    ];
+    document.getElementById("homeSteps").innerHTML = STEPS.map((s,i)=>`
+      <div class="step reveal">
+        <div class="ico-wrap">${U.svg(s.ic)}</div>
+        <div class="step-head"><span class="signal sm" data-tier="${i%2?'dating':'social'}"></span><span class="step-num">Step ${i+1}</span></div>
+        <h3>${s.t}</h3><p class="muted">${s.d}</p>
+      </div>`).join("");
+    // rails
+    document.getElementById("railSocial").innerHTML = U.byTier("social").map(U.productCard).join("");
+    document.getElementById("railDating").innerHTML = U.byTier("dating").map(U.productCard).join("");
+    // ugc placeholders
+    document.getElementById("ugcGrid").innerHTML = ["social","dating","dating","social"].map((t,i)=>
+      `<div class="media-frame" style="aspect-ratio:1/1"><img src="${U.ph({tier:t,kind:'lifestyle',w:500,h:500,label:'@unello'})}" alt="Community photo placeholder"></div>`).join("");
+    U.initReveal();
+  
+}catch(e){console.error("render "+"home",e);}
+}
+  },
+  "shop": {
+    markup: "<main id=\"main\">\n    <section class=\"section-tight\">\n      <div class=\"wrap stack\">\n        <span class=\"eyebrow\">Shop</span>\n        <h1 class=\"display-l balance\">Pick your signal.</h1>\n        <p class=\"body-lg muted maxw-prose\">Two tiers, one simple code. Choose Social to be open to friendship and community, or Dating to be open to meeting someone in real life.</p>\n      </div>\n    </section>\n\n    <!-- collection tiles -->\n    <section class=\"section-tight\">\n      <div class=\"wrap grid cols-2\">\n        <a class=\"tile\" data-tier=\"social\" href=\"#/collection?tier=social\">\n          <span class=\"signal lg\" data-tier=\"social\"></span>\n          <h3>Social — Sun</h3>\n          <p class=\"text-tier\">Open to friendship, conversation, and community.</p>\n          <span class=\"tile-arrow\">Shop Social <i data-ico=\"arrow\"></i></span>\n        </a>\n        <a class=\"tile\" data-tier=\"dating\" href=\"#/collection?tier=dating\">\n          <span class=\"signal lg\" data-tier=\"dating\"></span>\n          <h3>Dating — Rose</h3>\n          <p class=\"text-tier\">Single and open to meeting someone in real life.</p>\n          <span class=\"tile-arrow\">Shop Dating <i data-ico=\"arrow\"></i></span>\n        </a>\n      </div>\n    </section>\n\n    <!-- all products + filters -->\n    <section class=\"section-tight\">\n      <div class=\"wrap\">\n        <div class=\"section-head with-link\" style=\"align-items:center\">\n          <h2>All pieces</h2>\n          <div class=\"field\" style=\"min-width:180px\">\n            <label class=\"sr-only\" for=\"sort\">Sort</label>\n            <select class=\"select\" id=\"sort\">\n              <option value=\"featured\">Featured</option>\n              <option value=\"price-asc\">Price: low to high</option>\n              <option value=\"price-desc\">Price: high to low</option>\n              <option value=\"newest\">Newest</option>\n            </select>\n          </div>\n        </div>\n\n        <form class=\"filters\" id=\"filters\" aria-label=\"Filter products\">\n          <fieldset><legend>Tier</legend>\n            <label><input type=\"checkbox\" name=\"tier\" value=\"social\"> Social</label>\n            <label><input type=\"checkbox\" name=\"tier\" value=\"dating\"> Dating</label>\n          </fieldset>\n          <fieldset><legend>Type</legend>\n            <label><input type=\"checkbox\" name=\"type\" value=\"Bracelet\"> Bracelet</label>\n            <label><input type=\"checkbox\" name=\"type\" value=\"Ring\"> Ring</label>\n          </fieldset>\n          <fieldset><legend>Price</legend>\n            <label><input type=\"checkbox\" name=\"price\" value=\"0-45\"> Under $45</label>\n            <label><input type=\"checkbox\" name=\"price\" value=\"45-60\"> $45–60</label>\n            <label><input type=\"checkbox\" name=\"price\" value=\"60-999\"> $60+</label>\n          </fieldset>\n          <fieldset><legend>Availability</legend>\n            <label><input type=\"checkbox\" name=\"avail\" value=\"in\"> In stock</label>\n            <label><input type=\"checkbox\" name=\"avail\" value=\"pre\"> Pre-order</label>\n          </fieldset>\n          <button type=\"button\" class=\"btn btn-text\" id=\"clearFilters\">Clear all</button>\n        </form>\n\n        <p class=\"small muted mt-4\" id=\"resultCount\" aria-live=\"polite\"></p>\n        <div class=\"grid cols-4 mt-4\" id=\"grid\"></div>\n        <div class=\"empty-state hide\" id=\"empty\">\n          <i data-ico=\"search\"></i>\n          <div><h3>No pieces match those filters</h3><p class=\"muted mt-2\">Try clearing a filter or two.</p></div>\n          <button class=\"btn btn-secondary\" id=\"emptyClear\">Clear filters</button>\n        </div>\n      </div>\n    </section>\n  </main>",
+    render: function(){
+try{
+
+    const U = window.UNELLO, $ = (s)=>document.querySelector(s), $$=(s)=>Array.from(document.querySelectorAll(s));
+    const grid = $("#grid"), empty = $("#empty"), form = $("#filters");
+    function getChecked(name){ return $$(`input[name="${name}"]:checked`).map(i=>i.value); }
+    function inPrice(p, ranges){ return ranges.length===0 || ranges.some(r=>{const[a,b]=r.split("-").map(Number); return p.price>=a && p.price<=b;}); }
+    function apply(){
+      const tiers=getChecked("tier"), types=getChecked("type"), prices=getChecked("price"), avail=getChecked("avail");
+      let list = U.products.filter(p=>
+        (tiers.length===0||tiers.includes(p.tier)) &&
+        (types.length===0||types.includes(p.type)) &&
+        inPrice(p,prices) &&
+        (avail.length===0||avail.includes(p.inventory)));
+      const sort=$("#sort").value;
+      if(sort==="price-asc") list.sort((a,b)=>a.price-b.price);
+      else if(sort==="price-desc") list.sort((a,b)=>b.price-a.price);
+      else if(sort==="newest") list.reverse();
+      grid.innerHTML = list.map(U.productCard).join("");
+      U.hydrateIcons(grid);
+      $("#resultCount").textContent = `${list.length} piece${list.length===1?"":"s"}`;
+      empty.classList.toggle("hide", list.length>0);
+      grid.classList.toggle("hide", list.length===0);
+    }
+    form.addEventListener("change", apply);
+    $("#sort").addEventListener("change", apply);
+    $("#clearFilters").addEventListener("click", ()=>{ form.reset(); apply(); });
+    $("#emptyClear").addEventListener("click", ()=>{ form.reset(); apply(); });
+    // preselect tier from URL ?tier=
+    const t = new URLSearchParams((location.hash.split('?')[1]||'')).get("tier");
+    if(t){ const cb=$(`input[name="tier"][value="${t}"]`); if(cb) cb.checked=true; }
+    apply();
+  
+}catch(e){console.error("render "+"shop",e);}
+}
+  },
+  "collection": {
+    markup: "<main id=\"main\">\n    <!-- tier band -->\n    <section class=\"tier-band\" id=\"band\" data-tier=\"social\">\n      <div class=\"wrap stack\">\n        <a class=\"btn-text\" href=\"#/shop\" style=\"padding-left:0\">&larr; All pieces</a>\n        <span class=\"signal lg\" id=\"bandSignal\" data-tier=\"social\"></span>\n        <h1 class=\"display-l\" id=\"bandTitle\">Social — Sun</h1>\n        <p class=\"body-lg\" id=\"bandMeaning\" style=\"max-width:42ch\"></p>\n        <div id=\"controlNote\"></div>\n      </div>\n    </section>\n\n    <section class=\"section-tight\">\n      <div class=\"wrap\">\n        <div class=\"flex-between\" style=\"flex-wrap:wrap\">\n          <p class=\"small muted\" id=\"resultCount\" aria-live=\"polite\"></p>\n          <div class=\"field\" style=\"min-width:180px\">\n            <label class=\"sr-only\" for=\"sort\">Sort</label>\n            <select class=\"select\" id=\"sort\">\n              <option value=\"featured\">Featured</option>\n              <option value=\"price-asc\">Price: low to high</option>\n              <option value=\"price-desc\">Price: high to low</option>\n            </select>\n          </div>\n        </div>\n        <div class=\"grid cols-4 mt-5\" id=\"grid\"></div>\n      </div>\n    </section>\n\n    <!-- tier FAQ -->\n    <section class=\"section-tight\">\n      <div class=\"wrap\" style=\"max-width:760px\">\n        <h2 class=\"mb-3\">Good to know</h2>\n        <div class=\"accordion\" id=\"tierFaq\"></div>\n      </div>\n    </section>\n\n    <!-- cross-link -->\n    <section class=\"section-tight\">\n      <div class=\"wrap\">\n        <a class=\"tile\" id=\"crossTile\" data-tier=\"dating\" href=\"#/collection?tier=dating\">\n          <span class=\"signal lg\" id=\"crossSignal\" data-tier=\"dating\"></span>\n          <h3 id=\"crossTitle\">Looking for something else?</h3>\n          <p class=\"text-tier\" id=\"crossMeaning\"></p>\n          <span class=\"tile-arrow\" id=\"crossCta\">Shop the other tier <i data-ico=\"arrow\"></i></span>\n        </a>\n      </div>\n    </section>\n  </main>",
+    render: function(){
+try{
+
+    const U = window.UNELLO, $ = (s)=>document.querySelector(s);
+    const tier = (new URLSearchParams((location.hash.split('?')[1]||'')).get("tier") === "dating") ? "dating" : "social";
+    const other = tier === "dating" ? "social" : "dating";
+    const meta = U.tiers[tier], om = U.tiers[other];
+    document.title = `${meta.label} Collection — Unello`;
+
+    $("#band").dataset.tier = tier;
+    $("#bandSignal").dataset.tier = tier;
+    $("#bandTitle").textContent = `${meta.label} — ${meta.colorName}`;
+    $("#bandMeaning").textContent = meta.meaning;
+    if(tier === "dating"){
+      $("#controlNote").innerHTML = `<div class="note-control" style="max-width:46ch">${U.svg("lock")}<span>Open ≠ obligated. You're always in control of who you say hello to.</span></div>`;
+    }
+
+    function render(){
+      let list = U.byTier(tier).slice();
+      const s = $("#sort").value;
+      if(s==="price-asc") list.sort((a,b)=>a.price-b.price);
+      else if(s==="price-desc") list.sort((a,b)=>b.price-a.price);
+      $("#grid").innerHTML = list.map(U.productCard).join("");
+      U.hydrateIcons($("#grid"));
+      $("#resultCount").textContent = `${list.length} ${meta.label} pieces`;
+    }
+    $("#sort").addEventListener("change", render);
+    render();
+
+    // tier FAQ
+    const faqs = tier === "dating" ? [
+      ["Do I have to talk to everyone who notices?", "No. The Rose signal says you're open — not available on demand. You decide every time whether to say hello back."],
+      ["Is wearing it safe?", "The signal is subtle and only legible to people who know the code. You're in control of when and where you wear it."],
+      ["Can I wear Social and Dating together?", "Yes. Some people stack both — open to friends and open to dating. Others keep it to one. Your call."],
+    ] : [
+      ["What does the Sun signal say?", "That you're open to friendship, conversation, and community — a low-pressure 'I'm approachable.'"],
+      ["Where should I wear it?", "Anywhere it's seen — wrist or finger. Cafés, markets, travel, new cities. That's where hellos happen."],
+      ["Can I wear Social and Dating together?", "Absolutely. Stack both if you're open to friends and dating, or keep it to one."],
+    ];
+    $("#tierFaq").innerHTML = faqs.map(([q,a],i)=>`
+      <div class="accordion-item">
+        <button class="accordion-trigger" aria-expanded="${i===0?'true':'false'}" aria-controls="tf${i}">${q}<i data-ico="plus"></i></button>
+        <div class="accordion-panel" id="tf${i}"><div class="panel-inner"><p>${a}</p></div></div>
+      </div>`).join("");
+    U.initAccordions($("#tierFaq")); U.hydrateIcons($("#tierFaq"));
+
+    // cross tile
+    $("#crossTile").dataset.tier = other;
+    $("#crossTile").href = `#/collection?tier=${other}`;
+    $("#crossSignal").dataset.tier = other;
+    $("#crossTitle").textContent = `${om.label} — ${om.colorName}`;
+    $("#crossMeaning").textContent = om.meaning;
+    $("#crossCta").firstChild.textContent = `Shop ${om.label} `;
+  
+}catch(e){console.error("render "+"collection",e);}
+}
+  },
+  "product": {
+    markup: "<main id=\"main\" data-tier=\"social\">\n    <div class=\"wrap section-tight\">\n      <nav class=\"small muted mb-4\" aria-label=\"Breadcrumb\" id=\"crumb\"></nav>\n\n      <!-- design-review control: mock inventory states -->\n      <div class=\"mock-toggle mb-5\" role=\"group\" aria-label=\"Preview inventory state (design build only)\">\n        <span class=\"lbl\">Preview state:</span>\n        <button data-state=\"in\" aria-pressed=\"true\">In stock</button>\n        <button data-state=\"low\" aria-pressed=\"false\">Low stock</button>\n        <button data-state=\"out\" aria-pressed=\"false\">Sold out</button>\n        <button data-state=\"pre\" aria-pressed=\"false\">Pre-order</button>\n      </div>\n\n      <div class=\"pdp-grid\">\n        <!-- gallery -->\n        <div class=\"gallery\">\n          <div class=\"gallery-main\">\n            <img id=\"mainImg\" alt=\"\">\n            <span class=\"signal lg\" id=\"galSignal\" data-tier=\"social\" style=\"position:absolute;top:16px;left:16px\"></span>\n          </div>\n          <div class=\"gallery-thumbs\" id=\"thumbs\" role=\"group\" aria-label=\"Product images\"></div>\n          <p class=\"small muted\">Pinch to zoom on mobile. Includes the signal in context, and a macro of the dot.</p>\n        </div>\n\n        <!-- buy box -->\n        <div class=\"buy-box\" id=\"buyBox\"></div>\n      </div>\n\n      <!-- cross-sell -->\n      <section class=\"section-tight\">\n        <h2 class=\"mb-4\">Pair it — complete the set</h2>\n        <div class=\"grid cols-2\" id=\"pairGrid\"></div>\n      </section>\n\n      <!-- related -->\n      <section class=\"section-tight\">\n        <div class=\"section-head with-link\"><h2 id=\"relTitle\">More like this</h2></div>\n        <div class=\"grid cols-4\" id=\"related\"></div>\n      </section>\n    </div>\n  </main>\n\n  <!-- sticky mobile add to cart -->\n  <div class=\"sticky-buy\" id=\"stickyBuy\">\n    <span class=\"price\" id=\"stickyPrice\"></span>\n    <button class=\"btn btn-primary\" style=\"flex:1\" id=\"stickyBtn\">Add to Cart</button>\n  </div>",
+    render: function(){
+try{
+
+    const U = window.UNELLO, $ = (s)=>document.querySelector(s), $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
+    const id = new URLSearchParams((location.hash.split('?')[1]||'')).get("id") || U.products[0].id;
+    const p = U.getProduct(id) || U.products[0];
+    const meta = U.tiers[p.tier];
+    let state = p.inventory;      // mock-overridable
+    let size = null, qty = 1, mainIdx = 0;
+
+    document.title = `${p.name} — Unello`;
+    $("#main").dataset.tier = p.tier;
+    $("#galSignal").dataset.tier = p.tier;
+    $("#crumb").innerHTML = `<a href="#/shop">Shop</a> / <a href="#/collection?tier=${p.tier}">${meta.label}</a> / <span>${p.name}</span>`;
+
+    // gallery
+    function setMain(i){ mainIdx=i; $("#mainImg").src=p.images[i]; $("#mainImg").alt=`${p.name} — image ${i+1}`;
+      $$("#thumbs button").forEach((b,bi)=>b.setAttribute("aria-current", String(bi===i))); }
+    $("#thumbs").innerHTML = p.images.map((src,i)=>`<button aria-current="${i===0}" aria-label="Image ${i+1}"><img src="${src}" alt=""></button>`).join("");
+    $$("#thumbs button").forEach((b,i)=>b.addEventListener("click",()=>setMain(i)));
+    setMain(0);
+
+    function renderBuyBox(){
+      const inv = U.invBadge(state);
+      const out = state==="out", pre = state==="pre", low = state==="low";
+      const sizeChips = p.sizes.map(s=>`<button class="chip" role="button" aria-pressed="${s===size}" data-size="${s}" ${out?'disabled':''}>${s}</button>`).join("");
+
+      let primary;
+      if(out) primary = `<button class="btn btn-secondary btn-block btn-lg" data-waitlist="${p.id}">Join the waitlist</button>`;
+      else if(pre) primary = `<button class="btn btn-tier btn-block btn-lg" data-tier="${p.tier}" data-preorder="${p.id}">Pre-order now — ships in 3–4 weeks</button>`;
+      else primary = `<button class="btn btn-primary btn-block btn-lg" id="addBtn">Add to Cart</button>
+                      <button class="btn btn-secondary btn-block" id="buyNow">Buy Now</button>`;
+
+      const invLine = out ? `Currently sold out — join the waitlist and we'll email you the moment it's back.`
+        : pre ? `Pre-order now. Ships in 3–4 weeks.`
+        : low ? `Only a few left.`
+        : `In stock. Ships in 1–2 business days.`;
+
+      $("#buyBox").innerHTML = `
+        <div class="stack">
+          <div class="flex" style="align-items:center;gap:var(--s-3)">
+            <span class="tier-pill" data-tier="${p.tier}"><span class="signal sm" data-tier="${p.tier}"></span>${meta.label} — ${meta.colorName}</span>
+            ${inv}
+          </div>
+          <h1 class="h2" style="font-family:var(--font-display)">${p.name}</h1>
+          <div class="buy-price">${"$"+p.price}</div>
+          <p class="meaning-line" data-tier="${p.tier}">${meta.meaning}</p>
+          <p class="muted">${p.blurb}</p>
+        </div>
+
+        <div class="stack">
+          <div class="flex-between"><span class="small" style="font-weight:600">Size</span>
+            <button class="btn-text small" data-find-size style="min-height:auto;padding:4px">Find my size</button></div>
+          <div class="chip-row" id="sizeChips">${sizeChips}</div>
+          <p class="field-error" id="sizeErr" style="display:none">Please pick a size.</p>
+        </div>
+
+        ${out ? "" : `<div class="flex" style="align-items:center;gap:var(--s-4)">
+          <span class="small" style="font-weight:600">Qty</span>
+          <div class="stepper" aria-label="Quantity">
+            <button id="qDec" aria-label="Decrease">−</button>
+            <input id="qInp" value="${qty}" inputmode="numeric" aria-label="Quantity">
+            <button id="qInc" aria-label="Increase">+</button>
+          </div></div>`}
+
+        <div class="stack">${primary}</div>
+        <p class="small muted">${invLine}</p>
+
+        <div class="trust">
+          <div class="item">${U.svg("truck")} Free shipping over $75</div>
+          <div class="item">${U.svg("refresh")} 30-day returns</div>
+          <div class="item">${U.svg("box")} Ships from the US</div>
+        </div>
+
+        ${p.tier==="dating" ? `<div class="note-control">${U.svg("lock")}<span>You're always in control. Open doesn't mean obligated.</span></div>` : ""}
+
+        <div class="accordion" id="pdpAcc"></div>`;
+
+      // accordions
+      const items = [
+        ["Read the Signal — colour meaning", `<p><strong>${meta.label} is ${meta.colorName}.</strong> ${meta.long}</p><p>People who know the code read it at a glance. That's the whole idea — the colour does the talking so you don't have to.</p>`],
+        ["Sizing", `<p>Bracelets come in XS–L; rings in US 6–10. Not sure? Use <button class="btn-text" data-find-size style="min-height:auto;padding:0;text-decoration:underline">Find my size</button>.</p>`],
+        ["Shipping", `<p>Ships in 1–2 business days. Free over $75. Tracked delivery, ships from the US.</p>`],
+        ["Returns", `<p>30 days, no fuss. If it's not right, send it back for a refund or swap.</p>`],
+        ["Materials &amp; care", `<p>${p.material}</p><p>Wipe clean with a soft cloth. Water-friendly, but store dry to keep the signal bright.</p>`],
+      ];
+      $("#pdpAcc").innerHTML = items.map(([q,a],i)=>`
+        <div class="accordion-item">
+          <button class="accordion-trigger" aria-expanded="${i===0?'true':'false'}" aria-controls="pa${i}">${q}<i data-ico="plus"></i></button>
+          <div class="accordion-panel" id="pa${i}"><div class="panel-inner">${a}</div></div>
+        </div>`).join("");
+
+      U.hydrateIcons($("#buyBox"));
+      U.initAccordions($("#buyBox"));
+      bindBuy();
+      syncSticky();
+    }
+
+    function bindBuy(){
+      $$("#sizeChips .chip").forEach(c=>c.addEventListener("click",()=>{
+        if(c.disabled) return;
+        size=c.dataset.size;
+        $$("#sizeChips .chip").forEach(x=>x.setAttribute("aria-pressed", String(x===c)));
+        $("#sizeErr").style.display="none";
+        syncSticky();
+      }));
+      const qInp=$("#qInp");
+      $("#qDec")?.addEventListener("click",()=>{ qty=Math.max(1,qty-1); qInp.value=qty; });
+      $("#qInc")?.addEventListener("click",()=>{ qty=qty+1; qInp.value=qty; });
+      qInp?.addEventListener("change",()=>{ qty=Math.max(1,parseInt(qInp.value)||1); qInp.value=qty; });
+      $("#addBtn")?.addEventListener("click", addCurrent);
+      $("#buyNow")?.addEventListener("click", ()=>{ if(addCurrent()) U.toast("Buy Now → external checkout (stubbed).","info"); });
+    }
+    function addCurrent(){
+      if(!size){ $("#sizeErr").style.display="block"; U.toast("Pick a size first.","error"); return false; }
+      U.addToCart(p.id, size, qty);
+      U.toast("Added.", "success", { label:"View cart", fn:()=>U.openDrawer("cart") });
+      return true;
+    }
+
+    // sticky mobile
+    function syncSticky(){
+      $("#stickyPrice").textContent = "$"+p.price;
+      const btn=$("#stickyBtn");
+      if(state==="out"){ btn.textContent="Join the waitlist"; btn.className="btn btn-secondary"; btn.style.flex="1"; btn.onclick=()=>U.openWaitlist(p,"waitlist"); }
+      else if(state==="pre"){ btn.textContent="Pre-order"; btn.className="btn btn-tier"; btn.dataset.tier=p.tier; btn.style.flex="1"; btn.onclick=()=>U.openWaitlist(p,"pre"); }
+      else { btn.textContent="Add to Cart"; btn.className="btn btn-primary"; btn.style.flex="1"; btn.onclick=addCurrent; }
+    }
+    // show sticky once buy box scrolled past on mobile
+    const io = new IntersectionObserver((es)=>es.forEach(en=>{
+      $("#stickyBuy").classList.toggle("show", !en.isIntersecting && window.innerWidth<900);
+    }), {threshold:0});
+    setTimeout(()=>{ const t=$("#buyBox"); if(t) io.observe(t); });
+
+    // mock toggle
+    $$(".mock-toggle button").forEach(b=>b.addEventListener("click",()=>{
+      state=b.dataset.state; size=null; qty=1;
+      $$(".mock-toggle button").forEach(x=>x.setAttribute("aria-pressed", String(x===b)));
+      renderBuyBox();
+    }));
+
+    renderBuyBox();
+
+    // pair / cross-sell: 2 same-tier others
+    const pair = U.byTier(p.tier).filter(x=>x.id!==p.id).slice(0,2);
+    $("#pairGrid").innerHTML = pair.map(U.productCard).join("");
+    U.hydrateIcons($("#pairGrid"));
+
+    // related: same tier first, then other
+    const rel = [...U.byTier(p.tier).filter(x=>x.id!==p.id), ...U.byTier(p.tier==="dating"?"social":"dating")].slice(0,4);
+    $("#relTitle").textContent = `More ${meta.label} pieces`;
+    $("#related").innerHTML = rel.map(U.productCard).join("");
+    U.hydrateIcons($("#related"));
+  
+}catch(e){console.error("render "+"product",e);}
+}
+  },
+  "how-it-works": {
+    markup: "<main id=\"main\">\n    <section class=\"section-tight\">\n      <div class=\"wrap stack\">\n        <span class=\"eyebrow\">How it works</span>\n        <h1 class=\"display-l balance\">Wear it. Be seen as open. Say hello.</h1>\n        <p class=\"body-lg muted maxw-prose\">No app, no profile, no swiping. Just a colour that strangers can read — and a simple way to be approachable in real life.</p>\n      </div>\n    </section>\n\n    <!-- 4 steps expanded -->\n    <section class=\"section-tight\">\n      <div class=\"wrap stack\" id=\"stepsExpanded\"></div>\n    </section>\n\n    <!-- Read the Signal -->\n    <section class=\"section\" id=\"read-the-signal\" style=\"background:var(--surface);border-block:1px solid var(--line)\">\n      <div class=\"wrap\">\n        <div class=\"section-head\"><span class=\"eyebrow\">Read the signal</span><h2 class=\"balance\">The colour code, in plain words.</h2></div>\n        <div class=\"grid cols-2\">\n          <div class=\"decode-card\" data-tier=\"social\">\n            <span class=\"signal lg\" data-tier=\"social\"></span>\n            <h3>Sun means Social</h3>\n            <p class=\"meaning\">Open to friendship, conversation, and community.</p>\n            <p class=\"muted\">See a Sun signal? That person is up for a hello — a chat in line, a new friend, community over strangers-in-silence. Low stakes, high warmth.</p>\n            <a class=\"btn btn-tier\" data-tier=\"social\" href=\"#/collection?tier=social\">Shop Social</a>\n          </div>\n          <div class=\"decode-card\" data-tier=\"dating\">\n            <span class=\"signal lg\" data-tier=\"dating\"></span>\n            <h3>Rose means Dating</h3>\n            <p class=\"meaning\">Single and open to meeting someone in real life.</p>\n            <p class=\"muted\">A Rose signal says someone is single and open to meeting a person in real life — not on an app.</p>\n            <div class=\"note-control\"><i data-ico=\"lock\"></i><span>Open ≠ obligated. Saying hello is always a choice — yours and theirs.</span></div>\n            <a class=\"btn btn-tier\" data-tier=\"dating\" href=\"#/collection?tier=dating\">Shop Dating</a>\n          </div>\n        </div>\n        <div class=\"callout mt-6\">\n          <h3 style=\"font-family:var(--font-display)\">The one rule: you're always in control.</h3>\n          <p style=\"opacity:.85;max-width:52ch\">Wearing the signal means you're open — not that you owe anyone a conversation. Take it off any time. Say hello when you want to. That's the whole deal.</p>\n        </div>\n      </div>\n    </section>\n\n    <section class=\"section-tight\">\n      <div class=\"wrap center stack\" style=\"align-items:center\">\n        <h2 class=\"balance\">Ready to wear yours?</h2>\n        <div class=\"flex gap-3 flex-wrap\" style=\"justify-content:center\">\n          <a class=\"btn btn-tier\" data-tier=\"social\" href=\"#/collection?tier=social\">Shop Social — Sun</a>\n          <a class=\"btn btn-tier\" data-tier=\"dating\" href=\"#/collection?tier=dating\">Shop Dating — Rose</a>\n        </div>\n      </div>\n    </section>\n  </main>",
+    render: function(){
+try{
+
+    const U = window.UNELLO;
+    const STEPS = [
+      { ic:"tag",  t:"Choose your signal", d:"Pick Social (Sun) if you're open to friendship and community, or Dating (Rose) if you're single and open to meeting someone. Bracelet or ring — your call. Stack both if that's you." },
+      { ic:"hand", t:"Wear it where it's seen", d:"On the wrist or finger, out in the world — cafés, markets, travel, a new city. The signal only works where people are, so wear it out the door." },
+      { ic:"sun",  t:"The signal does the talking", d:"You don't have to announce anything. The colour is the message. People who know the code read it at a glance — quietly, no awkward opener required." },
+      { ic:"wave", t:"Say hello — on your terms", d:"Someone open notices, and a hello happens. You're never obligated to talk to anyone. Open means available to connect, not available on demand." },
+    ];
+    document.getElementById("stepsExpanded").innerHTML = STEPS.map((s,i)=>`
+      <div class="grid cols-2" style="align-items:center;gap:var(--s-6)">
+        <div class="media-frame ${i%2?'':'order-first'}" style="aspect-ratio:16/10;${i%2?'order:2':''}">
+          <img src="${U.ph({tier:i%2?'dating':'social',kind:i===2?'macro':'lifestyle',w:900,h:560,label:s.t})}" alt="${s.t}">
+        </div>
+        <div class="stack" style="${i%2?'order:1':''}">
+          <div class="step-head"><div class="ico-wrap">${U.svg(s.ic)}</div><span class="step-num">Step ${i+1}</span></div>
+          <h2 style="font-family:var(--font-display)">${s.t}</h2>
+          <p class="muted body-lg">${s.d}</p>
+        </div>
+      </div>${i<STEPS.length-1?'<hr class="divider" style="margin-block:var(--s-2)">':''}`).join("");
+    U.hydrateIcons(document.getElementById("stepsExpanded"));
+  
+}catch(e){console.error("render "+"how-it-works",e);}
+}
+  },
+  "about": {
+    markup: "<main id=\"main\">\n    <section class=\"section-tight\">\n      <div class=\"wrap\" style=\"max-width:820px\">\n        <span class=\"eyebrow\">About</span>\n        <h1 class=\"display-l balance mt-3\">Unity + Hello.</h1>\n        <p class=\"body-lg muted pretty mt-4\">Unello is two words pressed into one: <strong>Unity</strong> and <strong>Hello</strong>. It's a small object with a big job — to make the first hello, in real life, a little easier.</p>\n      </div>\n    </section>\n\n    <section class=\"section-tight\">\n      <div class=\"wrap\">\n        <div class=\"media-frame\" style=\"aspect-ratio:21/9\">\n          <img id=\"founderImg\" alt=\"Alicia, founder of Unello\">\n          <span class=\"signal lg\" data-tier=\"dating\" style=\"position:absolute;right:8%;bottom:14%\"></span>\n        </div>\n      </div>\n    </section>\n\n    <section class=\"section-tight\">\n      <div class=\"wrap prose\">\n        <h2>Why it exists</h2>\n        <p>We are more connected than ever and lonelier than ever. We sit beside each other and never look up. Meeting people — for friendship or for dating — has quietly moved behind a screen, and something human got lost in the move.</p>\n        <p>Unello puts a signal back into the real world. A bracelet or a ring, in one of two colours, says a simple thing to anyone nearby who knows the code: <em>I'm open. You can say hello.</em></p>\n\n        <h2>The founder</h2>\n        <p>Unello started with Alicia — someone who moved cities one too many times and got tired of how hard it was to simply meet people. Apps felt like work. Bars felt like a gamble. The people she wanted to know were standing right there, in the same café, behind the same invisible wall.</p>\n        <p>So she made the wall a little lower. A piece of jewelry that does one honest thing: it tells the truth about whether you're open. No profile, no performance — just a colour, worn out loud.</p>\n\n        <h2>The mission</h2>\n        <p>Make saying hello easier. Turn \"I wish I'd said something\" into \"I did.\" Build a shared, opt-in signal that works the same on a beach, in a market, or on a morning commute — and that always leaves the wearer in control.</p>\n\n        <h2>A movement, not a store</h2>\n        <p>If you leave understanding the signal but never buy a thing, we still did half our job — because the code only works when people know it. And if you wear one out into the world, you make the next person's hello easier too. That's the whole movement: one signal at a time.</p>\n      </div>\n    </section>\n\n    <section class=\"section-tight\">\n      <div class=\"wrap\">\n        <div class=\"callout reveal\">\n          <span class=\"eyebrow\" style=\"color:var(--paper);opacity:.7\">Join the movement</span>\n          <h2 class=\"balance\" style=\"max-width:18ch\">Wear the signal. Make the first hello easier.</h2>\n          <div class=\"flex gap-3 flex-wrap\">\n            <a class=\"btn btn-tier\" data-tier=\"dating\" href=\"#/shop\">Shop Unello</a>\n          </div>\n          <form class=\"inline-capture mt-2\" data-capture=\"about\" novalidate style=\"width:min(440px,100%)\">\n            <input class=\"input\" type=\"email\" placeholder=\"Your email\" aria-label=\"Email\" required>\n            <button class=\"btn btn-secondary\" type=\"submit\" style=\"background:var(--surface)\">Join</button>\n          </form>\n        </div>\n      </div>\n    </section>\n  </main>",
+    render: function(){
+try{
+document.getElementById("founderImg").src = UNELLO.ph({tier:"dating",kind:"lifestyle",w:1400,h:600,label:"Alicia — founder"});
+}catch(e){console.error("render "+"about",e);}
+}
+  },
+  "faq": {
+    markup: "<main id=\"main\">\n    <section class=\"section-tight\">\n      <div class=\"wrap stack\" style=\"max-width:760px\">\n        <span class=\"eyebrow\">FAQ</span>\n        <h1 class=\"display-l balance\">Good questions.</h1>\n        <p class=\"body-lg muted\">The idea, how you wear it, staying in control, and getting your order. Still stuck? <a href=\"#/contact\" style=\"text-decoration:underline;text-underline-offset:3px\">Talk to us</a>.</p>\n      </div>\n    </section>\n\n    <section class=\"section-tight\">\n      <div class=\"wrap\" style=\"max-width:760px\" id=\"faqGroups\"></div>\n    </section>\n\n    <section class=\"section-tight\">\n      <div class=\"wrap center stack\" style=\"align-items:center\">\n        <span class=\"signal lg\" data-tier=\"social\"></span>\n        <h2>Still curious?</h2>\n        <p class=\"muted maxw-narrow\">We're real people and we like saying hello. Reach out any time.</p>\n        <a class=\"btn btn-primary\" href=\"#/contact\">Contact us</a>\n      </div>\n    </section>\n  </main>",
+    render: function(){
+try{
+
+    const U = window.UNELLO;
+    const GROUPS = [
+      ["The idea", [
+        ["What is Unello, exactly?", "Wearable jewelry that works as a social signal. A bracelet or ring in one of two colours tells people nearby that you're open to connecting in real life — Social (Sun) for friendship, Dating (Rose) for meeting someone."],
+        ["Who reads the signal?", "Anyone who knows the code. The more people who learn it, the better it works — which is why we treat Unello as a movement, not just a product."],
+        ["Is this an app or a dating service?", "Neither. There's no profile, no matching, no swiping. The whole point is to move connection back into the real world. The jewelry is the entire interface."],
+      ]],
+      ["Wearing it & staying in control", [
+        ["Do I have to talk to everyone who notices?", "No. Open means you're approachable — not obligated. You decide, every single time, whether to say hello back. Wearing the signal is an invitation you control, not a contract."],
+        ["Can I wear Social and Dating at the same time?", "Yes. Plenty of people stack both — open to new friends and open to dating. Others keep it to one. Whatever's true for you."],
+        ["Is it safe to wear?", "The signal is subtle and only legible to people who know the code. You choose when and where to wear it, and you can take it off any time. Control stays with you."],
+        ["How do I find my size?", "Wrap a strip of paper or soft tape around your wrist (bracelets) or the base of your finger (rings), snug but not tight, and match it to our size guide. Cords are adjustable. Between ring sizes? Size up."],
+      ]],
+      ["Orders, shipping & returns", [
+        ["When will my order ship?", "In-stock pieces ship in 1–2 business days with tracked delivery. Pre-orders ship in 3–4 weeks — you'll get a heads-up before it goes out."],
+        ["How much is shipping?", "Free over $75. Below that, a flat rate is shown at checkout. We ship from the US."],
+        ["What's your return policy?", "30 days. If it's not right, send it back for a refund or a swap — no drama."],
+        ["Can I buy one for a friend?", "Please do — it's one of the best ways to grow the movement. Add a note at checkout and we'll keep the packaging gift-ready."],
+        ["Something's sold out — now what?", "Join the waitlist on the product page and we'll email you the moment it's back. If a piece is on pre-order, you can reserve it now and it ships in 3–4 weeks."],
+      ]],
+    ];
+    document.getElementById("faqGroups").innerHTML = GROUPS.map(([title, items], gi)=>`
+      <div class="mb-5">
+        <h2 class="mb-3" style="font-size:clamp(20px,2.6vw,24px)">${title}</h2>
+        <div class="accordion">
+          ${items.map(([q,a],i)=>`
+            <div class="accordion-item">
+              <button class="accordion-trigger" aria-expanded="${gi===0&&i===0?'true':'false'}" aria-controls="g${gi}q${i}">${q}<i data-ico="plus"></i></button>
+              <div class="accordion-panel" id="g${gi}q${i}"><div class="panel-inner"><p>${a}</p></div></div>
+            </div>`).join("")}
+        </div>
+      </div>`).join("");
+    U.initAccordions(document.getElementById("faqGroups"));
+    U.hydrateIcons(document.getElementById("faqGroups"));
+  
+}catch(e){console.error("render "+"faq",e);}
+}
+  },
+  "contact": {
+    markup: "<main id=\"main\">\n    <section class=\"section-tight\">\n      <div class=\"wrap grid cols-2\" style=\"gap:var(--s-7);align-items:start\">\n        <div class=\"stack\">\n          <span class=\"eyebrow\">Contact</span>\n          <h1 class=\"display-l balance\">Say hello.</h1>\n          <p class=\"body-lg muted maxw-prose\">Questions, sizing help, wholesale, press, or just want to tell us your Unello story — we're listening.</p>\n          <div class=\"stack mt-4\">\n            <a class=\"flex\" style=\"align-items:center;gap:var(--s-3)\" href=\"mailto:hello@unello.example\"><i data-ico=\"mail\" style=\"color:var(--ink-soft)\"></i> hello@unello.example</a>\n            <a class=\"flex\" style=\"align-items:center;gap:var(--s-3)\" href=\"#\"><i data-ico=\"insta\" style=\"color:var(--ink-soft)\"></i> @unello</a>\n            <div class=\"flex\" style=\"align-items:center;gap:var(--s-3)\"><i data-ico=\"chat\" style=\"color:var(--ink-soft)\"></i> We reply within 1 business day.</div>\n          </div>\n          <div class=\"note-control\" style=\"background:var(--social-tint);color:var(--social-ink);max-width:46ch\">\n            <i data-ico=\"wave\"></i><span>Friendly humans, not a ticket queue. Tell us what you need and we'll sort it.</span>\n          </div>\n        </div>\n\n        <form class=\"card stack\" style=\"padding:var(--s-6)\" id=\"contactForm\" novalidate>\n          <div class=\"field\"><label for=\"cname\">Name <span class=\"req\">*</span></label>\n            <input class=\"input\" id=\"cname\" name=\"name\" required autocomplete=\"name\">\n            <span class=\"field-error\">Please add your name.</span></div>\n          <div class=\"field\"><label for=\"cemail\">Email <span class=\"req\">*</span></label>\n            <input class=\"input\" id=\"cemail\" name=\"email\" type=\"email\" required autocomplete=\"email\">\n            <span class=\"field-error\">Enter a valid email.</span></div>\n          <div class=\"field\"><label for=\"cmsg\">Message <span class=\"req\">*</span></label>\n            <textarea class=\"textarea\" id=\"cmsg\" name=\"message\" required placeholder=\"What's on your mind?\"></textarea>\n            <span class=\"field-error\">Add a short message.</span></div>\n          <button class=\"btn btn-primary btn-lg\" type=\"submit\">Send message</button>\n          <p class=\"small muted\">By sending, you agree to our <a href=\"#/privacy\" style=\"text-decoration:underline\">privacy policy</a>.</p>\n        </form>\n      </div>\n    </section>\n  </main>",
+    render: function(){
+try{
+
+    const U = window.UNELLO, f = document.getElementById("contactForm");
+    f.addEventListener("submit", (e)=>{
+      e.preventDefault(); let ok=true;
+      [["cname",v=>v.trim()],["cemail",v=>/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)],["cmsg",v=>v.trim().length>2]].forEach(([id,test])=>{
+        const el=document.getElementById(id), field=el.closest(".field"), bad=!test(el.value);
+        field.dataset.invalid=bad; el.setAttribute("aria-invalid",bad); if(bad) ok=false;
+      });
+      if(!ok){ U.toast("Please fix the highlighted fields.","error"); return; }
+      f.reset(); f.querySelectorAll(".field").forEach(x=>x.dataset.invalid="false");
+      U.toast("Thanks — we'll be in touch within a day.");
+    });
+  
+}catch(e){console.error("render "+"contact",e);}
+}
+  },
+  "beach": {
+    markup: "<main id=\"main\" class=\"beach\" data-campaign=\"beach\" data-location=\"Bondi Beach\">\n    <header class=\"wrap\" style=\"padding-block:var(--s-4)\">\n      <div class=\"brand\" id=\"beachBrand\"></div>\n    </header>\n\n    <section class=\"beach-hero wrap\">\n      <span class=\"pill-tag\" id=\"locTag\"><i data-ico=\"pin\"></i> <span id=\"locName\">Bondi Beach</span></span>\n      <h1 class=\"display-l balance\">You spotted the signal.</h1>\n      <p class=\"body-lg muted pretty maxw-prose\">It means someone here is open to saying hello — for real, in person. Here's the code.</p>\n\n      <div class=\"beach-codes\">\n        <div class=\"beach-code\" data-tier=\"social\">\n          <span class=\"signal lg\" data-tier=\"social\"></span>\n          <strong>Sun = Social</strong>\n          <span class=\"small text-tier\">Open to friends &amp; community.</span>\n        </div>\n        <div class=\"beach-code\" data-tier=\"dating\">\n          <span class=\"signal lg\" data-tier=\"dating\"></span>\n          <strong>Rose = Dating</strong>\n          <span class=\"small text-tier\">Single &amp; open to meeting someone.</span>\n        </div>\n      </div>\n\n      <div class=\"stack\" style=\"margin-top:var(--s-2)\">\n        <a class=\"btn btn-primary btn-lg btn-block\" href=\"#/shop\">Shop Unello</a>\n        <button class=\"btn btn-secondary btn-block\" data-capture-trigger>Join the movement</button>\n        <a class=\"btn btn-text btn-block\" href=\"#\" id=\"ig\"><i data-ico=\"insta\"></i> Follow @unello</a>\n      </div>\n\n      <form class=\"inline-capture hide\" id=\"beachCapture\" data-capture=\"beach\" novalidate style=\"margin-top:var(--s-2)\">\n        <input class=\"input\" type=\"email\" placeholder=\"Your email\" aria-label=\"Email\" required>\n        <button class=\"btn btn-primary\" type=\"submit\">Join</button>\n      </form>\n\n      <p class=\"small muted center\" style=\"margin-top:auto\">Open doesn't mean obligated. Always your call.</p>\n    </section>\n  </main>\n\n  <!-- minimal: no full footer on the campaign page; just toasts/modal -->",
+    render: function(){
+try{
+
+    const U = window.UNELLO;
+    document.getElementById("beachBrand").outerHTML = U.brand();
+    U.hydrateIcons(document);
+    U.initCaptures(document);
+    // template-driven location
+    const loc = document.querySelector("[data-location]").dataset.location;
+    document.getElementById("locName").textContent = loc;
+    document.title = `Unello at ${loc} — say hello`;
+    // progressive email reveal (thumb-first: one tap)
+    document.querySelector("[data-capture-trigger]").addEventListener("click", (e)=>{
+      e.target.classList.add("hide");
+      const f = document.getElementById("beachCapture"); f.classList.remove("hide");
+      f.querySelector("input").focus();
+    });
+  
+}catch(e){console.error("render "+"beach",e);}
+}
+  },
+  "404": {
+    markup: "<main id=\"main\">\n    <section class=\"section\">\n      <div class=\"wrap center stack\" style=\"align-items:center;min-height:50vh;justify-content:center\">\n        <span class=\"signal xl\" data-tier=\"social\"></span>\n        <h1 class=\"display-l\">No signal here.</h1>\n        <p class=\"body-lg muted maxw-narrow\">This page is off the grid — but the movement isn't. Let's get you back to where the hellos happen.</p>\n        <div class=\"flex gap-3 flex-wrap\" style=\"justify-content:center\">\n          <a class=\"btn btn-primary\" href=\"#/shop\">Shop Unello</a>\n          <a class=\"btn btn-secondary\" href=\"#/\">Back home</a>\n        </div>\n        <a class=\"btn-text\" href=\"#/how-it-works\">Or learn how the signal works <i data-ico=\"arrow\"></i></a>\n      </div>\n    </section>\n  </main>",
+    render: function(){
+try{
+
+}catch(e){console.error("render "+"404",e);}
+}
+  },
+  "shipping-returns": {
+    markup: "<main id=\"main\">\n    <section class=\"section-tight\">\n      <div class=\"wrap prose\">\n        <span class=\"eyebrow\">Legal</span>\n        <h1 class=\"display-l mt-2\">Shipping &amp; Returns</h1>\n        <p class=\"muted\">Last updated 24 June 2026. Placeholder copy for the design build — final terms confirmed by the owner before launch.</p>\n        <nav class=\"legal-toc mt-5\" aria-label=\"Legal pages\">\n          <a href=\"#/shipping-returns\" aria-current=\"page\">Shipping &amp; Returns</a>\n          <a href=\"#/privacy\">Privacy</a>\n          <a href=\"#/terms\">Terms</a>\n          <a href=\"#/accessibility\">Accessibility</a>\n        </nav>\n\n        <h2>Shipping</h2>\n        <p>In-stock orders ship within 1–2 business days with tracked delivery. You'll get a confirmation email with tracking as soon as it's on the way.</p>\n        <ul>\n          <li><strong>Free shipping</strong> on orders over $75.</li>\n          <li>Below $75, a flat rate is shown at checkout before you pay.</li>\n          <li>We currently ship from the United States.</li>\n          <li><strong>Pre-orders</strong> ship in 3–4 weeks; if an order mixes in-stock and pre-order items, it ships together when the pre-order is ready unless you ask us to split it.</li>\n        </ul>\n\n        <h2>Returns &amp; exchanges</h2>\n        <p>If it's not right, you have <strong>30 days</strong> from delivery to return or exchange it.</p>\n        <ul>\n          <li>Items should be unworn and in original condition.</li>\n          <li>Start a return by emailing <a href=\"mailto:hello@unello.example\">hello@unello.example</a> with your order number.</li>\n          <li>Refunds are issued to the original payment method once we receive the item.</li>\n          <li>Exchanges (e.g. a different size or tier) ship free.</li>\n        </ul>\n\n        <h2>Damaged or wrong item</h2>\n        <p>If something arrives damaged or incorrect, email us within 14 days and we'll make it right — no return shipping on us.</p>\n      </div>\n    </section>\n  </main>",
+    render: function(){
+try{
+
+}catch(e){console.error("render "+"shipping-returns",e);}
+}
+  },
+  "privacy": {
+    markup: "<main id=\"main\">\n    <section class=\"section-tight\">\n      <div class=\"wrap prose\">\n        <span class=\"eyebrow\">Legal</span>\n        <h1 class=\"display-l mt-2\">Privacy Policy</h1>\n        <p class=\"muted\">Last updated 24 June 2026. Placeholder copy for the design build — final policy confirmed by the owner before launch.</p>\n        <nav class=\"legal-toc mt-5\" aria-label=\"Legal pages\">\n          <a href=\"#/shipping-returns\">Shipping &amp; Returns</a>\n          <a href=\"#/privacy\" aria-current=\"page\">Privacy</a>\n          <a href=\"#/terms\">Terms</a>\n          <a href=\"#/accessibility\">Accessibility</a>\n        </nav>\n\n        <h2>What we collect</h2>\n        <ul>\n          <li>Contact details you give us — name, email, shipping address — to fulfil orders and answer questions.</li>\n          <li>Order and payment information, processed by our payment provider (we don't store full card numbers).</li>\n          <li>Basic analytics about how the site is used, to make it better.</li>\n        </ul>\n\n        <h2>How we use it</h2>\n        <p>To ship your order, provide support, send updates you opted into, and improve the experience. We don't sell your personal data.</p>\n\n        <h2>Email &amp; marketing</h2>\n        <p>If you join the movement, we'll email you about drops and news. You can unsubscribe any time from a link in every email.</p>\n\n        <h2>Cookies</h2>\n        <p>We use essential cookies to run the cart and checkout, and optional analytics cookies you can decline. A consent banner appears if tracking pixels are enabled.</p>\n\n        <h2>Your rights</h2>\n        <p>You can ask us to access, correct, or delete your data at <a href=\"mailto:privacy@unello.example\">privacy@unello.example</a>.</p>\n      </div>\n    </section>\n  </main>",
+    render: function(){
+try{
+
+}catch(e){console.error("render "+"privacy",e);}
+}
+  },
+  "terms": {
+    markup: "<main id=\"main\">\n    <section class=\"section-tight\">\n      <div class=\"wrap prose\">\n        <span class=\"eyebrow\">Legal</span>\n        <h1 class=\"display-l mt-2\">Terms of Service</h1>\n        <p class=\"muted\">Last updated 24 June 2026. Placeholder copy for the design build — final terms confirmed by the owner before launch.</p>\n        <nav class=\"legal-toc mt-5\" aria-label=\"Legal pages\">\n          <a href=\"#/shipping-returns\">Shipping &amp; Returns</a>\n          <a href=\"#/privacy\">Privacy</a>\n          <a href=\"#/terms\" aria-current=\"page\">Terms</a>\n          <a href=\"#/accessibility\">Accessibility</a>\n        </nav>\n\n        <h2>Using this site</h2>\n        <p>By browsing or buying from Unello, you agree to these terms. If you don't agree, please don't use the site.</p>\n\n        <h2>Orders</h2>\n        <p>Placing an order is an offer to buy. We confirm by email once it's accepted and shipped. We may cancel and refund an order if an item is unavailable or priced in error.</p>\n\n        <h2>The signal</h2>\n        <p>Unello jewelry communicates that the wearer is open to connecting. It is an invitation, not a contract: no one is obligated to interact with anyone. Wear and respond at your own discretion, and always look out for your own safety.</p>\n\n        <h2>Intellectual property</h2>\n        <p>The Unello name, logo, the signal system, and site content are owned by Unello and protected by applicable law. Please don't reproduce them without permission.</p>\n\n        <h2>Liability</h2>\n        <p>The site and products are provided \"as is.\" To the extent permitted by law, Unello isn't liable for indirect or incidental damages arising from use of the site, the products, or real-world interactions prompted by the signal.</p>\n\n        <h2>Contact</h2>\n        <p>Questions about these terms? Email <a href=\"mailto:hello@unello.example\">hello@unello.example</a>.</p>\n      </div>\n    </section>\n  </main>",
+    render: function(){
+try{
+
+}catch(e){console.error("render "+"terms",e);}
+}
+  },
+  "accessibility": {
+    markup: "<main id=\"main\">\n    <section class=\"section-tight\">\n      <div class=\"wrap prose\">\n        <span class=\"eyebrow\">Legal</span>\n        <h1 class=\"display-l mt-2\">Accessibility</h1>\n        <p class=\"muted\">Last updated 24 June 2026.</p>\n        <nav class=\"legal-toc mt-5\" aria-label=\"Legal pages\">\n          <a href=\"#/shipping-returns\">Shipping &amp; Returns</a>\n          <a href=\"#/privacy\">Privacy</a>\n          <a href=\"#/terms\">Terms</a>\n          <a href=\"#/accessibility\" aria-current=\"page\">Accessibility</a>\n        </nav>\n\n        <h2>Our commitment</h2>\n        <p>Unello is designed to meet <strong>WCAG 2.1 AA</strong>. Everyone should be able to learn the signal and shop, whatever device or assistive technology they use.</p>\n\n        <h2>What we've built in</h2>\n        <ul>\n          <li>Full keyboard navigation with visible focus rings on every interactive element.</li>\n          <li>Colour contrast of at least 4.5:1 for text — including text on the Sun and Rose signal colours.</li>\n          <li>Touch targets of at least 44×44px.</li>\n          <li>Labelled form fields, descriptive alt text, and semantic landmarks.</li>\n          <li>Respect for <code>prefers-reduced-motion</code> — the signal pulse and reveals stop, the static dot remains.</li>\n          <li>Content that reflows cleanly from 375px up to large screens.</li>\n        </ul>\n\n        <h2>The signal &amp; colour</h2>\n        <p>The signal is never communicated by colour alone in the interface — it's always paired with a label (e.g. \"Social — Sun\"), so the meaning is available to everyone.</p>\n\n        <h2>Found a barrier?</h2>\n        <p>Tell us at <a href=\"mailto:access@unello.example\">access@unello.example</a> and we'll fix it. Accessibility is ongoing, not a checkbox.</p>\n      </div>\n    </section>\n  </main>",
+    render: function(){
+try{
+
+}catch(e){console.error("render "+"accessibility",e);}
+}
+  }
+};
+(function(){
+  const U = window.UNELLO;
+  function currentKey(){
+    const raw = (location.hash || "#/").slice(1);
+    const path = raw.split("?")[0].replace(/^\//,"");
+    return path === "" ? "home" : (PAGES[path] ? path : "404");
+  }
+  function route(){
+    const key = currentKey();
+    const def = PAGES[key];
+    const view = document.getElementById("view");
+    view.innerHTML = def.markup;
+    // beach uses minimal chrome
+    const minimal = key === "beach";
+    document.getElementById("header").style.display = minimal ? "none" : "";
+    document.getElementById("footer").style.display = minimal ? "none" : "";
+    if (def.render) def.render();
+    U.hydrateIcons(view); U.initAccordions(view); U.initCaptures(view); U.initReveal();
+    // reflect active nav
+    document.querySelectorAll(".nav-desktop a").forEach(a=>{
+      const h=a.getAttribute("href")||""; a.toggleAttribute("aria-current", h!=="#/" && location.hash.startsWith(h));
+    });
+    window.scrollTo(0,0);
+  }
+  window.addEventListener("hashchange", route);
+  document.addEventListener("DOMContentLoaded", function(){
+    U.mountChrome();
+    if (!location.hash) location.replace("#/");
+    route();
+  });
+})();
+
+  </script>
+</body>
+</html>

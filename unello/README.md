@@ -12,7 +12,14 @@ on the §2 tokens and §3 component library.
 
 ## Run it
 
-It's plain HTML/CSS/JS — no build step. Open `index.html` directly, or serve the folder:
+It's plain HTML/CSS/JS — no build step.
+
+**Easiest — one file, no server:** open **`unello-standalone.html`** directly in any
+browser (double-click it). It bundles all 14 pages, the CSS, and the JS into a single
+self-contained file and navigates via hash routes (`#/shop`, `#/product?id=…`, `#/beach`).
+Only Google Fonts load from the network.
+
+**Or the multi-page version with a static server:**
 
 ```bash
 cd unello
