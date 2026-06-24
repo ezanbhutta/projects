@@ -191,8 +191,10 @@ h3,.h3{ font-size:clamp(18px,1.6vw,21px); font-weight:500; letter-spacing:-.01em
 .editorial{ display:grid; gap:var(--s-6); align-items:center; }
 @media(min-width:900px){ .editorial{ grid-template-columns:1fr 1fr; gap:var(--s-9); } .editorial.flip .ed-media{ order:2; } }
 .ed-copy{ display:flex; flex-direction:column; gap:var(--s-4); max-width:46ch; }
-.ed-media .frame{ aspect-ratio:1/1; max-height:560px; margin-inline:auto; }
+.ed-media .frame{ aspect-ratio:1/1; max-height:440px; margin-inline:auto; }
 @media(min-width:900px){ .editorial{ grid-template-columns:1fr 1.05fr; } }
+/* shop cards a touch shorter so the grid fits the page */
+.shop-grid .product-media{ aspect-ratio:1/1; }
 .section-head{ display:flex; flex-direction:column; gap:var(--s-3); margin-bottom:var(--s-7); max-width:56ch; }
 .section-head.row{ flex-direction:row; align-items:flex-end; justify-content:space-between; max-width:none; }
 
