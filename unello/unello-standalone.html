@@ -13,23 +13,25 @@
   <style>
 /* =====================================================================
    UNELLO · Design System  ·  "Open"
-   Editorial, modern, timeless. Clean off-white + near-black + a single
-   decisive red (the brand mark). No beige. No dots. Big imagery, motion.
+   Editorial, modern, timeless. Built on the brand system:
+   Cream (Pantone 7527), Black, and a single decisive Red (Pantone 185 C).
+   Warm cream canvas, near-black ink, red as the accent. No dots.
    ===================================================================== */
 
 :root{
-  /* canvas · clean white + cool-neutral, NOT beige */
-  --paper:    #FFFFFF;   /* white */
-  --surface:  #FFFFFF;
-  --mist:     #F5F6F6;   /* faint cool-grey panels / alt sections */
-  --ink:      #121315;   /* near-black, faintly cool */
-  --noir:     #0C0D0E;   /* dramatic dark sections */
-  --muted:    #5C5F63;   /* secondary text (neutral grey) */
-  --faint:    #9A9DA1;   /* tertiary / captions */
-  --line:     #E8E9EA;   /* hairlines */
-  --line-2:   #F1F2F3;
+  /* canvas · brand cream (Pantone 7527 XGC ~ #D7D2C4), warmed + lifted */
+  --paper:    #EAE5DA;   /* cream canvas, lifted from 7527 so it reads clean */
+  --surface:  #F3EFE6;   /* cards / raised surfaces, lighter cream */
+  --cream:    #D7D2C4;   /* the true brand cream, Pantone 7527 */
+  --mist:     #DED9CB;   /* alt sections, deeper cream panel */
+  --ink:      #15140F;   /* brand black, faintly warm */
+  --noir:     #131109;   /* dramatic dark sections */
+  --muted:    #5E584C;   /* secondary text (warm taupe) */
+  --faint:    #8E8779;   /* tertiary / captions */
+  --line:     #CEC8B8;   /* hairlines on cream */
+  --line-2:   #DFDACD;
 
-  /* the one accent · the brand red */
+  /* the one accent · the brand red (Pantone 185 C) */
   --red:      #E4002B;
   --red-deep: #C00021;
 
@@ -157,7 +159,7 @@ h3,.h3{ font-size:clamp(18px,1.6vw,21px); font-weight:500; letter-spacing:-.01em
 .site-header.transparent .header-bar{ text-shadow:0 1px 16px rgba(0,0,0,.28); }
 /* the mark is a red PNG; flip it to white while over the photo so it pops */
 .site-header.transparent .brand-mark{ filter:brightness(0) invert(1) drop-shadow(0 1px 6px rgba(0,0,0,.3)); }
-.site-header.solid{ color:var(--ink); background:rgba(255,255,255,.66); backdrop-filter:saturate(1.6) blur(26px); -webkit-backdrop-filter:saturate(1.6) blur(26px); border-bottom-color:rgba(18,19,21,.08); box-shadow:0 1px 0 rgba(255,255,255,.7) inset, 0 8px 30px rgba(18,19,21,.05); }
+.site-header.solid{ color:var(--ink); background:rgba(234,229,218,.72); backdrop-filter:saturate(1.5) blur(26px); -webkit-backdrop-filter:saturate(1.5) blur(26px); border-bottom-color:rgba(21,20,15,.08); box-shadow:0 1px 0 rgba(255,253,248,.6) inset, 0 8px 30px rgba(21,20,15,.05); }
 .header-bar{ display:flex; align-items:center; justify-content:space-between; height:var(--header-h); gap:var(--s-6); transition:height var(--t-med) var(--ease); }
 .site-header.solid .header-bar{ height:64px; }
 .header-nav{ display:none; align-items:center; gap:var(--s-7); }
@@ -265,19 +267,19 @@ h3,.h3{ font-size:clamp(18px,1.6vw,21px); font-weight:500; letter-spacing:-.01em
 
 /* ---------------- CHIPS / STEPPER / FORMS ---------------- */
 .chip-row{ display:flex; flex-wrap:wrap; gap:var(--s-2); }
-.chip{ min-width:48px; min-height:46px; padding:0 var(--s-4); display:inline-flex; align-items:center; justify-content:center; border:1px solid var(--line); background:#fff; border-radius:var(--r-sm); cursor:pointer; font-size:14px; transition:border-color var(--t-fast),background var(--t-fast),color var(--t-fast); }
+.chip{ min-width:48px; min-height:46px; padding:0 var(--s-4); display:inline-flex; align-items:center; justify-content:center; border:1px solid var(--line); background:var(--surface); border-radius:var(--r-sm); cursor:pointer; font-size:14px; transition:border-color var(--t-fast),background var(--t-fast),color var(--t-fast); }
 .chip:hover{ border-color:var(--ink); }
 .chip[aria-pressed="true"]{ border-color:var(--ink); background:var(--ink); color:#fff; }
 .chip:disabled{ opacity:.4; cursor:not-allowed; text-decoration:line-through; }
 .stepper{ display:inline-flex; align-items:center; border:1px solid var(--line); border-radius:var(--r-sm); overflow:hidden; }
-.stepper button{ width:44px; height:46px; background:#fff; border:0; cursor:pointer; font-size:18px; }
+.stepper button{ width:44px; height:46px; background:var(--surface); border:0; cursor:pointer; font-size:18px; }
 .stepper button:hover{ background:var(--line-2); }
-.stepper input{ width:42px; height:46px; text-align:center; border:0; background:#fff; -moz-appearance:textfield; }
+.stepper input{ width:42px; height:46px; text-align:center; border:0; background:var(--surface); -moz-appearance:textfield; }
 .stepper input::-webkit-outer-spin-button,.stepper input::-webkit-inner-spin-button{ -webkit-appearance:none; margin:0; }
 .field{ display:flex; flex-direction:column; gap:7px; }
 .field label{ font-size:13px; font-weight:500; }
 .field .req{ color:var(--red); }
-.input,.textarea,.select{ width:100%; min-height:50px; padding:var(--s-3) var(--s-4); background:#fff; border:1px solid var(--line); border-radius:var(--r-sm); transition:border-color var(--t-fast),box-shadow var(--t-fast); }
+.input,.textarea,.select{ width:100%; min-height:50px; padding:var(--s-3) var(--s-4); background:var(--surface); border:1px solid var(--line); border-radius:var(--r-sm); transition:border-color var(--t-fast),box-shadow var(--t-fast); }
 .textarea{ min-height:130px; resize:vertical; }
 .input:hover,.textarea:hover,.select:hover{ border-color:var(--muted); }
 .input:focus,.textarea:focus,.select:focus{ border-color:var(--ink); box-shadow:0 0 0 3px color-mix(in srgb,var(--ink) 8%,transparent); }
@@ -343,7 +345,7 @@ h3,.h3{ font-size:clamp(18px,1.6vw,21px); font-weight:500; letter-spacing:-.01em
 .drawer-head strong{ font-size:18px; font-weight:500; }
 .drawer-body{ flex:1; overflow-y:auto; padding:var(--s-5); }
 .drawer-foot{ border-top:1px solid var(--line); padding:var(--s-5); display:flex; flex-direction:column; gap:var(--s-3); }
-.ship-bar{ background:#fff; border:1px solid var(--line); border-radius:var(--r-sm); padding:var(--s-4); }
+.ship-bar{ background:var(--surface); border:1px solid var(--line); border-radius:var(--r-sm); padding:var(--s-4); }
 .ship-bar .track{ height:4px; border-radius:var(--r-pill); background:var(--line); overflow:hidden; margin-top:10px; }
 .ship-bar .fill{ height:100%; background:var(--red); border-radius:var(--r-pill); transition:width var(--t-slow) var(--ease); }
 .cart-line{ display:flex; gap:var(--s-3); padding:var(--s-4) 0; border-bottom:1px solid var(--line); }
