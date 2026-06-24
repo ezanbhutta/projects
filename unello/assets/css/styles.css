@@ -5,15 +5,16 @@
    ===================================================================== */
 
 :root{
-  /* canvas · neutral, crisp, NOT beige */
-  --paper:    #F2F1EF;   /* soft neutral off-white */
+  /* canvas · clean white + cool-neutral, NOT beige */
+  --paper:    #FFFFFF;   /* white */
   --surface:  #FFFFFF;
-  --ink:      #131210;   /* near-black */
-  --noir:     #0E0D0C;   /* dramatic dark sections */
-  --muted:    #6B6862;   /* secondary text (neutral grey) */
-  --faint:    #9A968E;   /* tertiary / captions */
-  --line:     #E3E1DC;   /* hairlines */
-  --line-2:   #ECEAE5;
+  --mist:     #F5F6F6;   /* faint cool-grey panels / alt sections */
+  --ink:      #121315;   /* near-black, faintly cool */
+  --noir:     #0C0D0E;   /* dramatic dark sections */
+  --muted:    #5C5F63;   /* secondary text (neutral grey) */
+  --faint:    #9A9DA1;   /* tertiary / captions */
+  --line:     #E8E9EA;   /* hairlines */
+  --line-2:   #F1F2F3;
 
   /* the one accent · the brand red */
   --red:      #E4002B;
@@ -87,6 +88,7 @@ h3,.h3{ font-size:clamp(18px,1.6vw,21px); font-weight:500; letter-spacing:-.01em
 .section{ padding-block:var(--s-9); }
 @media(min-width:768px){ .section{ padding-block:var(--s-10); } }
 .section-sm{ padding-block:var(--s-8); }
+.section.alt,.section-sm.alt{ background:var(--mist); }
 .section.noir{ background:var(--noir); color:#F2F1EF; }
 .section.noir .muted{ color:#A7A39B; }
 .section.noir .kicker{ color:#8C887F; }
@@ -136,7 +138,7 @@ h3,.h3{ font-size:clamp(18px,1.6vw,21px); font-weight:500; letter-spacing:-.01em
   border-bottom:1px solid transparent;
 }
 .site-header.transparent{ color:#fff; background:transparent; }
-.site-header.solid{ color:var(--ink); background:rgba(247,246,244,.62); backdrop-filter:saturate(1.8) blur(26px); -webkit-backdrop-filter:saturate(1.8) blur(26px); border-bottom-color:rgba(19,18,16,.07); box-shadow:0 1px 0 rgba(255,255,255,.5) inset, 0 8px 30px rgba(19,18,16,.05); }
+.site-header.solid{ color:var(--ink); background:rgba(255,255,255,.66); backdrop-filter:saturate(1.6) blur(26px); -webkit-backdrop-filter:saturate(1.6) blur(26px); border-bottom-color:rgba(18,19,21,.08); box-shadow:0 1px 0 rgba(255,255,255,.7) inset, 0 8px 30px rgba(18,19,21,.05); }
 .header-bar{ display:flex; align-items:center; justify-content:space-between; height:var(--header-h); gap:var(--s-6); transition:height var(--t-med) var(--ease); }
 .site-header.solid .header-bar{ height:64px; }
 .header-nav{ display:none; align-items:center; gap:var(--s-7); }
