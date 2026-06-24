@@ -27,7 +27,7 @@
           <p class="lead maxw-prose">A bracelet that quietly says you're open to connecting in real life. One signal for friendship, one for dating.</p>
           <div class="hero-cta">
             <a class="btn btn-primary btn-lg" href="shop.html">Shop the collection</a>
-            <a class="btn-text" href="how-it-works.html">How it works <i data-ico="arrow"></i></a>
+            <a class="btn-text" href="how-it-works.html">How it works</a>
           </div>
           <div class="flex flex-wrap gap-3 mt-2">
             <span class="pill-tag"><span class="signal sm" data-tier="social"></span> Social, Sun</span>
@@ -46,11 +46,6 @@
       </div>
     </section>
 
-    <!-- MARQUEE -->
-    <div class="marquee" aria-hidden="true">
-      <div class="marquee-track" id="marquee"></div>
-    </div>
-
     <!-- DECODE THE SIGNAL -->
     <section class="section">
       <div class="wrap">
@@ -65,7 +60,7 @@
             <span class="signal lg" data-tier="social"></span>
             <p class="eyebrow">Sun · Social</p>
             <p class="meaning">Open to friendship, conversation, and community.</p>
-            <a class="btn-text mt-2" href="collection.html?tier=social">Shop Social <i data-ico="arrow"></i></a>
+            <a class="btn-text mt-2" href="collection.html?tier=social">Shop Social</a>
           </div>
           <div class="decode-card reveal" data-tier="dating">
             <span class="swatch"></span>
@@ -73,7 +68,7 @@
             <p class="eyebrow">Rose · Dating</p>
             <p class="meaning">Single and open to meeting someone in real life.</p>
             <div class="note-control"><i data-ico="lock"></i><span>Open doesn't mean obligated. You're always in control.</span></div>
-            <a class="btn-text mt-2" href="collection.html?tier=dating">Shop Dating <i data-ico="arrow"></i></a>
+            <a class="btn-text mt-2" href="collection.html?tier=dating">Shop Dating</a>
           </div>
         </div>
       </div>
@@ -102,7 +97,7 @@
       <div class="wrap">
         <div class="section-head row reveal">
           <div><span class="eyebrow"><span class="signal sm" data-tier="social"></span> Sun</span><h2 class="mt-2">Social</h2></div>
-          <a class="btn-text" href="collection.html?tier=social">View all <i data-ico="arrow"></i></a>
+          <a class="btn-text" href="collection.html?tier=social">View all</a>
         </div>
         <div class="rail" id="railSocial"></div>
       </div>
@@ -111,7 +106,7 @@
       <div class="wrap">
         <div class="section-head row reveal">
           <div><span class="eyebrow"><span class="signal sm" data-tier="dating"></span> Rose</span><h2 class="mt-2">Dating</h2></div>
-          <a class="btn-text" href="collection.html?tier=dating">View all <i data-ico="arrow"></i></a>
+          <a class="btn-text" href="collection.html?tier=dating">View all</a>
         </div>
         <div class="rail" id="railDating"></div>
       </div>
@@ -134,7 +129,7 @@
           <h2 class="balance">Say hello, on your terms.</h2>
           <p class="muted body-lg">Someone open notices, and a hello happens. No app, no profile, no pressure. Open means available to connect, never available on demand.</p>
           <div class="note-control mt-2"><i data-ico="lock"></i><span>You're always in control of who you say hello to. Take it off any time.</span></div>
-          <a class="btn-text mt-2" href="how-it-works.html#read-the-signal">Read the signal <i data-ico="arrow"></i></a>
+          <a class="btn-text mt-2" href="how-it-works.html#read-the-signal">Read the signal</a>
         </div>
       </div>
     </section>
@@ -175,22 +170,18 @@
     document.getElementById("everydayImg").src = U.img(U.IMG.everyday, 1000, 1250);
     document.getElementById("gestureImg").src = U.img(U.IMG.gesture, 1000, 1250);
 
-    // marquee
-    const phrase = `<span>say hi <span class="signal" data-tier="dating"></span></span><span>be seen as open <span class="signal" data-tier="social"></span></span><span>say hi <span class="signal" data-tier="social"></span></span><span>open in real life <span class="signal" data-tier="dating"></span></span>`;
-    document.getElementById("marquee").innerHTML = phrase + phrase;
-
     // steps
     const STEPS = [
-      ["tag","Choose","Pick your signal. Sun for friendship, Rose for dating, in the style you like."],
-      ["hand","Wear","Put it on where it's seen, and head out the door. That's the whole ritual."],
-      ["sun","Signal","The colour does the talking. People who know the code read it at a glance."],
-      ["wave","Say hello","Someone open says hi. You're never obligated, just open."],
+      ["Choose","Pick your signal. Sun for friendship, Rose for dating, in the style you like."],
+      ["Wear","Put it on where it's seen, and head out the door. That's the whole ritual."],
+      ["Signal","The colour does the talking. People who know the code read it at a glance."],
+      ["Say hello","Someone open says hi. You're never obligated, just open."],
     ];
     document.getElementById("homeSteps").innerHTML = STEPS.map((s,i)=>`
       <div class="step reveal">
-        <div class="step-head"><span class="step-num">0${i+1}</span><div class="step-rule" style="flex:1"></div></div>
-        <div class="ico-wrap">${U.svg(s[0])}</div>
-        <h3>${s[1]}</h3><p class="muted">${s[2]}</p>
+        <span class="step-num">0${i+1}</span>
+        <div class="step-rule"></div>
+        <h3>${s[0]}</h3><p class="muted">${s[1]}</p>
       </div>`).join("");
 
     // rails

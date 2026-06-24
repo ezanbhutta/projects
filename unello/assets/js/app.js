@@ -94,29 +94,31 @@
     }).join("");
 
     const announce = opts.announce === false ? "" :
-      `<div class="announce">${signal("social", "sm")} Complimentary shipping over ${money(FREE_SHIP)} · 30 day returns</div>`;
+      `<div class="announce">Complimentary shipping over ${money(FREE_SHIP)}, with 30 day returns</div>`;
 
-    const cartBtn = `<button class="cart-link" id="cartBtn" aria-label="Open cart" aria-haspopup="dialog">Cart <span class="cart-count" hidden>0</span></button>`;
+    const cartBtn = `<button class="cart-link" id="cartBtn" aria-label="Open bag" aria-haspopup="dialog">Bag <span class="cart-count" hidden>0</span></button>`;
 
     const html = `${announce}
       <header class="site-header" id="siteHeader">
         <div class="wrap header-bar">
           <div class="header-left">${U.brand()}</div>
-          <nav class="nav-desktop" aria-label="Primary">${navLinks()}</nav>
-          <div class="header-actions">
-            ${cartBtn}
-            <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mobileSheet"><span class="bars"><i></i><i></i></span> Menu</button>
+          <div class="header-right">
+            <nav class="nav-desktop" aria-label="Primary">${navLinks()}</nav>
+            <div class="header-actions">
+              ${cartBtn}
+              <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mobileSheet"><span class="bars"><i></i><i></i><i></i></span></button>
+            </div>
           </div>
         </div>
       </header>
       <div class="mobile-sheet" id="mobileSheet" role="dialog" aria-modal="true" aria-label="Menu" inert>
         <div class="sheet-top">
           ${U.brand()}
-          <button class="menu-btn" id="menuClose" aria-label="Close menu">Close ${svg("close")}</button>
+          <button class="icon-btn" id="menuClose" aria-label="Close menu">${svg("close")}</button>
         </div>
         <nav aria-label="Mobile">
-          ${NAV.map((n) => `<a href="${n.href}">${n.label} ${svg("arrow")}</a>`).join("")}
-          <a href="contact.html">Contact ${svg("arrow")}</a>
+          ${NAV.map((n) => `<a href="${n.href}">${n.label}</a>`).join("")}
+          <a href="contact.html">Contact</a>
         </nav>
         <div class="wrap" style="padding-bottom:var(--s-6)">
           <a class="btn btn-primary btn-block" href="shop.html">Shop bracelets</a>
@@ -459,7 +461,7 @@
     let cta;
     if (soldOut) cta = `<button class="btn btn-block quick-add" data-waitlist="${p.id}">Join the waitlist</button>`;
     else if (pre) cta = `<button class="btn btn-block quick-add" data-preorder="${p.id}">Pre-order</button>`;
-    else cta = `<button class="btn btn-block quick-add" data-quickadd="${p.id}">Quick add ${svg("plus")}</button>`;
+    else cta = `<button class="btn btn-block quick-add" data-quickadd="${p.id}">Add to bag</button>`;
     const flag = (p.inventory === "low" || p.inventory === "out" || p.inventory === "pre")
       ? `<div class="inv-flag">${U.invBadge(p.inventory)}</div>` : "";
     return `<article class="product-card" data-tier="${p.tier}">
@@ -468,22 +470,20 @@
           <img class="img-1" src="${img0}" alt="${p.name}" loading="lazy">
           <img class="img-2" src="${img1}" alt="" loading="lazy">
         </a>
-        ${signal(p.tier, "md")}
         ${flag}
         ${cta}
       </div>
       <div class="product-body">
-        <a href="product.html?id=${p.id}" class="product-title">${p.name}</a>
-        <span class="product-sub">${t.label} · ${p.style}</span>
-        <div class="product-meta"><span class="price">${money(p.price)}</span></div>
+        <div class="product-line"><a href="product.html?id=${p.id}" class="product-title">${p.name}</a><span class="price">${money(p.price)}</span></div>
+        <span class="product-sub">${t.label}, ${p.style}</span>
       </div>
     </article>`;
   };
   U.invBadge = function (inv) {
-    if (inv === "in") return `<span class="badge in"><span class="dot"></span>In stock</span>`;
-    if (inv === "low") return `<span class="badge low"><span class="dot"></span>Low stock</span>`;
-    if (inv === "out") return `<span class="badge out"><span class="dot"></span>Sold out</span>`;
-    if (inv === "pre") return `<span class="badge pre"><span class="dot"></span>Pre-order</span>`;
+    if (inv === "in") return `<span class="badge in">In stock</span>`;
+    if (inv === "low") return `<span class="badge low">Low stock</span>`;
+    if (inv === "out") return `<span class="badge out">Sold out</span>`;
+    if (inv === "pre") return `<span class="badge pre">Pre-order</span>`;
     return "";
   };
 
