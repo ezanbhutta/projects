@@ -56,7 +56,7 @@
     </a>`;
   };
 
-  function signal(tier, size = "md") { return `<span class="signal ${size}" data-tier="${tier}" role="img" aria-label="${tier} signal"></span>`; }
+  function signal() { return ""; } /* dots removed from the design */
   U.signal = signal;
 
   /* ---------------- in-memory cart ---------------- */
@@ -82,32 +82,25 @@
   /* ---------------- header ---------------- */
   const NAV = [
     { href: "shop.html", label: "Shop" },
-    { href: "how-it-works.html", label: "How It Works" },
+    { href: "how-it-works.html", label: "How it works" },
     { href: "about.html", label: "About" },
-    { href: "faq.html", label: "FAQ" },
   ];
   function renderHeader(opts = {}) {
     const cur = location.pathname.split("/").pop() || "index.html";
-    const navLinks = (cls) => NAV.map((n) => {
-      const active = cur === n.href || (n.href === "shop.html" && /collection|product/.test(cur));
+    const navLinks = () => NAV.map((n) => {
+      const active = cur === n.href || (n.href === "shop.html" && /product/.test(cur));
       return `<a href="${n.href}"${active ? ' aria-current="page"' : ""}>${n.label}</a>`;
     }).join("");
 
-    const announce = opts.announce === false ? "" :
-      `<div class="announce">Complimentary shipping over ${money(FREE_SHIP)}, with 30 day returns</div>`;
-
     const cartBtn = `<button class="cart-link" id="cartBtn" aria-label="Open bag" aria-haspopup="dialog">Bag <span class="cart-count" hidden>0</span></button>`;
 
-    const html = `${announce}
-      <header class="site-header" id="siteHeader">
+    const html = `<header class="site-header" id="siteHeader">
         <div class="wrap header-bar">
-          <div class="header-left">${U.brand()}</div>
+          ${U.brand()}
+          <nav class="header-nav" aria-label="Primary">${navLinks()}</nav>
           <div class="header-right">
-            <nav class="nav-desktop" aria-label="Primary">${navLinks()}</nav>
-            <div class="header-actions">
-              ${cartBtn}
-              <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mobileSheet"><span class="bars"><i></i><i></i><i></i></span></button>
-            </div>
+            ${cartBtn}
+            <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mobileSheet"><span class="bars"><i></i><i></i><i></i></span></button>
           </div>
         </div>
       </header>
@@ -120,17 +113,24 @@
           ${NAV.map((n) => `<a href="${n.href}">${n.label}</a>`).join("")}
           <a href="contact.html">Contact</a>
         </nav>
-        <div class="wrap" style="padding-bottom:var(--s-6)">
-          <a class="btn btn-primary btn-block" href="shop.html">Shop bracelets</a>
+        <div class="sheet-foot">
+          <a class="btn btn-red btn-block" href="shop.html">Shop the collection</a>
         </div>
       </div>`;
     const mount = $("#header") || document.body.insertBefore(document.createElement("div"), document.body.firstChild);
     mount.id = "header"; mount.innerHTML = html;
 
-    // scroll condense
+    // transparent over a photographic hero, solid once scrolled past it
     const head = $("#siteHeader");
-    const onScroll = () => head.classList.toggle("scrolled", window.scrollY > 8);
-    window.addEventListener("scroll", onScroll, { passive: true }); onScroll();
+    const overHero = () => document.body.hasAttribute("data-hero");
+    const setState = () => {
+      const threshold = overHero() ? Math.max(120, window.innerHeight * 0.78) : 0;
+      const solid = window.scrollY >= threshold;
+      head.classList.toggle("transparent", overHero() && !solid);
+      head.classList.toggle("solid", solid || !overHero());
+    };
+    window.addEventListener("scroll", setState, { passive: true });
+    window.addEventListener("resize", setState); setState();
 
     // mobile sheet
     const sheet = $("#mobileSheet");
@@ -145,27 +145,22 @@
   /* ---------------- footer ---------------- */
   function renderFooter() {
     const html = `<footer class="site-footer">
-      <div class="wrap footer-grid">
+      <div class="wrap footer-top">
         <div>
           ${U.brand("light")}
-          <p class="footer-movement mt-5">A movement, not a store.</p>
-          <p class="small mt-4" style="color:#B9B1A5;max-width:34ch">Be first when new pieces drop. No noise, just the signal.</p>
-          <form class="inline-capture mt-4" data-capture="footer" novalidate>
-            <input class="input footer-input" type="email" placeholder="Email address" aria-label="Email" required>
+          <p class="footer-line mt-5">Say hello, in real life.</p>
+          <form class="inline-capture mt-5" data-capture="footer" novalidate style="max-width:380px">
+            <input class="input input-ghost" type="email" placeholder="Email address" aria-label="Email" required style="color:#fff">
             <button class="btn btn-light" type="submit">Join</button>
           </form>
         </div>
         <div>
           <h4>Shop</h4>
-          <a href="collection.html?tier=social">Social Collection</a>
-          <a href="collection.html?tier=dating">Dating Collection</a>
-          <a href="shop.html">All pieces</a>
-          <a href="beach.html">/beach campaign</a>
+          <a href="shop.html">All bracelets</a>
+          <a href="how-it-works.html">How it works</a>
         </div>
         <div>
-          <h4>Learn</h4>
-          <a href="how-it-works.html">How it works</a>
-          <a href="how-it-works.html#read-the-signal">Read the Signal</a>
+          <h4>Company</h4>
           <a href="about.html">About</a>
           <a href="faq.html">FAQ</a>
           <a href="contact.html">Contact</a>
@@ -179,10 +174,7 @@
         </div>
       </div>
       <div class="wrap footer-bottom">
-        <div class="flex" style="align-items:center;gap:var(--s-4)">
-          <span class="small muted">© 2026 Unello</span>
-          <span class="small muted">Designed to teach the signal, then sell the way in.</span>
-        </div>
+        <span class="small">© 2026 Unello</span>
         <div class="flex" style="align-items:center;gap:var(--s-5)">
           <div class="social-links">
             <a href="#" aria-label="Instagram">${svg("insta")}</a>
@@ -266,11 +258,11 @@
 
     const lines = cart.map((l, i) => {
       const p = U.getProduct(l.id);
-      return `<div class="cart-line" data-tier="${p.tier}">
-        <img src="${p.images[0]}" alt="${p.name}">
+      return `<div class="cart-line">
+        <img src="${U.pimg(p, 0, 200, 250)}" alt="${p.name}">
         <div class="info">
           <div class="row"><strong class="small">${p.name}</strong><span class="price small">${money(p.price * l.qty)}</span></div>
-          <div class="small muted flex" style="align-items:center;gap:6px">${signal(p.tier, "sm")} ${U.tiers[p.tier].label} · Size ${l.size}</div>
+          <div class="small muted">${p.style} bracelet · Size ${l.size}</div>
           <div class="row mt-2">
             <div class="stepper" aria-label="Quantity for ${p.name}">
               <button data-dec="${i}" aria-label="Decrease">−</button>
@@ -283,17 +275,16 @@
       </div>`;
     }).join("");
 
-    // cross-sell: a piece from the cart's first tier not already in cart
+    // cross-sell: another in-stock piece not already in the bag
     const inCart = new Set(cart.map((l) => l.id));
-    const firstTier = U.getProduct(cart[0].id).tier;
-    const xs = U.byTier(firstTier).find((p) => !inCart.has(p.id) && p.inventory !== "out");
-    const cross = xs ? `<div class="mt-5"><div class="eyebrow">Complete the set</div>
-      <div class="cart-line" data-tier="${xs.tier}" style="border:0">
-        <img src="${xs.images[0]}" alt="${xs.name}">
+    const xs = U.products.find((p) => !inCart.has(p.id) && p.inventory === "in");
+    const cross = xs ? `<div class="mt-5"><div class="kicker mb-3">You may also like</div>
+      <div class="cart-line" style="border:0">
+        <img src="${U.pimg(xs, 0, 200, 250)}" alt="${xs.name}">
         <div class="info">
           <div class="row"><strong class="small">${xs.name}</strong><span class="price small">${money(xs.price)}</span></div>
           <p class="small muted">${xs.blurb}</p>
-          <button class="btn btn-secondary" style="min-height:40px" data-xadd="${xs.id}" data-xsize="${xs.sizes[1] || xs.sizes[0]}">Add ${svg("plus")}</button>
+          <button class="btn btn-outline" style="min-height:40px;align-self:flex-start" data-xadd="${xs.id}" data-xsize="${xs.sizes[1] || xs.sizes[0]}">Add</button>
         </div>
       </div></div>` : "";
 
@@ -334,25 +325,22 @@
       <div class="modal-card">
         <button class="icon-btn modal-close" data-close-modal aria-label="Close">${svg("close")}</button>
         <div id="waitForm">
-          <div class="eyebrow" id="waitKind">Join the waitlist</div>
-          <h2 id="waitTitle" class="mt-2">You're early, we'll hold your spot.</h2>
+          <div class="kicker red" id="waitKind">Join the waitlist</div>
+          <h2 id="waitTitle" class="mt-3">You're early, we'll hold your spot.</h2>
           <p class="muted mt-2" id="waitSub">Tell us where to reach you. No spam, just the drop.</p>
           <form class="stack mt-5" id="waitlistForm" novalidate>
             <div class="field"><label for="wname">Name <span class="req">*</span></label>
               <input class="input" id="wname" name="name" required autocomplete="name"><span class="field-error">Please add your name.</span></div>
             <div class="field"><label for="wemail">Email <span class="req">*</span></label>
               <input class="input" id="wemail" name="email" type="email" required autocomplete="email"><span class="field-error">Enter a valid email.</span></div>
-            <div class="field"><label for="wproduct">Product <span class="req">*</span></label>
+            <div class="field"><label for="wproduct">Piece <span class="req">*</span></label>
               <input class="input" id="wproduct" name="product" readonly></div>
-            <div class="field"><label for="wtier">Tier <span class="req">*</span></label>
-              <select class="select" id="wtier" name="tier"><option value="social">Social, Sun</option><option value="dating">Dating, Rose</option></select></div>
             <button class="btn btn-primary btn-block btn-lg" type="submit" id="waitSubmit">Join the waitlist</button>
           </form>
         </div>
         <div id="waitDone" hidden class="center stack">
-          <span class="signal lg" data-tier="social" style="margin-inline:auto"></span>
           <h2>You're on the list.</h2>
-          <p class="muted">We'll email you the moment it's back. Welcome to the movement.</p>
+          <p class="muted">We'll email you the moment it's back. Welcome.</p>
           <button class="btn btn-primary" data-close-modal>Done</button>
         </div>
       </div>
@@ -371,8 +359,7 @@
     $("#waitTitle").textContent = pre ? "Reserve yours, ships in 3 to 4 weeks." : "You're early, we'll hold your spot.";
     $("#waitSub").textContent = pre ? "Pre-order now and you're first in line when it ships." : "Tell us where to reach you. No spam, just the drop.";
     $("#waitSubmit").textContent = pre ? "Pre-order now" : "Join the waitlist";
-    $("#waitProduct") || $("#wproduct").setAttribute("value", "");
-    if (product) { $("#wproduct").value = product.name; $("#wtier").value = product.tier; $("#waitDone .signal").setAttribute("data-tier", product.tier); }
+    if (product) { $("#wproduct").value = product.name; }
     $("#wname").focus();
   }
   U.openWaitlist = openWaitlist;
@@ -388,7 +375,6 @@
     });
     if (!ok) return;
     $("#waitForm").hidden = true; $("#waitDone").hidden = false;
-    $("#waitDone .signal").setAttribute("data-tier", $("#wtier").value);
     f.reset();
   }
 
@@ -454,7 +440,6 @@
 
   /* ---------------- product card (reusable) ---------------- */
   U.productCard = function (p) {
-    const t = U.tiers[p.tier];
     const soldOut = p.inventory === "out";
     const pre = p.inventory === "pre";
     const img0 = U.pimg(p, 0, 700, 875), img1 = U.pimg(p, 1, 700, 875);
@@ -464,7 +449,7 @@
     else cta = `<button class="btn btn-block quick-add" data-quickadd="${p.id}">Add to bag</button>`;
     const flag = (p.inventory === "low" || p.inventory === "out" || p.inventory === "pre")
       ? `<div class="inv-flag">${U.invBadge(p.inventory)}</div>` : "";
-    return `<article class="product-card" data-tier="${p.tier}">
+    return `<article class="product-card">
       <div class="product-media">
         <a href="product.html?id=${p.id}" aria-label="${p.name}" tabindex="-1">
           <img class="img-1" src="${img0}" alt="${p.name}" loading="lazy">
@@ -475,7 +460,7 @@
       </div>
       <div class="product-body">
         <div class="product-line"><a href="product.html?id=${p.id}" class="product-title">${p.name}</a><span class="price">${money(p.price)}</span></div>
-        <span class="product-sub">${t.label}, ${p.style}</span>
+        <span class="product-sub">${p.style} bracelet</span>
       </div>
     </article>`;
   };

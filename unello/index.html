@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Unello, Make saying hello easier</title>
-  <meta name="description" content="Unello bracelets are quiet signals that you're open to connecting in real life, for friendship and for dating.">
+  <title>Unello · Make saying hello easier</title>
+  <meta name="description" content="Unello is a bracelet that quietly says you're open to connecting in real life. Wear it, be seen as open, say hello.">
   <link rel="icon" href="assets/img/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/styles.css">
 </head>
-<body>
+<body data-hero>
   <a class="skip-link" href="#main">Skip to content</a>
   <div id="header"></div>
 
@@ -20,141 +20,80 @@
 
     <!-- HERO -->
     <section class="hero">
-      <div class="wrap hero-split">
-        <div class="hero-copy reveal">
-          <span class="eyebrow">Wearable social signal · est. 2026</span>
-          <h1 class="display-xl balance">Make saying<br>hello easier.</h1>
-          <p class="lead maxw-prose">A bracelet that quietly says you're open to connecting in real life. One signal for friendship, one for dating.</p>
-          <div class="hero-cta">
-            <a class="btn btn-primary btn-lg" href="shop.html">Shop the collection</a>
-            <a class="btn-text" href="how-it-works.html">How it works</a>
-          </div>
-          <div class="flex flex-wrap gap-3 mt-2">
-            <span class="pill-tag"><span class="signal sm" data-tier="social"></span> Social, Sun</span>
-            <span class="pill-tag"><span class="signal sm" data-tier="dating"></span> Dating, Rose</span>
-          </div>
-        </div>
-        <div class="hero-media reveal">
-          <div class="frame grad-b zoom">
-            <img id="heroImg" alt="A person wearing the Unello signal, warm natural light">
-            <div class="img-cap flex items-center gap-3">
-              <span class="signal lg" data-tier="dating"></span>
-              <span class="small">The signal, worn out loud.</span>
-            </div>
+      <div class="hero-bg"><img id="heroImg" alt="Friends together, in real life"></div>
+      <div class="wrap">
+        <div class="hero-inner" id="heroInner">
+          <p class="kicker hero-anim a1" style="color:rgba(255,255,255,.8)">Unello, wearable hello</p>
+          <h1 class="hero-anim a2 mt-4">Make saying<br>hello easier.</h1>
+          <p class="lead hero-anim a3 mt-5">A bracelet that quietly says you're open to connecting in real life. Wear it, be seen, say hello.</p>
+          <div class="hero-cta hero-anim a4 mt-6">
+            <a class="btn btn-red btn-lg" href="shop.html">Shop the collection</a>
+            <a class="btn btn-outline btn-lg" href="how-it-works.html">How it works</a>
           </div>
         </div>
       </div>
+      <div class="hero-scroll"><span>Scroll</span><span class="line"></span></div>
     </section>
 
-    <!-- DECODE THE SIGNAL -->
+    <!-- STATEMENT -->
     <section class="section">
       <div class="wrap">
-        <div class="section-head">
-          <span class="eyebrow accent">The code</span>
-          <h2 class="balance">Two colours. One quiet language.</h2>
-          <p class="muted maxw-prose">Colour does the talking. A glance tells someone you're open, and which way. Worn by people who know the code.</p>
-        </div>
-        <div class="grid cols-2">
-          <div class="decode-card reveal" data-tier="social">
-            <span class="swatch"></span>
-            <span class="signal lg" data-tier="social"></span>
-            <p class="eyebrow">Sun · Social</p>
-            <p class="meaning">Open to friendship, conversation, and community.</p>
-            <a class="btn-text mt-2" href="collection.html?tier=social">Shop Social</a>
-          </div>
-          <div class="decode-card reveal" data-tier="dating">
-            <span class="swatch"></span>
-            <span class="signal lg" data-tier="dating"></span>
-            <p class="eyebrow">Rose · Dating</p>
-            <p class="meaning">Single and open to meeting someone in real life.</p>
-            <div class="note-control"><i data-ico="lock"></i><span>Open doesn't mean obligated. You're always in control.</span></div>
-            <a class="btn-text mt-2" href="collection.html?tier=dating">Shop Dating</a>
+        <div class="grid cols-2" style="align-items:start;gap:var(--s-7)">
+          <p class="kicker red reveal">The idea</p>
+          <div class="reveal d1">
+            <p class="statement">One bracelet. A quiet way to say <span class="red">I'm open</span> to meeting people, for real.</p>
+            <a class="ulink mt-5" href="how-it-works.html" style="display:inline-block;margin-top:var(--s-5)">Read how it works</a>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- EDITORIAL: everyday -->
-    <section class="section stone">
+    <!-- STEPS -->
+    <section class="section-sm">
+      <div class="wrap">
+        <div class="steps" id="steps"></div>
+      </div>
+    </section>
+
+    <!-- FEATURED -->
+    <section class="section">
+      <div class="wrap">
+        <div class="section-head row reveal">
+          <div><p class="kicker red">The collection</p><h2 class="mt-3">Worn every day.</h2></div>
+          <a class="ulink" href="shop.html">View all</a>
+        </div>
+        <div class="rail reveal" id="featured"></div>
+      </div>
+    </section>
+
+    <!-- EDITORIAL -->
+    <section class="section-sm">
       <div class="wrap editorial">
-        <div class="ed-media reveal"><div class="frame zoom"><img id="everydayImg" alt="Everyday signal pieces, worn"></div></div>
-        <div class="ed-copy reveal">
-          <span class="eyebrow accent">Everyday fine</span>
-          <h2 class="balance">Made to be lived in.</h2>
-          <p class="muted body-lg">Water-friendly, weightless, and quietly beautiful. Pieces you put on once and forget, until someone says hello.</p>
+        <div class="ed-media reveal"><div class="frame zoom"><img id="edImg" alt="The signal, worn in the world"></div></div>
+        <div class="ed-copy reveal d1">
+          <p class="kicker red">In the world</p>
+          <h2 class="balance">A small thing, with a big job.</h2>
+          <p class="muted body-lg">Water-friendly, weightless, made to be lived in. You put it on once and forget it, until someone notices, and says hello back.</p>
           <ul class="stack mt-2" style="gap:var(--s-3)">
-            <li class="flex items-center gap-3"><i data-ico="leaf" style="color:var(--ink-soft)"></i> Hypoallergenic, water-safe materials</li>
-            <li class="flex items-center gap-3"><i data-ico="box" style="color:var(--ink-soft)"></i> Recycled, plastic-free packaging</li>
-            <li class="flex items-center gap-3"><i data-ico="refresh" style="color:var(--ink-soft)"></i> 30-day returns, lifetime guidance</li>
+            <li class="flex" style="gap:12px"><span class="red">·</span> Hypoallergenic, water-safe materials</li>
+            <li class="flex" style="gap:12px"><span class="red">·</span> Recycled, plastic-free packaging</li>
+            <li class="flex" style="gap:12px"><span class="red">·</span> 30 day returns, here to help for life</li>
           </ul>
-          <a class="btn btn-secondary mt-3" href="shop.html">Explore the pieces</a>
+          <a class="btn btn-primary mt-4" href="shop.html" style="align-self:flex-start">Explore the pieces</a>
         </div>
       </div>
     </section>
 
-    <!-- SHOP RAILS -->
-    <section class="section-tight">
-      <div class="wrap">
-        <div class="section-head row reveal">
-          <div><span class="eyebrow"><span class="signal sm" data-tier="social"></span> Sun</span><h2 class="mt-2">Social</h2></div>
-          <a class="btn-text" href="collection.html?tier=social">View all</a>
-        </div>
-        <div class="rail" id="railSocial"></div>
-      </div>
-    </section>
-    <section class="section-tight">
-      <div class="wrap">
-        <div class="section-head row reveal">
-          <div><span class="eyebrow"><span class="signal sm" data-tier="dating"></span> Rose</span><h2 class="mt-2">Dating</h2></div>
-          <a class="btn-text" href="collection.html?tier=dating">View all</a>
-        </div>
-        <div class="rail" id="railDating"></div>
-      </div>
-    </section>
-
-    <!-- HOW IT WORKS -->
-    <section class="section">
-      <div class="wrap">
-        <div class="section-head reveal"><span class="eyebrow accent">How it works</span><h2>Four steps. That's all.</h2></div>
-        <div class="steps" id="homeSteps"></div>
-      </div>
-    </section>
-
-    <!-- EDITORIAL: say hello / control -->
-    <section class="section stone">
-      <div class="wrap editorial flip">
-        <div class="ed-media reveal"><div class="frame zoom"><img id="gestureImg" alt="A candid hello in real life"></div></div>
-        <div class="ed-copy reveal">
-          <span class="eyebrow accent">The whole point</span>
-          <h2 class="balance">Say hello, on your terms.</h2>
-          <p class="muted body-lg">Someone open notices, and a hello happens. No app, no profile, no pressure. Open means available to connect, never available on demand.</p>
-          <div class="note-control mt-2"><i data-ico="lock"></i><span>You're always in control of who you say hello to. Take it off any time.</span></div>
-          <a class="btn-text mt-2" href="how-it-works.html#read-the-signal">Read the signal</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- LOOKBOOK / MOVEMENT -->
-    <section class="section">
-      <div class="wrap">
-        <div class="section-head reveal"><span class="eyebrow accent">The movement</span><h2 class="balance">Worn in the world.</h2>
-          <p class="muted maxw-prose">Every signal worn in the wild makes the next hello easier. Tag <strong>@unello</strong> to be featured.</p></div>
-        <div class="lookbook reveal" id="lookbook"></div>
-      </div>
-    </section>
-
-    <!-- NEWSLETTER -->
-    <section class="section-tight">
-      <div class="wrap">
-        <div class="callout reveal">
-          <span class="eyebrow" style="color:#B9B1A5">Join the movement</span>
-          <h2 class="balance" style="max-width:16ch">Be first when new pieces drop.</h2>
-          <p class="muted" style="max-width:46ch">One quiet email when something new arrives. Nothing else.</p>
-          <form class="inline-capture mt-2" data-capture="home" novalidate style="width:min(460px,100%)">
-            <input class="input footer-input" type="email" placeholder="Email address" aria-label="Email" required>
-            <button class="btn btn-light" type="submit">Join</button>
-          </form>
-        </div>
+    <!-- NOIR CTA -->
+    <section class="section noir">
+      <div class="wrap center" style="max-width:840px;margin-inline:auto">
+        <p class="kicker reveal">Join us</p>
+        <h2 class="display reveal d1 mt-4" style="font-size:clamp(34px,6vw,72px)">Wear it.<br>Say hello.</h2>
+        <p class="muted body-lg reveal d2 mt-4 mx-auto" style="max-width:46ch">Be first when new pieces arrive. One quiet email, nothing else.</p>
+        <form class="inline-capture reveal d2 mt-6 mx-auto" data-capture="home" novalidate style="max-width:440px">
+          <input class="input input-ghost" type="email" placeholder="Email address" aria-label="Email" required style="color:#fff">
+          <button class="btn btn-red" type="submit">Join</button>
+        </form>
       </div>
     </section>
 
@@ -166,33 +105,26 @@
   <script src="assets/js/app.js"></script>
   <script>
     const U = window.UNELLO;
-    document.getElementById("heroImg").src = U.img(U.IMG.hero, 1100, 1400);
-    document.getElementById("everydayImg").src = U.img(U.IMG.everyday, 1000, 1250);
-    document.getElementById("gestureImg").src = U.img(U.IMG.gesture, 1000, 1250);
+    document.getElementById("heroImg").src = U.img(U.IMG.hero, 2000, 2400);
+    document.getElementById("edImg").src = U.img(U.IMG.craft, 1000, 1250);
 
-    // steps
     const STEPS = [
-      ["Choose","Pick your signal. Sun for friendship, Rose for dating, in the style you like."],
+      ["Choose","Pick the bracelet that feels like you. Cord, beaded, chain, cuff, woven, or charm."],
       ["Wear","Put it on where it's seen, and head out the door. That's the whole ritual."],
-      ["Signal","The colour does the talking. People who know the code read it at a glance."],
-      ["Say hello","Someone open says hi. You're never obligated, just open."],
+      ["Say hello","People who know the code notice. A hello happens. You're always in control."],
     ];
-    document.getElementById("homeSteps").innerHTML = STEPS.map((s,i)=>`
-      <div class="step reveal">
-        <span class="step-num">0${i+1}</span>
-        <div class="step-rule"></div>
-        <h3>${s[0]}</h3><p class="muted">${s[1]}</p>
+    document.getElementById("steps").innerHTML = STEPS.map((s,i)=>`
+      <div class="step reveal d${i}">
+        <div class="num">0${i+1}</div>
+        <h3>${s[0]}</h3>
+        <p class="muted">${s[1]}</p>
       </div>`).join("");
 
-    // rails
-    document.getElementById("railSocial").innerHTML = U.byTier("social").map(U.productCard).join("");
-    document.getElementById("railDating").innerHTML = U.byTier("dating").map(U.productCard).join("");
-
-    // lookbook
-    document.getElementById("lookbook").innerHTML = U.lookbook.map((id,i)=>
-      `<a class="frame zoom l${i}" href="shop.html"><img src="${U.img(id,700,700)}" alt="Community look"></a>`).join("");
+    document.getElementById("featured").innerHTML = U.products.slice(0,4).map(U.productCard).join("");
 
     U.hydrateIcons(document); U.initReveal();
+    // hero entrance
+    requestAnimationFrame(()=>document.getElementById("heroInner").classList.add("in"));
   </script>
 </body>
 </html>

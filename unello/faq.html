@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
@@ -17,21 +17,20 @@
   <div id="header"></div>
 
   <main id="main">
-    <section class="section-tight">
+    <section class="section-sm">
       <div class="wrap stack" style="max-width:760px">
-        <span class="eyebrow">FAQ</span>
-        <h1 class="display-l balance">Good questions.</h1>
+        <span class="kicker">FAQ</span>
+        <h1 class="display balance">Good questions.</h1>
         <p class="body-lg muted">The idea, how you wear it, staying in control, and getting your order. Still stuck? <a href="contact.html" style="text-decoration:underline;text-underline-offset:3px">Talk to us</a>.</p>
       </div>
     </section>
 
-    <section class="section-tight">
+    <section class="section-sm">
       <div class="wrap" style="max-width:760px" id="faqGroups"></div>
     </section>
 
-    <section class="section-tight">
+    <section class="section-sm">
       <div class="wrap center stack" style="align-items:center">
-        <span class="signal lg" data-tier="social"></span>
         <h2>Still curious?</h2>
         <p class="muted maxw-narrow">We're real people and we like saying hello. Reach out any time.</p>
         <a class="btn btn-primary" href="contact.html">Contact us</a>
@@ -47,13 +46,12 @@
     const U = window.UNELLO;
     const GROUPS = [
       ["The idea", [
-        ["What is Unello, exactly?", "A bracelet that works as a social signal. In one of two colours, it tells people nearby that you're open to connecting in real life. Social (Sun) for friendship, Dating (Rose) for meeting someone."],
+        ["What is Unello, exactly?", "A bracelet that works as a quiet social signal. Worn where it's seen, it tells people nearby that you're open to connecting in real life."],
         ["Who reads the signal?", "Anyone who knows the code. The more people who learn it, the better it works, which is why we treat Unello as a movement, not just a product."],
-        ["Is this an app or a dating service?", "Neither. There's no profile, no matching, no swiping. The whole point is to move connection back into the real world. The jewelry is the entire interface."],
+        ["Is this an app?", "No. There's no profile, no matching, no swiping. The whole point is to move connection back into the real world. The bracelet is the entire interface."],
       ]],
       ["Wearing it & staying in control", [
-        ["Do I have to talk to everyone who notices?", "No. Open means you're approachable, not obligated. You decide, every single time, whether to say hello back. Wearing the signal is an invitation you control, not a contract."],
-        ["Can I wear Social and Dating at the same time?", "Yes. Plenty of people stack both, open to new friends and open to dating. Others keep it to one. Whatever's true for you."],
+        ["Do I have to talk to everyone who notices?", "No. Open means you're approachable, not obligated. You decide, every single time, whether to say hello back. Wearing it is an invitation you control, not a contract."],
         ["Is it safe to wear?", "The signal is subtle and only legible to people who know the code. You choose when and where to wear it, and you can take it off any time. Control stays with you."],
         ["How do I find my size?", "Wrap a strip of paper or soft tape around your wrist, snug but not tight, and match it to our size guide. Cord styles are fully adjustable, so if you are between sizes, size down."],
       ]],
@@ -62,7 +60,7 @@
         ["How much is shipping?", "Free over $75. Below that, a flat rate is shown at checkout. We ship from the US."],
         ["What's your return policy?", "30 days. If it's not right, send it back for a refund or a swap, no drama."],
         ["Can I buy one for a friend?", "Please do, it's one of the best ways to grow the movement. Add a note at checkout and we'll keep the packaging gift-ready."],
-        ["Something's sold out, now what?", "Join the waitlist on the product page and we'll email you the moment it's back. If a piece is on pre-order, you can reserve it now and it ships in 3 to 4 weeks."],
+        ["Something's sold out, now what?", "Join the waitlist on the product page and we'll email you the moment it's back. If a piece is on pre-order, you can reserve it now."],
       ]],
     ];
     document.getElementById("faqGroups").innerHTML = GROUPS.map(([title, items], gi)=>`

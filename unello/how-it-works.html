@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>How it works, Unello</title>
-  <meta name="description" content="How Unello works in four steps, and how to read the signal. The colour code, explained plainly.">
+  <title>How it works · Unello</title>
+  <meta name="description" content="How Unello works, in three steps. Wear it, be seen as open, say hello.">
   <link rel="icon" href="assets/img/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
@@ -17,55 +17,24 @@
   <div id="header"></div>
 
   <main id="main">
-    <section class="section-tight">
+    <section class="section">
       <div class="wrap" style="max-width:880px">
-        <span class="eyebrow accent">How it works</span>
-        <h1 class="display-l balance mt-2">Wear it. Be seen<br>as open. Say hello.</h1>
-        <p class="body-lg muted maxw-prose mt-3">No app, no profile, no swiping. Just a colour that strangers can read, and a simple way to be approachable in real life.</p>
+        <p class="kicker red">How it works</p>
+        <h1 class="display mt-4" style="font-size:clamp(38px,7vw,84px)">Wear it.<br>Say hello.</h1>
+        <p class="lead mt-5" style="max-width:50ch">No app, no profile, no swiping. Just a bracelet that tells the truth about whether you're open, and a simpler way to meet people in real life.</p>
       </div>
     </section>
 
-    <section class="section-tight">
-      <div class="wrap stack" id="stepsExpanded" style="gap:var(--s-9)"></div>
+    <section class="section-sm" style="padding-top:0">
+      <div class="wrap stack" id="steps" style="gap:var(--s-9)"></div>
     </section>
 
-    <!-- Read the Signal -->
-    <section class="section stone" id="read-the-signal">
-      <div class="wrap">
-        <div class="section-head"><span class="eyebrow accent">Read the signal</span><h2 class="balance">The colour code, in plain words.</h2></div>
-        <div class="grid cols-2">
-          <div class="decode-card" data-tier="social">
-            <span class="swatch"></span>
-            <span class="signal lg" data-tier="social"></span>
-            <p class="eyebrow">Sun · Social</p>
-            <p class="meaning">Open to friendship, conversation, and community.</p>
-            <p class="muted">See a Sun signal? That person is up for a hello, a chat in line, a new friend, community over strangers-in-silence.</p>
-            <a class="btn-text mt-2" data-tier="social" href="collection.html?tier=social">Shop Social</a>
-          </div>
-          <div class="decode-card" data-tier="dating">
-            <span class="swatch"></span>
-            <span class="signal lg" data-tier="dating"></span>
-            <p class="eyebrow">Rose · Dating</p>
-            <p class="meaning">Single and open to meeting someone in real life.</p>
-            <p class="muted">A Rose signal says someone is single and open to meeting a person in real life, not on an app.</p>
-            <div class="note-control"><i data-ico="lock"></i><span>Open ≠ obligated. Saying hello is always a choice.</span></div>
-          </div>
-        </div>
-        <div class="callout mt-6">
-          <span class="eyebrow" style="color:#B9B1A5">The one rule</span>
-          <h3 class="serif" style="font-size:clamp(20px,2.4vw,26px);max-width:18ch">You're always in control.</h3>
-          <p class="muted" style="max-width:52ch">Wearing the signal means you're open, not that you owe anyone a conversation. Take it off any time. Say hello when you want to. That's the whole deal.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="section-tight">
-      <div class="wrap center stack" style="align-items:center">
-        <h2 class="balance">Ready to wear yours?</h2>
-        <div class="flex gap-3 flex-wrap" style="justify-content:center">
-          <a class="btn btn-primary" href="collection.html?tier=social">Shop Social</a>
-          <a class="btn btn-secondary" href="collection.html?tier=dating">Shop Dating</a>
-        </div>
+    <section class="section noir">
+      <div class="wrap" style="max-width:760px;margin-inline:auto;text-align:center">
+        <p class="kicker reveal">The one rule</p>
+        <h2 class="display reveal d1 mt-4" style="font-size:clamp(30px,5vw,58px)">You're always in control.</h2>
+        <p class="muted body-lg reveal d2 mt-4 mx-auto" style="max-width:52ch">Wearing it means you're open, not that you owe anyone a conversation. Take it off any time. Say hello when you want to.</p>
+        <a class="btn btn-light mt-6 reveal d2" href="shop.html">Shop the collection</a>
       </div>
     </section>
   </main>
@@ -77,17 +46,16 @@
   <script>
     const U = window.UNELLO;
     const STEPS = [
-      ["tag","Choose your signal","Pick Social (Sun) if you're open to friendship and community, or Dating (Rose) if you're single and open to meeting someone. Cord, beaded, chain, or cuff. Stack a few if that's you.", U.IMG.everyday],
-      ["hand","Wear it where it's seen","On the wrist, out in the world. Cafés, markets, travel, a new city. The signal only works where people are, so wear it out the door.", U.IMG.couple],
-      ["sun","The signal does the talking","You don't have to announce anything. The colour is the message. People who know the code read it at a glance, quietly, no awkward opener required.", U.IMG.friends],
-      ["wave","Say hello, on your terms","Someone open notices, and a hello happens. You're never obligated to talk to anyone. Open means available to connect, not available on demand.", U.IMG.gesture],
+      ["01","Choose your bracelet","Pick the piece that feels like you, in cord, beaded, chain, cuff, woven, or charm. Stack a few if that's your thing.", U.IMG.worn],
+      ["02","Wear it where it's seen","On the wrist, out in the world. Cafés, markets, travel, a new city. The signal only works where people are, so wear it out the door.", U.IMG.story],
+      ["03","Say hello, on your terms","People who know the code notice, and a hello happens. You're never obligated to talk to anyone. Open means available to connect.", U.IMG.hero],
     ];
-    document.getElementById("stepsExpanded").innerHTML = STEPS.map((s,i)=>`
+    document.getElementById("steps").innerHTML = STEPS.map((s,i)=>`
       <div class="editorial ${i%2?'flip':''} reveal">
         <div class="ed-media"><div class="frame zoom"><img src="${U.img(s[3],1000,1150)}" alt="${s[1]}"></div></div>
         <div class="ed-copy">
-          <div class="step-head"><span class="step-num">0${i+1}</span><div class="step-rule" style="flex:1;max-width:60px"></div></div>
-          <h2 class="serif">${s[1]}</h2>
+          <div class="kicker red">${s[0]}</div>
+          <h2 class="balance mt-2">${s[1]}</h2>
           <p class="muted body-lg">${s[2]}</p>
         </div>
       </div>`).join("");
