@@ -515,6 +515,48 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 .footer__base{display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem;padding-top:2rem;border-top:1px solid var(--line);font-size:.74rem;letter-spacing:.06em;color:var(--bone-faint)}
 
 /* =====================================================================
+   MOTION LAYER — scroll progress, image reveals, hero entrance
+   ===================================================================== */
+.scroll-progress{
+  position:fixed;top:0;left:0;height:2px;width:100%;z-index:1200;pointer-events:none;
+  background:linear-gradient(90deg,var(--champagne),var(--champagne-2));
+  transform:scaleX(0);transform-origin:0 50%
+}
+
+/* every gallery image wipes + settles into place as it enters view.
+   The clip lives on the <img>; the observer watches the wrapper (.media-reveal),
+   because a fully clipped image reports as non-intersecting and would deadlock. */
+.media-reveal img{
+  clip-path:inset(0 0 100% 0);transform:scale(1.26);
+  transition:clip-path 1.15s var(--ease),transform 1.6s var(--ease);
+  will-change:clip-path,transform
+}
+.media-reveal.is-shown img{clip-path:inset(0 0 0 0);transform:scale(1)}
+
+/* slow atmospheric drift on background photography */
+.depth__bg img,.invite__bg img{animation:kenburns 26s ease-in-out infinite alternate}
+
+/* hero light sweep */
+.hero__sweep{
+  position:absolute;inset:0;pointer-events:none;z-index:1;mix-blend-mode:soft-light;opacity:.55;
+  background:linear-gradient(115deg,transparent 32%,rgba(230,199,141,.55) 48%,transparent 64%);
+  background-size:250% 100%;animation:sweep 9s ease-in-out infinite
+}
+@keyframes sweep{0%{background-position:130% 0}55%,100%{background-position:-45% 0}}
+
+/* hero entrance choreography — plays after the loader curtain lifts */
+.hero__eyebrow,.hero__lede,.hero__row .btn{
+  opacity:0;transform:translateY(24px);
+  transition:opacity 1s var(--ease),transform 1s var(--ease)
+}
+.chip{opacity:0;transition:opacity 1s var(--ease)}
+.is-loaded .hero__eyebrow{opacity:1;transform:none;transition-delay:.2s}
+.is-loaded .hero__lede{opacity:1;transform:none;transition-delay:.85s}
+.is-loaded .hero__row .btn{opacity:1;transform:none;transition-delay:.98s}
+.is-loaded .chip{opacity:1;transition-delay:1.15s}
+.is-loaded .chip--2{transition-delay:1.3s}
+
+/* =====================================================================
    RESPONSIVE
    ===================================================================== */
 @media (max-width:1024px){
@@ -553,4 +595,8 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
   .line>span,[data-reveal],[data-fade]{transform:none!important;opacity:1!important}
   .preloader{display:none}
   [data-parallax]{transform:none!important}
+  .hero__sweep,.depth__bg img,.invite__bg img{animation:none}
+  .media-reveal img{clip-path:none!important;transform:none!important}
+  .scroll-progress{display:none}
+  .hero__eyebrow,.hero__lede,.hero__row .btn,.chip{opacity:1!important;transform:none!important}
 }

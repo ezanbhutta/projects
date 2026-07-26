@@ -210,6 +210,22 @@
   }
 
   /* ---------------------------------------------------------------
+     IMAGE REVEAL — every gallery photo wipes + settles in on scroll
+  --------------------------------------------------------------- */
+  // Observe the (never-clipped) wrappers — a fully clipped <img> reports as
+  // non-intersecting, which would deadlock an observer watching the image itself.
+  const mediaWraps = $$('.card__media, .depth__card');
+  if (!reduce && 'IntersectionObserver' in window) {
+    mediaWraps.forEach(w => w.classList.add('media-reveal'));
+    const mio = new IntersectionObserver((entries) => {
+      entries.forEach(en => {
+        if (en.isIntersecting) { en.target.classList.add('is-shown'); mio.unobserve(en.target); }
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.12 });
+    mediaWraps.forEach(w => mio.observe(w));
+  }
+
+  /* ---------------------------------------------------------------
      COUNTERS
   --------------------------------------------------------------- */
   function runCounter(el) {
@@ -294,9 +310,12 @@
   /* ---------------------------------------------------------------
      PARALLAX + HERO + IMAGE EXPANSION  (single rAF loop)
   --------------------------------------------------------------- */
-  const parallaxEls = $$('[data-parallax]:not([data-reveal])').map(el => ({
-    el, speed: parseFloat(el.dataset.parallax) || 0
+  const parallaxEls = $$('[data-parallax]:not([data-reveal])').map((el, i) => ({
+    el, speed: parseFloat(el.dataset.parallax) || 0,
+    chip: el.classList.contains('chip'), phase: i * 1.7
   }));
+  const scrollProgress = $('#scrollProgress');
+  const cardMedia = $$('.card__media');
 
   const hero = $('#hero');
   const heroImg = $('[data-hero-img]');
@@ -341,9 +360,13 @@
     }, { passive: true });
   } else {
     let sy = scrollY;
+    let vel = 0, lastSY = sy;
     addEventListener('scroll', () => { sy = scrollY; }, { passive: true });
 
     (function raf() {
+      const t = performance.now();
+      const vh = innerHeight;
+
       // cursor
       if (fine && cursor) {
         cpos.x = lerp(cpos.x, mouse.x, 0.18);
@@ -353,8 +376,18 @@
 
       updateHeader(sy);
 
+      // scroll progress bar
+      if (scrollProgress) {
+        const max = document.documentElement.scrollHeight - vh;
+        scrollProgress.style.transform = `scaleX(${max > 0 ? clamp(sy / max, 0, 1) : 0})`;
+      }
+
+      // scroll velocity -> subtle skew on the residence cards (liquid scroll vibe)
+      vel = lerp(vel, sy - lastSY, 0.15); lastSY = sy;
+      const skew = clamp(vel * 0.045, -2.2, 2.2);
+      for (const m of cardMedia) m.style.transform = `skewY(${skew.toFixed(2)}deg)`;
+
       // hero parallax + fade
-      const vh = innerHeight;
       if (hero && sy < vh * 1.1) {
         if (heroImg) heroImg.style.transform = `translate3d(0, ${sy * 0.32}px, 0)`;
         if (heroContent) {
@@ -363,12 +396,13 @@
         }
       }
 
-      // generic parallax
+      // generic parallax (+ gentle continuous float on the hero chips)
       for (const p of parallaxEls) {
         const r = p.el.getBoundingClientRect();
         if (r.bottom < -200 || r.top > vh + 200) continue;
         const offset = (r.top + r.height / 2) - vh / 2;
-        p.el.style.transform = `translate3d(0, ${(offset * p.speed).toFixed(2)}px, 0)`;
+        const float = p.chip ? Math.sin(t / 1000 + p.phase) * 7 : 0;
+        p.el.style.transform = `translate3d(0, ${(offset * p.speed + float).toFixed(2)}px, 0)`;
       }
 
       // image expansion
