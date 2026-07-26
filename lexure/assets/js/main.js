@@ -33,21 +33,68 @@
     document.body.classList.add('is-locked');
     const bar = $('#preBar');
     const countEl = $('#preCount');
-    const start = performance.now();
-    const DUR = 1500;
-    (function tick(now) {
-      const p = clamp((now - start) / DUR, 0, 1);
-      const eased = easeInOut(p);
-      if (bar) bar.style.width = (eased * 100) + '%';
-      if (countEl) countEl.textContent = String(Math.round(eased * 100)).padStart(2, '0');
-      if (p < 1) {
-        requestAnimationFrame(tick);
-      } else {
-        preloader.classList.add('is-done');
-        finishLoad();
-        setTimeout(() => preloader.remove(), 1100);
-      }
-    })(start);
+
+    // Honest loader: count real assets, advance the bar as each one finishes,
+    // and lift the curtain the moment everything is ready — no fake timer.
+    const critical = [
+      $('#hero img'),
+      $('[data-expand-frame] img'),
+      $('.compare__after'),
+      $('.compare__before'),
+      ...$$('.card__media img').slice(0, 3)
+    ].filter(Boolean);
+
+    const total = critical.length + 1;   // +1 for the web fonts
+    let loaded = 0;
+    let assetsReady = false;
+    let brandReady = false;
+    let done = false;
+
+    function paint() {
+      const pct = Math.round((loaded / total) * 100);
+      if (bar) bar.style.width = pct + '%';
+      if (countEl) countEl.textContent = String(pct).padStart(2, '0');
+    }
+    function maybeFinish() {
+      if (done || !assetsReady || !brandReady) return;
+      done = true;
+      preloader.classList.add('is-done');
+      finishLoad();
+      setTimeout(() => preloader.remove(), 1100);
+    }
+    function bump() {
+      loaded = Math.min(loaded + 1, total);
+      paint();
+      if (loaded >= total) { assetsReady = true; maybeFinish(); }
+    }
+
+    // Preload each critical image; count it the instant it settles (load OR error)
+    critical.forEach(el => {
+      const url = el.currentSrc || el.src;
+      if (!url) { bump(); return; }
+      const pre = new Image();
+      pre.onload = bump;
+      pre.onerror = bump;
+      pre.src = url;
+      if (pre.complete) { pre.onload = pre.onerror = null; bump(); }
+    });
+
+    // Web fonts count as one asset
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(bump);
+    else bump();
+
+    // Don't cut off the wordmark reveal — wait for its animation to finish too
+    const lastLetter = preloader.querySelector('.preloader__mark span:last-child');
+    const markBrand = () => { if (!brandReady) { brandReady = true; maybeFinish(); } };
+    if (lastLetter) {
+      lastLetter.addEventListener('animationend', markBrand);
+      setTimeout(markBrand, 1400);        // fallback if animationend never fires
+    } else { brandReady = true; }
+
+    // Safety net: never trap the user if an asset stalls
+    setTimeout(() => { assetsReady = true; brandReady = true; maybeFinish(); }, 8000);
+
+    paint();
   }
 
   /* ---------------------------------------------------------------
@@ -189,6 +236,59 @@
     counters.forEach(c => cio.observe(c));
   } else {
     counters.forEach(runCounter);
+  }
+
+  /* ---------------------------------------------------------------
+     HOLD / DRAG TO COMPARE  (before / after curtain)
+     Stack both images; clip the top one with inset() fed from pointerX.
+  --------------------------------------------------------------- */
+  const compare = $('[data-compare]');
+  if (compare) {
+    const top = $('[data-compare-top]', compare);
+    const handle = $('[data-compare-handle]', compare);
+    let pos = 50;
+    let dragging = false;
+
+    function setPos(p) {
+      pos = clamp(p, 0, 100);
+      if (top) top.style.clipPath = `inset(0 ${100 - pos}% 0 0)`;
+      if (handle) handle.style.left = pos + '%';
+      compare.setAttribute('aria-valuenow', String(Math.round(pos)));
+    }
+    function fromEvent(e) {
+      const r = compare.getBoundingClientRect();
+      setPos(((e.clientX - r.left) / r.width) * 100);
+    }
+
+    compare.addEventListener('pointerdown', e => {
+      dragging = true;
+      compare.classList.add('is-dragging');
+      if (compare.setPointerCapture) { try { compare.setPointerCapture(e.pointerId); } catch (_) {} }
+      fromEvent(e);
+    });
+    compare.addEventListener('pointermove', e => {
+      // drag on any device; on a mouse, also scrub on plain hover
+      if (dragging || (fine && e.pointerType === 'mouse')) fromEvent(e);
+    });
+    const release = () => { dragging = false; compare.classList.remove('is-dragging'); };
+    compare.addEventListener('pointerup', release);
+    compare.addEventListener('pointercancel', release);
+
+    // keyboard access
+    compare.addEventListener('keydown', e => {
+      const step = e.shiftKey ? 10 : 4;
+      if (e.key === 'ArrowLeft') { setPos(pos - step); e.preventDefault(); }
+      else if (e.key === 'ArrowRight') { setPos(pos + step); e.preventDefault(); }
+      else if (e.key === 'Home') { setPos(0); e.preventDefault(); }
+      else if (e.key === 'End') { setPos(100); e.preventDefault(); }
+    });
+
+    // hide the "drag" hint after the first interaction
+    const hideHint = () => compare.classList.add('is-touched');
+    compare.addEventListener('pointerdown', hideHint, { once: true });
+    if (fine) compare.addEventListener('pointermove', hideHint, { once: true });
+
+    setPos(50);
   }
 
   /* ---------------------------------------------------------------

@@ -302,6 +302,36 @@
       </div>
     </section>
 
+    <!-- ░░ COMPARE — hold / drag to reveal (before / after) ░░ -->
+    <!-- Swap the two images below for real before/after pairs of a residence. -->
+    <section class="compare section" id="compare">
+      <div class="wrap">
+        <header class="section-head">
+          <p class="eyebrow" data-reveal><span class="eyebrow__rule"></span> The transformation</p>
+          <h2 class="display section-head__title" data-reveal>Before, and after.</h2>
+          <p class="section-head__note" data-reveal>We rarely find a residence finished. Drag to see what a Lexure completion looks like.</p>
+        </header>
+
+        <div class="compare__stage" data-compare data-cursor="Drag" role="slider" tabindex="0"
+             aria-label="Drag to compare the residence before and after" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+          <!-- AFTER — base layer -->
+          <img class="compare__img compare__after" src="assets/img/interior-living.jpg" alt="After — the completed interior, warm and fully realised" width="1800" height="1200" />
+          <!-- BEFORE — clipped top layer -->
+          <div class="compare__top" data-compare-top>
+            <img class="compare__img compare__before" src="assets/img/interior-warm.jpg" alt="Before — the residence as we first found it" width="1800" height="1200" />
+          </div>
+          <span class="compare__tag compare__tag--before">Before</span>
+          <span class="compare__tag compare__tag--after">After</span>
+          <div class="compare__handle" data-compare-handle aria-hidden="true">
+            <span class="compare__grip">
+              <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M10 8l-4 4 4 4M14 8l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </div>
+          <span class="compare__hint" data-compare-hint>Drag to compare</span>
+        </div>
+      </div>
+    </section>
+
     <!-- ░░ DEPTH SCENE — layered parallax ░░ -->
     <section class="depth" id="depth" data-scene>
       <div class="depth__layer depth__bg" data-parallax="-0.18" data-scene-bg>
