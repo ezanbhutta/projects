@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LEXURE — Private Residences</title>
+  <meta name="description" content="LEXURE is a private real-estate house representing architecturally significant homes for the few who notice everything." />
+  <meta name="theme-color" content="#0e0d0b" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="LEXURE — Private Residences" />
+  <meta property="og:description" content="Where architecture becomes legacy." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/img/hero-estate.jpg" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+
+  <!-- ░░ PRELOADER ░░ -->
+  <div class="preloader" id="preloader" aria-hidden="true">
+    <div class="preloader__inner">
+      <div class="preloader__mark">
+        <span>L</span><span>E</span><span>X</span><span>U</span><span>R</span><span>E</span>
+      </div>
+      <div class="preloader__meta">
+        <span class="preloader__tag">Private Residences</span>
+        <span class="preloader__count" id="preCount">00</span>
+      </div>
+      <div class="preloader__bar"><i id="preBar"></i></div>
+    </div>
+  </div>
+
+  <!-- ░░ CUSTOM CURSOR ░░ -->
+  <div class="cursor" id="cursor" aria-hidden="true">
+    <span class="cursor__label" id="cursorLabel"></span>
+  </div>
+
+  <!-- ░░ HEADER ░░ -->
+  <header class="header" id="header">
+    <a class="brand" href="#top" data-cursor="Top" aria-label="LEXURE home">
+      <span class="brand__word">LEXURE</span>
+      <span class="brand__dot"></span>
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <a href="#residences" data-cursor="Explore">Residences</a>
+      <a href="#ethos">Ethos</a>
+      <a href="#approach">Approach</a>
+      <a href="#invitation">Contact</a>
+    </nav>
+    <a href="#invitation" class="btn btn--ghost header__cta" data-magnetic data-cursor="Enquire">
+      <span>Private Viewing</span>
+      <svg viewBox="0 0 20 20" width="14" height="14" aria-hidden="true"><path d="M4 10h11M11 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>
+    </a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false">
+      <i></i><i></i>
+    </button>
+  </header>
+
+  <!-- ░░ MOBILE MENU ░░ -->
+  <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <nav aria-label="Mobile">
+      <a href="#residences">Residences</a>
+      <a href="#ethos">Ethos</a>
+      <a href="#signature">Signature</a>
+      <a href="#approach">Approach</a>
+      <a href="#invitation">Contact</a>
+    </nav>
+    <div class="mobile-menu__foot">
+      <span>25.7617° N · 80.1918° W</span>
+      <span>By appointment</span>
+    </div>
+  </div>
+
+  <main id="top">
+
+    <!-- ░░ HERO ░░ -->
+    <section class="hero" id="hero">
+      <div class="hero__media" data-hero-media>
+        <div class="hero__img-wrap" data-hero-img>
+          <img src="assets/img/hero-estate.jpg" alt="A modern waterfront residence at golden hour with an infinity pool and floor-to-ceiling glass" fetchpriority="high" width="1800" height="1200" />
+        </div>
+        <div class="hero__scrim"></div>
+        <div class="hero__grain" aria-hidden="true"></div>
+      </div>
+
+      <div class="hero__content">
+        <p class="eyebrow hero__eyebrow" data-fade>
+          <span class="eyebrow__rule"></span> Est. MMXIV — Private Residences
+        </p>
+
+        <h1 class="hero__title">
+          <span class="line"><span data-hero-line>Homes for the few</span></span>
+          <span class="line"><span data-hero-line>who notice</span></span>
+          <span class="line"><span data-hero-line><em>everything.</em></span></span>
+        </h1>
+
+        <div class="hero__row" data-fade>
+          <p class="hero__lede">
+            A private house representing architecturally significant homes across
+            twelve cities — placed quietly, by invitation.
+          </p>
+          <a href="#residences" class="btn btn--fill" data-magnetic data-cursor="Explore">
+            <span>View the collection</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- floating spec chips — a mid-depth plane -->
+      <div class="hero__chips" aria-hidden="true">
+        <div class="chip" data-parallax="-0.10">
+          <span class="chip__k">Under management</span>
+          <span class="chip__v">$4.2B</span>
+        </div>
+        <div class="chip chip--2" data-parallax="0.14">
+          <span class="chip__k">Miami · Marbella · Aspen</span>
+          <span class="chip__v">12 cities</span>
+        </div>
+      </div>
+
+      <a href="#ethos" class="hero__cue" data-cursor="Scroll" aria-label="Scroll to explore">
+        <span>Scroll</span>
+        <i></i>
+      </a>
+    </section>
+
+    <!-- ░░ MARQUEE ░░ -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        <span>Acquisition</span><span class="marquee__dot">✦</span>
+        <span>Advisory</span><span class="marquee__dot">✦</span>
+        <span>Architecture &amp; Interiors</span><span class="marquee__dot">✦</span>
+        <span>Private Client</span><span class="marquee__dot">✦</span>
+        <span>Acquisition</span><span class="marquee__dot">✦</span>
+        <span>Advisory</span><span class="marquee__dot">✦</span>
+        <span>Architecture &amp; Interiors</span><span class="marquee__dot">✦</span>
+        <span>Private Client</span><span class="marquee__dot">✦</span>
+      </div>
+    </div>
+
+    <!-- ░░ ETHOS ░░ -->
+    <section class="ethos section" id="ethos">
+      <div class="wrap ethos__grid">
+        <div class="ethos__aside">
+          <p class="eyebrow" data-reveal><span class="eyebrow__rule"></span> 01 — Ethos</p>
+          <p class="ethos__index" data-reveal>Since 2014</p>
+        </div>
+        <div class="ethos__main">
+          <h2 class="display ethos__statement">
+            <span class="line"><span data-reveal-line>We do not list</span></span>
+            <span class="line"><span data-reveal-line>property. We place</span></span>
+            <span class="line"><span data-reveal-line><em>legacy</em> — the rare</span></span>
+            <span class="line"><span data-reveal-line>homes worth</span></span>
+            <span class="line"><span data-reveal-line>keeping quiet about.</span></span>
+          </h2>
+          <div class="ethos__cols">
+            <p data-reveal>Every residence we represent is chosen for one reason: it will still feel considered in fifty years. We work slowly, with a small circle of architects, owners, and clients who value discretion over spectacle.</p>
+            <p data-reveal>No open houses. No billboards. A curated few homes, presented with the patience they deserve — and shown only to those we know can appreciate them.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ░░ RESIDENCES ░░ -->
+    <section class="residences section" id="residences">
+      <div class="wrap">
+        <header class="section-head">
+          <p class="eyebrow" data-reveal><span class="eyebrow__rule"></span> 02 — The Collection</p>
+          <h2 class="display section-head__title" data-reveal>Currently placed</h2>
+          <p class="section-head__note" data-reveal>Six of forty. The rest, by invitation.</p>
+        </header>
+
+        <div class="grid">
+          <!-- card 1 (tall, offset up) -->
+          <article class="card card--tall" data-reveal data-parallax="0.06">
+            <a class="card__media" href="#invitation" data-cursor="View" aria-label="The Meridian House, Bal Harbour">
+              <img src="assets/img/modern-facade.jpg" alt="The Meridian House — a white modernist villa" loading="lazy" width="1200" height="1500" />
+              <span class="card__status">For acquisition</span>
+            </a>
+            <div class="card__meta">
+              <div class="card__row">
+                <h3>The Meridian House</h3>
+                <span class="card__price">$18.5M</span>
+              </div>
+              <p class="card__loc"><span class="coord">25.8880° N</span> Bal Harbour, Miami</p>
+              <p class="card__spec">6 Bed · 8 Bath · 11,400 sqft</p>
+            </div>
+          </article>
+
+          <!-- card 2 (offset down) -->
+          <article class="card card--low" data-reveal data-parallax="-0.05">
+            <a class="card__media" href="#invitation" data-cursor="View" aria-label="Villa Aperture, Marbella">
+              <img src="assets/img/villa-dusk.jpg" alt="Villa Aperture — a modern villa with a mirror pool at dusk" loading="lazy" width="1200" height="1500" />
+              <span class="card__status">For acquisition</span>
+            </a>
+            <div class="card__meta">
+              <div class="card__row">
+                <h3>Villa Aperture</h3>
+                <span class="card__price">€12.9M</span>
+              </div>
+              <p class="card__loc"><span class="coord">36.5099° N</span> Marbella, Spain</p>
+              <p class="card__spec">5 Bed · 6 Bath · 8,900 sqft</p>
+            </div>
+          </article>
+
+          <!-- card 3 -->
+          <article class="card" data-reveal data-parallax="0.04">
+            <a class="card__media" href="#invitation" data-cursor="View" aria-label="Casa Lumen, Los Angeles">
+              <img src="assets/img/white-villa.jpg" alt="Casa Lumen — a bright contemporary house against blue sky" loading="lazy" width="1200" height="1400" />
+              <span class="card__status">Reserved</span>
+            </a>
+            <div class="card__meta">
+              <div class="card__row">
+                <h3>Casa Lumen</h3>
+                <span class="card__price">$16.2M</span>
+              </div>
+              <p class="card__loc"><span class="coord">34.0736° N</span> Bel-Air, Los Angeles</p>
+              <p class="card__spec">5 Bed · 7 Bath · 9,600 sqft</p>
+            </div>
+          </article>
+
+          <!-- card 4 (tall) -->
+          <article class="card card--tall" data-reveal data-parallax="-0.06">
+            <a class="card__media" href="#invitation" data-cursor="View" aria-label="The Reserve, Aspen">
+              <img src="assets/img/aerial-estate.jpg" alt="The Reserve — an estate seen from above amid landscaped grounds" loading="lazy" width="1200" height="1500" />
+              <span class="card__status">For acquisition</span>
+            </a>
+            <div class="card__meta">
+              <div class="card__row">
+                <h3>The Reserve</h3>
+                <span class="card__price">$27.0M</span>
+              </div>
+              <p class="card__loc"><span class="coord">39.1911° N</span> Aspen, Colorado</p>
+              <p class="card__spec">7 Bed · 9 Bath · 14,200 sqft</p>
+            </div>
+          </article>
+
+          <!-- card 5 -->
+          <article class="card card--low" data-reveal data-parallax="0.05">
+            <a class="card__media" href="#invitation" data-cursor="View" aria-label="Skyfold Penthouse, Tribeca">
+              <img src="assets/img/interior-lounge.jpg" alt="Skyfold Penthouse — a warm modern lounge with skyline views" loading="lazy" width="1200" height="1400" />
+              <span class="card__status">By invitation</span>
+            </a>
+            <div class="card__meta">
+              <div class="card__row">
+                <h3>Skyfold Penthouse</h3>
+                <span class="card__price">$24.0M</span>
+              </div>
+              <p class="card__loc"><span class="coord">40.7195° N</span> Tribeca, New York</p>
+              <p class="card__spec">4 Bed · 5 Bath · 6,800 sqft</p>
+            </div>
+          </article>
+
+          <!-- card 6 -->
+          <article class="card" data-reveal data-parallax="-0.04">
+            <a class="card__media" href="#invitation" data-cursor="View" aria-label="Still House, Byron Bay">
+              <img src="assets/img/interior-bedroom.jpg" alt="Still House — a calm bedroom opening to greenery" loading="lazy" width="1200" height="1400" />
+              <span class="card__status">For acquisition</span>
+            </a>
+            <div class="card__meta">
+              <div class="card__row">
+                <h3>Still House</h3>
+                <span class="card__price">AU$9.8M</span>
+              </div>
+              <p class="card__loc"><span class="coord">28.6474° S</span> Byron Bay, Australia</p>
+              <p class="card__spec">4 Bed · 4 Bath · 5,400 sqft</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ░░ SIGNATURE — IMAGE EXPANSION ░░ -->
+    <section class="signature" id="signature" data-expand>
+      <div class="signature__sticky">
+        <div class="signature__frame" data-expand-frame>
+          <img src="assets/img/pool-villa.jpg" alt="A signature residence — reflecting pool, sculptural stair, and a floating glass volume" width="1800" height="1200" />
+          <div class="signature__inner-scrim"></div>
+        </div>
+        <div class="signature__cap signature__cap--intro" data-expand-intro>
+          <p class="eyebrow eyebrow--center"><span class="eyebrow__rule"></span> 03 — Signature <span class="eyebrow__rule"></span></p>
+          <h2 class="display">The Serai</h2>
+          <p>Marbella · Andalucía</p>
+        </div>
+        <div class="signature__cap signature__cap--full" data-expand-full>
+          <div class="signature__full-top">
+            <span class="coord">36.5108° N · 4.8850° W</span>
+          </div>
+          <div class="signature__full-bottom">
+            <h2 class="display">A house that keeps<br/><em>its own counsel.</em></h2>
+            <p>Nine thousand square feet of travertine, water, and light — designed
+              to disappear into the hillside and reappear only at dusk.</p>
+            <a href="#invitation" class="btn btn--fill" data-magnetic data-cursor="Enquire"><span>Request the dossier</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ░░ DEPTH SCENE — layered parallax ░░ -->
+    <section class="depth" id="depth" data-scene>
+      <div class="depth__layer depth__bg" data-parallax="-0.18" data-scene-bg>
+        <img src="assets/img/skyline.jpg" alt="" aria-hidden="true" loading="lazy" width="1800" height="1200" />
+      </div>
+      <div class="depth__scrim"></div>
+      <div class="depth__mid" data-parallax="0.10">
+        <figure class="depth__card">
+          <img src="assets/img/interior-kitchen.jpg" alt="A pale stone kitchen with sculptural pendant lighting" loading="lazy" width="900" height="1100" />
+          <figcaption>
+            <span class="coord">Interior 04</span>
+            The kitchen, Skyfold Penthouse
+          </figcaption>
+        </figure>
+      </div>
+      <div class="depth__fore wrap" data-parallax="0.02">
+        <p class="eyebrow" data-reveal><span class="eyebrow__rule"></span> The long view</p>
+        <h2 class="display depth__title">
+          <span class="line"><span data-reveal-line>We measure a home</span></span>
+          <span class="line"><span data-reveal-line>in decades, not</span></span>
+          <span class="line"><span data-reveal-line><em>square feet.</em></span></span>
+        </h2>
+      </div>
+    </section>
+
+    <!-- ░░ STATS ░░ -->
+    <section class="stats section" id="stats">
+      <div class="wrap stats__grid">
+        <div class="stat" data-reveal>
+          <span class="stat__num display"><i data-count="4.2" data-decimals="1">0</i><b>B</b></span>
+          <span class="stat__label">Value placed, USD</span>
+        </div>
+        <div class="stat" data-reveal>
+          <span class="stat__num display"><i data-count="40">0</i></span>
+          <span class="stat__label">Residences represented</span>
+        </div>
+        <div class="stat" data-reveal>
+          <span class="stat__num display"><i data-count="12">0</i></span>
+          <span class="stat__label">Cities, four continents</span>
+        </div>
+        <div class="stat" data-reveal>
+          <span class="stat__num display"><i data-count="98">0</i><b>%</b></span>
+          <span class="stat__label">By referral or invitation</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ░░ APPROACH ░░ -->
+    <section class="approach section" id="approach">
+      <div class="wrap approach__grid">
+        <aside class="approach__aside">
+          <p class="eyebrow" data-reveal><span class="eyebrow__rule"></span> 04 — Approach</p>
+          <h2 class="display" data-reveal>Four disciplines,<br/>one standard.</h2>
+          <p class="approach__note" data-reveal>Held to the same measure of quiet, uncompromising care — from first viewing to the final key.</p>
+        </aside>
+        <ol class="approach__list">
+          <li class="svc" data-reveal data-cursor="+">
+            <span class="svc__no">01</span>
+            <div class="svc__body">
+              <h3>Acquisition</h3>
+              <p>Off-market sourcing and representation for buyers who prefer to move privately and decisively.</p>
+            </div>
+            <span class="svc__arrow" aria-hidden="true">↗</span>
+          </li>
+          <li class="svc" data-reveal data-cursor="+">
+            <span class="svc__no">02</span>
+            <div class="svc__body">
+              <h3>Advisory</h3>
+              <p>Valuation, portfolio strategy, and discreet counsel across jurisdictions and currencies.</p>
+            </div>
+            <span class="svc__arrow" aria-hidden="true">↗</span>
+          </li>
+          <li class="svc" data-reveal data-cursor="+">
+            <span class="svc__no">03</span>
+            <div class="svc__body">
+              <h3>Architecture &amp; Interiors</h3>
+              <p>A trusted circle of architects and studios to reimagine, restore, or complete a residence.</p>
+            </div>
+            <span class="svc__arrow" aria-hidden="true">↗</span>
+          </li>
+          <li class="svc" data-reveal data-cursor="+">
+            <span class="svc__no">04</span>
+            <div class="svc__body">
+              <h3>Private Client</h3>
+              <p>A single point of contact, on call across time zones, for a small number of families.</p>
+            </div>
+            <span class="svc__arrow" aria-hidden="true">↗</span>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ░░ TESTIMONIAL ░░ -->
+    <section class="quote section" id="quote">
+      <div class="wrap">
+        <blockquote class="quote__body">
+          <p class="display">
+            <span class="line"><span data-reveal-line>“They found a house we</span></span>
+            <span class="line"><span data-reveal-line>didn't know existed, in a</span></span>
+            <span class="line"><span data-reveal-line>city we'd written off — and</span></span>
+            <span class="line"><span data-reveal-line>made the whole thing feel</span></span>
+            <span class="line"><span data-reveal-line><em>effortless.”</em></span></span>
+          </p>
+          <footer data-reveal>
+            <span class="quote__name">A. Renaud</span>
+            <span class="quote__role">Private client · Geneva</span>
+          </footer>
+        </blockquote>
+      </div>
+    </section>
+
+    <!-- ░░ INVITATION / CONTACT ░░ -->
+    <section class="invite section" id="invitation">
+      <div class="invite__bg" data-parallax="-0.08" aria-hidden="true">
+        <img src="assets/img/interior-living.jpg" alt="" loading="lazy" width="1800" height="1200" />
+        <div class="invite__scrim"></div>
+      </div>
+      <div class="wrap invite__grid">
+        <div class="invite__intro">
+          <p class="eyebrow" data-reveal><span class="eyebrow__rule"></span> 05 — Invitation</p>
+          <h2 class="display invite__title" data-reveal>Arrange a<br/>private viewing.</h2>
+          <p class="invite__note" data-reveal>Tell us a little about what you're looking for. We reply personally, within a day, to every genuine enquiry.</p>
+          <ul class="invite__contacts" data-reveal>
+            <li><span>Enquiries</span><a href="mailto:private@lexure.example">private@lexure.example</a></li>
+            <li><span>Direct</span><a href="tel:+13055550142">+1 305 555 0142</a></li>
+            <li><span>Studio</span>Miami · Marbella · New York</li>
+          </ul>
+        </div>
+
+        <form class="form" id="enquiry" novalidate data-reveal>
+          <div class="field">
+            <label for="name">Name</label>
+            <input id="name" name="name" type="text" autocomplete="name" required placeholder="Your name" />
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" autocomplete="email" required placeholder="you@email.com" />
+          </div>
+          <div class="field">
+            <label for="interest">I'm interested in</label>
+            <div class="select-wrap">
+              <select id="interest" name="interest">
+                <option>Acquiring a residence</option>
+                <option>Advisory &amp; valuation</option>
+                <option>Architecture &amp; interiors</option>
+                <option>Something else</option>
+              </select>
+              <svg viewBox="0 0 20 20" width="14" height="14" aria-hidden="true"><path d="M5 8l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>
+            </div>
+          </div>
+          <div class="field">
+            <label for="message">A few details</label>
+            <textarea id="message" name="message" rows="3" placeholder="City, budget, timeline — as much or as little as you like."></textarea>
+          </div>
+          <button type="submit" class="btn btn--fill btn--block" data-magnetic data-cursor="Send">
+            <span>Send enquiry</span>
+            <svg viewBox="0 0 20 20" width="14" height="14" aria-hidden="true"><path d="M4 10h11M11 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>
+          </button>
+          <p class="form__status" id="formStatus" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- ░░ FOOTER ░░ -->
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer__top">
+        <a href="#top" class="footer__brand display" data-cursor="Top">Lexure</a>
+        <p class="footer__tag">Where architecture becomes legacy.</p>
+      </div>
+      <div class="footer__cols">
+        <div class="footer__col">
+          <span class="footer__k">Explore</span>
+          <a href="#residences">Residences</a>
+          <a href="#ethos">Ethos</a>
+          <a href="#approach">Approach</a>
+        </div>
+        <div class="footer__col">
+          <span class="footer__k">Studios</span>
+          <a href="#">Miami</a>
+          <a href="#">Marbella</a>
+          <a href="#">New York</a>
+        </div>
+        <div class="footer__col">
+          <span class="footer__k">Connect</span>
+          <a href="#">Instagram</a>
+          <a href="#">Journal</a>
+          <a href="mailto:private@lexure.example">Email</a>
+        </div>
+        <div class="footer__col footer__col--wide">
+          <span class="footer__k">By appointment</span>
+          <p class="coord">25.7617° N · 80.1918° W</p>
+          <p class="footer__fine">A private real-estate house. Representation by invitation.</p>
+        </div>
+      </div>
+      <div class="footer__base">
+        <span>© <span id="year">2026</span> Lexure. All rights reserved.</span>
+        <span>Design &amp; motion — in-house</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js" defer></script>
+</body>
+</html>
